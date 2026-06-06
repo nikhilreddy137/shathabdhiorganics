@@ -262,12 +262,69 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Bottom Quote */}
-          <div className="mt-16 pt-10 border-t border-stone-700 max-w-4xl">
-            <p className="text-2xl md:text-3xl font-light italic text-stone-100 leading-snug mb-4" style={{ fontFamily: '"Cormorant Garamond", serif' }} data-testid="mission-quote">
-              "When a woman owns the seed, she owns the future of her village."
-            </p>
-            <p className="text-xs tracking-[0.25em] uppercase text-amber-300 font-semibold">— Lakshmi Reddy, Founder &amp; Farmer</p>
+          {/* Bottom: Sri Bhanu Spotlight + Instagram Reel */}
+          <div className="mt-20 pt-14 border-t border-stone-700 grid md:grid-cols-12 gap-10 md:gap-14 items-center">
+            {/* Left: Instagram Reel */}
+            <div className="md:col-span-5" data-testid="sri-bhanu-reel">
+              <div className="relative bg-black rounded-sm overflow-hidden border border-stone-700/60 shadow-2xl shadow-black/40 mx-auto md:mx-0" style={{ maxWidth: '420px' }}>
+                <div className="relative w-full" style={{ paddingBottom: '125%' }}>
+                  <iframe
+                    src="https://www.instagram.com/p/DOYnn2Xj_9l/embed/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    title="Sri Bhanu — Shathabdhi Organics Reel"
+                    allow="encrypted-media; clipboard-write; picture-in-picture; web-share"
+                    allowFullScreen
+                    scrolling="no"
+                    frameBorder="0"
+                    className="absolute inset-0 w-full h-full"
+                    data-testid="sri-bhanu-iframe"
+                  />
+                </div>
+              </div>
+              <p className="text-[10px] tracking-[0.3em] uppercase text-stone-400 mt-4 text-center md:text-left">@shathabdhi.organics · Reel</p>
+            </div>
+
+            {/* Right: Bold statement */}
+            <div className="md:col-span-7">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="h-[2px] w-10 bg-amber-400"></span>
+                <p className="text-[11px] tracking-[0.4em] uppercase text-amber-300 font-semibold" data-testid="sri-bhanu-eyebrow">
+                  Meet Sri Bhanu
+                </p>
+              </div>
+              <h3
+                className="text-white font-bold leading-[0.98] mb-7 tracking-tight"
+                style={{ fontFamily: '"Cormorant Garamond", "Playfair Display", serif', fontSize: 'clamp(2rem, 4.2vw, 3.75rem)', fontWeight: 700 }}
+                data-testid="sri-bhanu-headline"
+              >
+                She didn't wait for permission.<br />
+                <em className="italic text-amber-300">She built the movement.</em>
+              </h3>
+              <p className="text-lg md:text-xl text-stone-100 font-normal leading-relaxed mb-5" data-testid="sri-bhanu-body">
+                Sri Bhanu walked away from a corporate desk to put a sickle back in the hands of women in her village. Today, she leads an army of <strong className="text-white font-semibold">2,400+ women entrepreneurs &amp; farmers</strong> reviving India's lost millets, rewriting rural economics, and proving that the future of food is <span className="text-amber-300 font-semibold">female, fearless and rooted in soil.</span>
+              </p>
+              <p className="text-base md:text-lg text-stone-300 font-light leading-relaxed mb-8 italic" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+                "Every packet you pick up is a woman, a village, and a thousand years of wisdom — refusing to be forgotten."
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="https://www.instagram.com/p/DOYnn2Xj_9l/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 bg-amber-400 text-stone-900 hover:bg-amber-300 transition-colors text-xs tracking-[0.25em] uppercase font-semibold px-8 py-4"
+                  data-testid="sri-bhanu-watch-cta"
+                >
+                  Watch Her Story
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <Link
+                  to="/social"
+                  className="inline-flex items-center gap-3 border border-stone-500 text-stone-100 hover:bg-white hover:text-stone-900 transition-colors text-xs tracking-[0.25em] uppercase font-semibold px-8 py-4"
+                  data-testid="sri-bhanu-meet-women-cta"
+                >
+                  Meet The Women
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
