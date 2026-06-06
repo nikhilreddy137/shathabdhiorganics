@@ -42,11 +42,11 @@ const Header = () => {
             </button>
 
             {/* Logo */}
-            <Link to="/" className="flex items-center">
-              <h1 className="text-xl font-light text-gray-900 tracking-widest" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+            <Link to="/" data-testid="header-logo" className="group flex items-center transition-transform duration-300 hover:scale-[1.02]">
+              <h1 className="text-xl font-light text-gray-900 tracking-widest transition-colors group-hover:text-amber-700" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
                 SHATHABDHI
                 <br />
-                <span className="text-[10px] tracking-[0.3em] text-gray-600">ORGANICS</span>
+                <span className="text-[10px] tracking-[0.3em] text-gray-600 group-hover:text-amber-600 transition-colors">ORGANICS</span>
               </h1>
             </Link>
 
@@ -56,7 +56,9 @@ const Header = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-xs text-gray-700 hover:text-gray-900 font-normal tracking-wide uppercase transition-colors"
+                  data-testid={`nav-${item.name.replace(/\s+/g, '-').toLowerCase()}`}
+                  className="relative text-xs text-gray-700 hover:text-gray-900 font-medium tracking-[0.15em] uppercase py-2 transition-all duration-300 hover:-translate-y-[1px]
+                  after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[1.5px] after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full"
                 >
                   {item.name}
                 </Link>
@@ -64,20 +66,22 @@ const Header = () => {
             </nav>
 
             {/* Right Icons */}
-            <div className="flex items-center space-x-4">
-              <button className="hidden md:block p-2 hover:bg-gray-50 rounded-full transition-colors">
+            <div className="flex items-center space-x-2">
+              <button data-testid="header-search-btn" aria-label="Search" className="hidden md:flex items-center justify-center w-10 h-10 rounded-full hover:bg-amber-50 hover:scale-110 active:scale-95 transition-all duration-200">
                 <Search className="w-4 h-4 text-gray-700" />
               </button>
-              <button className="p-2 hover:bg-gray-50 rounded-full transition-colors">
+              <button data-testid="header-account-btn" aria-label="Account" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-amber-50 hover:scale-110 active:scale-95 transition-all duration-200">
                 <User className="w-4 h-4 text-gray-700" />
               </button>
-              <button 
+              <button
                 onClick={() => setCartOpen(true)}
-                className="p-2 hover:bg-gray-50 rounded-full transition-colors relative"
+                data-testid="header-cart-btn"
+                aria-label="Cart"
+                className="relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-amber-50 hover:scale-110 active:scale-95 transition-all duration-200"
               >
                 <ShoppingCart className="w-4 h-4 text-gray-700" />
                 {cartItemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-gray-900 text-white text-[10px] rounded-full flex items-center justify-center">
+                  <span className="absolute -top-0.5 -right-0.5 w-[18px] h-[18px] bg-amber-500 text-white text-[10px] font-semibold rounded-full flex items-center justify-center shadow-sm animate-in zoom-in duration-300">
                     {cartItemCount}
                   </span>
                 )}
@@ -88,15 +92,16 @@ const Header = () => {
           {/* Mobile Menu */}
           {mobileMenuOpen && (
             <div className="lg:hidden py-4 border-t">
-              <nav className="flex flex-col space-y-4">
+              <nav className="flex flex-col space-y-1">
                 {navItems.map((item) => (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="text-sm text-gray-700 hover:text-gray-900 font-normal tracking-wide uppercase transition-colors"
+                    className="group flex items-center justify-between text-sm text-gray-700 hover:text-amber-700 hover:bg-amber-50/60 font-medium tracking-[0.15em] uppercase px-3 py-3 rounded transition-all duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {item.name}
+                    <span>{item.name}</span>
+                    <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-amber-600">→</span>
                   </Link>
                 ))}
               </nav>

@@ -5,8 +5,6 @@ import { productAPI, categoryAPI, testimonialAPI } from '../services/api';
 import { useCart } from '../contexts/CartContext';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
-import { Checkbox } from '../components/ui/checkbox';
-import { Label } from '../components/ui/label';
 import {
   Select,
   SelectContent,
@@ -153,76 +151,73 @@ const BestSellers = () => {
 
   const activeFilterCount = Object.values(selectedFilters).reduce((acc, arr) => acc + arr.length, 0);
 
-  // Active category chip (Rishi-style horizontal nav)
-  const activeCategory = selectedFilters.category[0] || 'All';
+  const FilterGroup = ({ title, options, filterKey }) => {
+    const selectedCount = selectedFilters[filterKey].length;
+    return (
+      <div className="space-y-2">
+        <div className="flex items-center justify-between pb-2 mb-1">
+          <h4 className="text-[11px] font-semibold text-stone-900 uppercase tracking-[0.22em]">{title}</h4>
+          {selectedCount > 0 && (
+            <span className="text-[10px] font-semibold tracking-wider text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full transition-all duration-200 animate-in fade-in zoom-in" data-testid={`filter-count-${filterKey}`}>
+              {selectedCount}
+            </span>
+          )}
+        </div>
+        {options.map((opt) => {
+          const isActive = selectedFilters[filterKey].includes(opt);
+          return (
+            <button
+              key={opt}
+              type="button"
+              onClick={() => toggleFilter(filterKey, opt)}
+              data-testid={`filter-${filterKey}-${opt}`}
+              className={`group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-left text-sm transition-all duration-200 ease-out
+                ${isActive
+                  ? 'bg-stone-900 text-white shadow-sm translate-x-1'
+                  : 'bg-transparent text-stone-700 hover:bg-amber-50 hover:text-stone-900 hover:translate-x-1'}`}
+            >
+              <span className={`flex items-center justify-center w-4 h-4 border transition-all duration-200
+                ${isActive ? 'bg-amber-400 border-amber-400' : 'border-stone-400 group-hover:border-stone-700'}`}>
+                {isActive && (
+                  <svg className="w-3 h-3 text-stone-900" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="3">
+                    <path d="M3 8l3.5 3.5L13 5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </span>
+              <span className="flex-1 leading-tight">{opt}</span>
+              {isActive && (
+                <span className="text-[10px] tracking-widest uppercase text-amber-300">On</span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    );
+  };
 
   const FilterSidebar = () => (
     <div className="space-y-8" data-testid="filter-sidebar">
       <div className="flex items-center justify-between pb-4 border-b border-stone-200">
-        <h3 className="text-xs tracking-[0.25em] uppercase font-medium text-stone-900">Filters</h3>
+        <div className="flex items-center gap-2">
+          <Filter className="w-3.5 h-3.5 text-stone-700" />
+          <h3 className="text-xs tracking-[0.25em] uppercase font-semibold text-stone-900">Filters</h3>
+        </div>
         {activeFilterCount > 0 && (
           <Button
             variant="ghost"
             size="sm"
             onClick={clearFilters}
-            className="text-xs text-stone-700 hover:text-stone-900"
+            className="text-[10px] tracking-[0.2em] uppercase text-amber-700 hover:text-amber-900 hover:bg-amber-50 px-2 transition-all"
             data-testid="clear-filters-btn"
           >
-            Clear ({activeFilterCount})
+            Clear · {activeFilterCount}
           </Button>
         )}
       </div>
 
-      <div className="space-y-3">
-        <h4 className="text-[11px] font-medium text-stone-900 uppercase tracking-[0.2em]">Category</h4>
-        {filterOptions.category.map((cat) => (
-          <div key={cat} className="flex items-center space-x-2">
-            <Checkbox
-              id={`cat-${cat}`}
-              checked={selectedFilters.category.includes(cat)}
-              onCheckedChange={() => toggleFilter('category', cat)}
-              data-testid={`filter-category-${cat}`}
-            />
-            <Label htmlFor={`cat-${cat}`} className="text-sm cursor-pointer text-stone-800">
-              {cat}
-            </Label>
-          </div>
-        ))}
-      </div>
-
-      <div className="space-y-3">
-        <h4 className="text-[11px] font-medium text-stone-900 uppercase tracking-[0.2em]">Type</h4>
-        {filterOptions.type.map((type) => (
-          <div key={type} className="flex items-center space-x-2">
-            <Checkbox
-              id={`type-${type}`}
-              checked={selectedFilters.type.includes(type)}
-              onCheckedChange={() => toggleFilter('type', type)}
-              data-testid={`filter-type-${type}`}
-            />
-            <Label htmlFor={`type-${type}`} className="text-sm cursor-pointer text-stone-800">
-              {type}
-            </Label>
-          </div>
-        ))}
-      </div>
-
-      <div className="space-y-3">
-        <h4 className="text-[11px] font-medium text-stone-900 uppercase tracking-[0.2em]">Benefits</h4>
-        {filterOptions.benefits.map((benefit) => (
-          <div key={benefit} className="flex items-center space-x-2">
-            <Checkbox
-              id={`benefit-${benefit}`}
-              checked={selectedFilters.benefits.includes(benefit)}
-              onCheckedChange={() => toggleFilter('benefits', benefit)}
-              data-testid={`filter-benefit-${benefit}`}
-            />
-            <Label htmlFor={`benefit-${benefit}`} className="text-sm cursor-pointer text-stone-800">
-              {benefit}
-            </Label>
-          </div>
-        ))}
-      </div>
+      <FilterGroup title="Category" options={filterOptions.category} filterKey="category" />
+      <FilterGroup title="Type" options={filterOptions.type} filterKey="type" />
+      <FilterGroup title="Benefits" options={filterOptions.benefits} filterKey="benefits" />
     </div>
   );
 
@@ -250,56 +245,27 @@ const BestSellers = () => {
       {/* Hero Section — Editorial */}
       <div className="bg-stone-50 py-24 px-4 border-b border-stone-200">
         <div className="max-w-5xl mx-auto text-center">
-          <p className="text-xs tracking-[0.4em] uppercase text-stone-600 mb-6">Shop the Collection</p>
+          <p className="text-xs tracking-[0.4em] uppercase text-stone-600 mb-6">Eat Like It Matters</p>
           <h1 className="text-5xl md:text-7xl font-serif text-stone-900 mb-6 tracking-tight leading-[1.05]">
             Best Sellers
           </h1>
           <div className="w-14 h-px bg-stone-400 mx-auto mb-7"></div>
-          <p className="text-base md:text-lg text-stone-700 max-w-2xl mx-auto leading-relaxed font-light">
-            Heritage millets, hand-blended spices, cold-pressed oils, ancient rices and more —
-            sourced directly from sustainable farms in Telangana.
+          <p className="text-lg md:text-xl text-stone-800 max-w-3xl mx-auto leading-relaxed font-normal mb-4">
+            Your body remembers <em className="italic text-amber-700">real food.</em>
+          </p>
+          <p className="text-base md:text-lg text-stone-700 max-w-3xl mx-auto leading-relaxed font-light">
+            Industrial food is engineered to scale. <strong className="text-stone-900 font-medium">Organic food is grown to nourish.</strong> When you choose grains from living soil, oils pressed in stone, and spices that still carry the sun in them — you choose fewer pesticides in your bloodstream, more nutrients on your plate, fair wages for the women who grew it, and a planet that can keep feeding the next generation. Every meal is either healing you or quietly hurting you. <span className="text-stone-900 font-medium">We chose healing.</span>
           </p>
         </div>
       </div>
 
-      {/* Horizontal Category Bar (Rishi Tea style) */}
-      <div className="border-b border-stone-200 bg-white sticky top-[68px] z-20">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center gap-1 overflow-x-auto py-4 no-scrollbar">
-            <button
-              onClick={() => setSelectedFilters((p) => ({ ...p, category: [] }))}
-              data-testid="category-tab-all"
-              className={`whitespace-nowrap text-[11px] tracking-[0.25em] uppercase px-5 py-2.5 transition-colors ${
-                activeCategory === 'All'
-                  ? 'text-stone-900 border-b-2 border-stone-900 font-medium'
-                  : 'text-stone-600 hover:text-stone-900 border-b-2 border-transparent'
-              }`}
-            >
-              All Products
-            </button>
-            {filterOptions.category.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedFilters((p) => ({ ...p, category: [cat] }))}
-                data-testid={`category-tab-${cat}`}
-                className={`whitespace-nowrap text-[11px] tracking-[0.25em] uppercase px-5 py-2.5 transition-colors ${
-                  activeCategory === cat
-                    ? 'text-stone-900 border-b-2 border-stone-900 font-medium'
-                    : 'text-stone-600 hover:text-stone-900 border-b-2 border-transparent'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* (Horizontal Category Bar removed per request — filters now live in the reactive sidebar) */}
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex flex-col lg:flex-row gap-12">
-          <aside className="hidden lg:block w-60 flex-shrink-0">
-            <div className="sticky top-44">
+          <aside className="hidden lg:block w-64 flex-shrink-0">
+            <div className="sticky top-28">
               <FilterSidebar />
             </div>
           </aside>
@@ -351,7 +317,7 @@ const BestSellers = () => {
               {products.map((product) => (
                 <Card
                   key={product.id}
-                  className="group bg-white border-0 ring-0 rounded-none shadow-none hover:shadow-md transition-all duration-300 flex flex-col"
+                  className="group bg-white border-0 ring-0 rounded-none shadow-none hover:shadow-xl hover:-translate-y-1 transition-all duration-500 ease-out flex flex-col"
                   data-testid={`product-card-${product.id}`}
                 >
                   {/* Image */}
@@ -399,7 +365,7 @@ const BestSellers = () => {
                       <Button
                         onClick={() => handleAddToCart(product)}
                         data-testid={`add-to-cart-${product.id}`}
-                        className="w-full bg-stone-900 hover:bg-black text-white font-medium text-xs tracking-[0.25em] uppercase py-6 rounded-none border-0 transition-colors"
+                        className="w-full bg-stone-900 hover:bg-amber-500 hover:text-stone-900 active:scale-[0.98] text-white font-semibold text-xs tracking-[0.25em] uppercase py-6 rounded-none border-0 transition-all duration-300"
                       >
                         Quick Add
                       </Button>
