@@ -35,6 +35,9 @@ const PATH_TO_CATEGORY = {
   cookies: 'Cookies',
   rices: 'Rices',
   'processed-products': 'Processed Products',
+  'snacks-and-bars': 'Snacks & Bars',
+  'sweets-and-treats': 'Sweets & Treats',
+  'health-drinks': 'Health Drinks',
 };
 
 const BestSellers = () => {
@@ -60,7 +63,7 @@ const BestSellers = () => {
   const { addToCart } = useCart();
 
   const filterOptions = {
-    category: ['Millets', 'Spices & Powders', 'Rices', 'Oils', 'Processed Products', 'Dals', 'Cookies'],
+    category: ['Millets', 'Spices & Powders', 'Rices', 'Oils', 'Dals', 'Cookies', 'Snacks & Bars', 'Sweets & Treats', 'Health Drinks', 'Processed Products'],
     type: ['Whole', 'Flour/Atta', 'Powder', 'Cold Pressed', 'Ready-to-Cook', 'Ready-to-Eat'],
     benefits: ['Low GI', 'High Fibre', 'Gluten-Free', 'Diabetic Friendly', 'Iron Rich', 'Protein Rich', 'Calcium Rich', 'Heart Healthy'],
   };

@@ -344,7 +344,7 @@ const Home = () => {
 
           {/* Reactive category chips */}
           <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-10 md:mb-14 px-2" data-testid="featured-category-chips">
-            {['All', 'Millets', 'Spices & Powders', 'Rices', 'Oils', 'Dals', 'Cookies', 'Processed Products'].map((c) => {
+            {['All', 'Millets', 'Spices & Powders', 'Rices', 'Oils', 'Dals', 'Cookies', 'Snacks & Bars', 'Sweets & Treats', 'Health Drinks', 'Processed Products'].map((c) => {
               const isActive = activeChip === c;
               const count = c === 'All'
                 ? products.length

@@ -29,6 +29,9 @@ function App() {
             <Route path="/collections/cookies" element={<BestSellers />} />
             <Route path="/collections/rices" element={<BestSellers />} />
             <Route path="/collections/processed-products" element={<BestSellers />} />
+            <Route path="/collections/snacks-and-bars" element={<BestSellers />} />
+            <Route path="/collections/sweets-and-treats" element={<BestSellers />} />
+            <Route path="/collections/health-drinks" element={<BestSellers />} />
             <Route path="/about" element={<About />} />
             <Route path="/social" element={<Social />} />
             <Route path="/contact" element={<Contact />} />

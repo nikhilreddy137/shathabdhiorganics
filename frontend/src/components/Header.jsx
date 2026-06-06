@@ -11,12 +11,14 @@ const Header = () => {
 
   const navItems = [
     { name: 'Millets', href: '/collections/millets' },
-    { name: 'Spices & Powders', href: '/collections/spices-and-powders' },
+    { name: 'Spices', href: '/collections/spices-and-powders' },
     { name: 'Rices', href: '/collections/rices' },
     { name: 'Oils', href: '/collections/oils' },
-    { name: 'Processed', href: '/collections/processed-products' },
     { name: 'Dals', href: '/collections/dals' },
     { name: 'Cookies', href: '/collections/cookies' },
+    { name: 'Snacks', href: '/collections/snacks-and-bars' },
+    { name: 'Sweets', href: '/collections/sweets-and-treats' },
+    { name: 'Drinks', href: '/collections/health-drinks' },
     { name: 'Social', href: '/social' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
@@ -51,7 +53,7 @@ const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
+            <nav className="hidden lg:flex items-center gap-x-5 xl:gap-x-7">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
