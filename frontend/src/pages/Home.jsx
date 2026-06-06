@@ -369,10 +369,11 @@ const Home = () => {
             })}
           </div>
 
-          {/* Products grid — ALL matching products */}
+          {/* Products grid — show up to 10 products in the active filter */}
           {(() => {
-            const visible = activeChip === 'All' ? products : products.filter((p) => p.category === activeChip);
-            if (!loading && visible.length === 0) {
+            const matching = activeChip === 'All' ? products : products.filter((p) => p.category === activeChip);
+            const visible = matching.slice(0, 10);
+            if (!loading && matching.length === 0) {
               return (
                 <div className="text-center py-20 text-stone-500" data-testid="featured-empty">
                   No products in this collection yet — try another filter.
