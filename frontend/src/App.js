@@ -5,6 +5,7 @@ import { CartProvider } from "./contexts/CartContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
+import MobileStickyBar from "./components/MobileStickyBar";
 import Home from "./pages/Home";
 import BestSellers from "./pages/BestSellers";
 import About from "./pages/About";
@@ -34,6 +35,7 @@ function App() {
           </Routes>
           <Footer />
           <WhatsAppButton />
+          <MobileStickyBar />
         </CartProvider>
       </BrowserRouter>
     </div>
