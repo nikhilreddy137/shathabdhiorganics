@@ -242,24 +242,66 @@ const BestSellers = () => {
     <div className="min-h-screen bg-white" data-testid="best-sellers-page">
       <Toaster position="top-right" />
 
-      {/* Hero Section — Editorial */}
+      {/* Hero Section — Why Switch to Organic */}
       <div className="bg-stone-50 py-24 px-4 border-b border-stone-200">
-        <div className="max-w-5xl mx-auto text-center">
-          <p className="text-xs tracking-[0.4em] uppercase text-stone-600 mb-6">Eat Like It Matters</p>
-          <h1 className="text-5xl md:text-7xl font-serif text-stone-900 mb-6 tracking-tight leading-[1.05]">
-            Best Sellers
-          </h1>
-          <div className="w-14 h-px bg-stone-400 mx-auto mb-7"></div>
-          <p className="text-lg md:text-xl text-stone-800 max-w-3xl mx-auto leading-relaxed font-normal mb-4">
-            Your body remembers <em className="italic text-amber-700">real food.</em>
-          </p>
-          <p className="text-base md:text-lg text-stone-700 max-w-3xl mx-auto leading-relaxed font-light">
-            Industrial food is engineered to scale. <strong className="text-stone-900 font-medium">Organic food is grown to nourish.</strong> When you choose grains from living soil, oils pressed in stone, and spices that still carry the sun in them — you choose fewer pesticides in your bloodstream, more nutrients on your plate, fair wages for the women who grew it, and a planet that can keep feeding the next generation. Every meal is either healing you or quietly hurting you. <span className="text-stone-900 font-medium">We chose healing.</span>
-          </p>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <p className="text-xs tracking-[0.4em] uppercase text-amber-700 mb-6">Why Switch to Organic</p>
+            <h1 className="text-5xl md:text-6xl font-serif text-stone-900 mb-6 tracking-tight leading-[1.05]">
+              Your body knows<br />
+              the <em className="italic text-amber-700">difference.</em>
+            </h1>
+            <div className="w-14 h-px bg-amber-400 mx-auto mb-7"></div>
+            <p className="text-base md:text-lg text-stone-700 leading-relaxed font-light">
+              Modern food is engineered for shelf-life. <strong className="text-stone-900 font-semibold">Organic food is grown for life.</strong> Every grain, oil and spice in this collection is a small switch — and small switches compound into a longer, brighter, more rooted life.
+            </p>
+          </div>
+
+          {/* 4 Reasons grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto" data-testid="why-organic-grid">
+            {[
+              {
+                num: '01',
+                title: 'No Hidden Poisons',
+                body: 'Zero synthetic pesticides, herbicides or GMO seeds — ever. What touches your plate touches your DNA.',
+              },
+              {
+                num: '02',
+                title: 'Up To 60% More Nutrients',
+                body: 'Heirloom grains grown in living soil pack far more iron, zinc, magnesium and antioxidants than industrial crops.',
+              },
+              {
+                num: '03',
+                title: 'Healed Gut, Balanced Hormones',
+                body: 'No glyphosate residue, no microplastic flour — just whole foods your microbiome and endocrine system actually recognise.',
+              },
+              {
+                num: '04',
+                title: 'Fair To Farmers & Earth',
+                body: 'Every kilo pays a woman farmer directly and regenerates soil, water tables and biodiversity in Telangana.',
+              },
+            ].map((r) => (
+              <div
+                key={r.num}
+                className="group bg-white border border-stone-200 p-7 hover:border-amber-400 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
+                data-testid={`why-organic-${r.num}`}
+              >
+                <p className="text-3xl font-serif text-amber-700 mb-4 leading-none group-hover:text-amber-600 transition-colors">{r.num}</p>
+                <h3 className="text-base font-semibold text-stone-900 mb-3 leading-snug">{r.title}</h3>
+                <p className="text-sm text-stone-600 leading-relaxed font-light">{r.body}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Soft divider into the catalogue */}
+          <div className="text-center mt-16">
+            <p className="text-[11px] tracking-[0.35em] uppercase text-stone-600 mb-3">Start the Switch Below</p>
+            <h2 className="text-3xl md:text-4xl font-serif text-stone-900">Best Sellers</h2>
+          </div>
         </div>
       </div>
 
-      {/* (Horizontal Category Bar removed per request — filters now live in the reactive sidebar) */}
+      {/* (Horizontal Category Bar removed — filters live in the reactive sidebar) */}
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 py-16">
@@ -461,32 +503,36 @@ const BestSellers = () => {
       <div className="bg-stone-900 text-white py-24 px-4" data-testid="instagram-section">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-[11px] tracking-[0.4em] uppercase text-stone-300 mb-4">Follow Our Journey</p>
+            <p className="text-[11px] tracking-[0.4em] uppercase text-amber-300 mb-4">Follow Our Journey</p>
             <h2 className="text-white text-4xl md:text-5xl font-serif tracking-tight mb-5">From Our Farms to Your Kitchen</h2>
-            <div className="w-12 h-px bg-stone-400 mx-auto mb-6"></div>
+            <div className="w-12 h-px bg-amber-400 mx-auto mb-6"></div>
             <p className="text-stone-300 max-w-xl mx-auto font-light leading-relaxed">
-              Watch how we sow, harvest and hand-pack each Siridhanya millet — live from the fields of Telangana on Instagram.
+              Watch how we sow, harvest and hand-pack each Siridhanya millet — live from the fields of Telangana.
             </p>
           </div>
 
-          {/* Reel-style placeholder grid */}
+          {/* Auto-playing video reels */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
             {[
               {
                 title: 'Harvest Season',
-                img: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80',
+                video: 'https://videos.pexels.com/video-files/2495944/2495944-uhd_2560_1440_24fps.mp4',
+                poster: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80',
               },
               {
                 title: 'Hand-Sorted',
-                img: 'https://images.unsplash.com/photo-1599909533730-d8b3f6a9c1ad?auto=format&fit=crop&w=600&q=80',
+                video: 'https://videos.pexels.com/video-files/3015527/3015527-hd_1920_1080_24fps.mp4',
+                poster: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80',
               },
               {
                 title: 'Cold Pressing',
-                img: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80',
+                video: 'https://videos.pexels.com/video-files/4253384/4253384-uhd_2560_1440_25fps.mp4',
+                poster: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80',
               },
               {
                 title: 'Spice Markets',
-                img: 'https://images.unsplash.com/photo-1532336414038-cf19250c5757?auto=format&fit=crop&w=600&q=80',
+                video: 'https://videos.pexels.com/video-files/3296279/3296279-uhd_2560_1440_25fps.mp4',
+                poster: 'https://images.unsplash.com/photo-1532336414038-cf19250c5757?auto=format&fit=crop&w=600&q=80',
               },
             ].map((reel) => (
               <a
@@ -495,22 +541,26 @@ const BestSellers = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid={`reel-${reel.title.replace(/\s+/g, '-').toLowerCase()}`}
-                className="group relative aspect-[9/16] overflow-hidden bg-stone-800 block"
+                className="group relative aspect-[9/16] overflow-hidden bg-stone-800 block rounded-sm shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-500"
               >
-                <img
-                  src={reel.img}
-                  alt={reel.title}
-                  className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                <video
+                  src={reel.video}
+                  poster={reel.poster}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/20 to-transparent"></div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center mb-3">
-                    <div className="w-0 h-0 border-y-[8px] border-y-transparent border-l-[12px] border-l-white ml-1"></div>
-                  </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/10 to-stone-900/30 group-hover:from-stone-900/75 transition-colors duration-300"></div>
+                {/* Play badge */}
+                <div className="absolute top-3 right-3 w-7 h-7 bg-white/95 rounded-full flex items-center justify-center opacity-90 group-hover:scale-110 transition-transform">
+                  <div className="w-0 h-0 border-y-[5px] border-y-transparent border-l-[7px] border-l-stone-900 ml-0.5"></div>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-[10px] tracking-[0.3em] uppercase text-stone-300 mb-1">Reel</p>
-                  <p className="text-white font-serif text-lg">{reel.title}</p>
+                  <p className="text-[10px] tracking-[0.3em] uppercase text-amber-300 mb-1">Reel · Live</p>
+                  <p className="text-white font-serif text-lg leading-tight drop-shadow-lg">{reel.title}</p>
                 </div>
               </a>
             ))}
@@ -522,7 +572,7 @@ const BestSellers = () => {
               target="_blank"
               rel="noopener noreferrer"
               data-testid="follow-instagram-btn"
-              className="inline-flex items-center gap-3 bg-white text-stone-900 hover:bg-stone-100 font-medium text-xs tracking-[0.25em] uppercase px-10 py-5 transition-all duration-300"
+              className="inline-flex items-center gap-3 bg-amber-400 text-stone-900 hover:bg-amber-300 hover:-translate-y-0.5 font-semibold text-xs tracking-[0.25em] uppercase px-10 py-5 transition-all duration-300"
             >
               <Instagram className="w-4 h-4" />
               Follow @shathabdhiorganics
