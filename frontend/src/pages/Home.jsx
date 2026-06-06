@@ -20,8 +20,8 @@ const HERO_SLIDES = [
     alt: 'Lush green millet crop',
   },
   {
-    src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=2000&q=80',
-    alt: 'Freshly harvested grains close up',
+    src: 'https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=2000&q=80',
+    alt: 'Cows grazing in a misty pasture',
   },
   {
     src: 'https://images.pexels.com/photos/2589457/pexels-photo-2589457.jpeg?auto=compress&cs=tinysrgb&w=2000',
