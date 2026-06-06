@@ -205,19 +205,70 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Tagline / Mission Strip */}
-      <div className="bg-stone-900 text-white py-16 px-4">
-        <div className="max-w-5xl mx-auto text-center">
-          <p className="text-[11px] tracking-[0.4em] uppercase text-stone-300 mb-5">Our Mission</p>
-          <h2 className="text-4xl md:text-5xl font-light leading-tight mb-6" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
-            Nourishing Bodies, <em className="italic">Transforming Lives</em>
-          </h2>
-          <div className="w-12 h-px bg-stone-400 mx-auto mb-6"></div>
-          <p className="text-base md:text-lg text-stone-200 font-light leading-relaxed max-w-3xl mx-auto">
-            Every grain we deliver carries the wisdom of generations and the labour of women farmers who treat the
-            soil with reverence. We bring back the foods that healed us for centuries — pure, wholesome and
-            unapologetically traditional.
-          </p>
+      {/* Tagline / Mission Strip — Women-Led Manifesto */}
+      <div className="relative bg-stone-900 text-white py-24 px-4 overflow-hidden">
+        {/* Background accent */}
+        <div className="absolute inset-0 opacity-[0.06]" style={{
+          backgroundImage: 'radial-gradient(circle at 20% 30%, #d4a574 0%, transparent 50%), radial-gradient(circle at 80% 70%, #8b5a3c 0%, transparent 50%)'
+        }}></div>
+
+        <div className="relative max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-12 gap-10 md:gap-14 items-start">
+            {/* Left: Eyebrow + Headline */}
+            <div className="md:col-span-7">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="h-[2px] w-10 bg-amber-400"></span>
+                <p className="text-[11px] tracking-[0.4em] uppercase text-amber-300 font-semibold" data-testid="mission-eyebrow">
+                  Women-Led · Farmer-Owned
+                </p>
+              </div>
+              <h2 className="text-white font-bold leading-[0.95] mb-8 tracking-tight" style={{ fontFamily: '"Cormorant Garamond", "Playfair Display", serif', fontSize: 'clamp(2.5rem, 5.5vw, 5rem)', fontWeight: 700 }} data-testid="mission-headline">
+                Backed by the hands<br />
+                that <em className="italic text-amber-300 font-bold">feed nations.</em>
+              </h2>
+              <p className="text-lg md:text-xl text-stone-100 font-normal leading-relaxed max-w-xl" data-testid="mission-tagline">
+                Shathabdhi is built by <strong className="text-white font-semibold">women entrepreneurs &amp; smallholder farmers</strong> in Telangana — reviving ancient millets, paying fair wages, and putting soil, dignity and tradition before profit.
+              </p>
+            </div>
+
+            {/* Right: Impact Stats */}
+            <div className="md:col-span-5 md:pl-8 md:border-l md:border-stone-700">
+              <div className="grid grid-cols-2 gap-y-10 gap-x-6">
+                <div data-testid="stat-women-farmers">
+                  <p className="text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-2" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+                    2,400<span className="text-2xl align-top">+</span>
+                  </p>
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-stone-300 font-medium">Women Farmers Empowered</p>
+                </div>
+                <div data-testid="stat-villages">
+                  <p className="text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-2" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+                    87
+                  </p>
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-stone-300 font-medium">Telangana Villages</p>
+                </div>
+                <div data-testid="stat-acres">
+                  <p className="text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-2" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+                    11K<span className="text-2xl align-top">+</span>
+                  </p>
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-stone-300 font-medium">Acres of Organic Soil</p>
+                </div>
+                <div data-testid="stat-zero-chemicals">
+                  <p className="text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-2" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+                    0
+                  </p>
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-stone-300 font-medium">Chemicals. Ever.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Quote */}
+          <div className="mt-16 pt-10 border-t border-stone-700 max-w-4xl">
+            <p className="text-2xl md:text-3xl font-light italic text-stone-100 leading-snug mb-4" style={{ fontFamily: '"Cormorant Garamond", serif' }} data-testid="mission-quote">
+              "When a woman owns the seed, she owns the future of her village."
+            </p>
+            <p className="text-xs tracking-[0.25em] uppercase text-amber-300 font-semibold">— Lakshmi Reddy, Founder &amp; Farmer</p>
+          </div>
         </div>
       </div>
 
