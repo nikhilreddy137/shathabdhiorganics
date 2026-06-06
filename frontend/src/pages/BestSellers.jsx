@@ -1,0 +1,596 @@
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { Filter, Instagram } from 'lucide-react';
+import { productAPI, categoryAPI, testimonialAPI } from '../services/api';
+import { useCart } from '../contexts/CartContext';
+import { Button } from '../components/ui/button';
+import { Card, CardContent } from '../components/ui/card';
+import { Checkbox } from '../components/ui/checkbox';
+import { Label } from '../components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../components/ui/select';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '../components/ui/sheet';
+import { toast } from '../components/ui/sonner';
+import { Toaster } from '../components/ui/sonner';
+import { logger } from '../utils/logger';
+
+const INSTAGRAM_URL = 'https://www.instagram.com/shathabdhiorganics/';
+
+// Map URL slugs → exact category names in DB
+const PATH_TO_CATEGORY = {
+  millets: 'Millets',
+  spices: 'Spices & Powders',
+  'spices-and-powders': 'Spices & Powders',
+  dals: 'Dals',
+  oils: 'Oils',
+  cookies: 'Cookies',
+  rices: 'Rices',
+  'processed-products': 'Processed Products',
+};
+
+const BestSellers = () => {
+  const location = useLocation();
+  const initialCategory = (() => {
+    const slug = location.pathname.split('/collections/')[1];
+    return PATH_TO_CATEGORY[slug] || null;
+  })();
+
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const [selectedFilters, setSelectedFilters] = useState({
+    category: initialCategory ? [initialCategory] : [],
+    type: [],
+    benefits: [],
+  });
+  const [sortBy, setSortBy] = useState('featured');
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+  const { addToCart } = useCart();
+
+  const filterOptions = {
+    category: ['Millets', 'Spices & Powders', 'Rices', 'Oils', 'Processed Products', 'Dals', 'Cookies'],
+    type: ['Whole', 'Flour/Atta', 'Powder', 'Cold Pressed', 'Ready-to-Cook', 'Ready-to-Eat'],
+    benefits: ['Low GI', 'High Fibre', 'Gluten-Free', 'Diabetic Friendly', 'Iron Rich', 'Protein Rich', 'Calcium Rich', 'Heart Healthy'],
+  };
+
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // React to route changes (e.g. clicking Header link to a different category)
+  useEffect(() => {
+    const slug = location.pathname.split('/collections/')[1];
+    const newCat = PATH_TO_CATEGORY[slug] || null;
+    setSelectedFilters((prev) => ({
+      ...prev,
+      category: newCat ? [newCat] : [],
+    }));
+  }, [location.pathname]);
+
+  useEffect(() => {
+    fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFilters, sortBy]);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const [categoriesData, testimonialsData] = await Promise.all([
+        categoryAPI.getAll(),
+        testimonialAPI.getAll({ is_featured: true, limit: 4 }),
+      ]);
+      setCategories(categoriesData);
+      setTestimonials(testimonialsData);
+      await fetchProducts();
+    } catch (error) {
+      logger.error('Error fetching data:', error);
+      toast.error('Failed to load data. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchProducts = async () => {
+    try {
+      const params = { sort_by: sortBy, per_page: 100 };
+      if (selectedFilters.category.length > 0) params.category = selectedFilters.category[0];
+      if (selectedFilters.type.length > 0) params.type = selectedFilters.type[0];
+      if (selectedFilters.benefits.length > 0) params.benefits = selectedFilters.benefits.join(',');
+
+      const response = await productAPI.getAll(params);
+      setProducts(response.products || []);
+    } catch (error) {
+      logger.error('Error fetching products:', error);
+      toast.error('Failed to load products. Please try again.');
+    }
+  };
+
+  const toggleFilter = (filterType, value) => {
+    setSelectedFilters((prev) => {
+      const currentValues = prev[filterType];
+      const isSelected = currentValues.includes(value);
+      let newValues;
+      if (isSelected) {
+        newValues = currentValues.filter((item) => item !== value);
+      } else if (filterType === 'category' || filterType === 'type') {
+        newValues = [value];
+      } else {
+        newValues = [...currentValues, value];
+      }
+      return { ...prev, [filterType]: newValues };
+    });
+  };
+
+  const clearFilters = () => {
+    setSelectedFilters({ category: [], type: [], benefits: [] });
+  };
+
+  const handleAddToCart = async (product) => {
+    try {
+      const defaultSize = product.sizes[0];
+      await addToCart(product.id, defaultSize.size, 1);
+      toast.success(`${product.name} added to cart!`);
+    } catch (error) {
+      logger.error('Error adding to cart:', error);
+      toast.error('Failed to add item to cart. Please try again.');
+    }
+  };
+
+  const activeFilterCount = Object.values(selectedFilters).reduce((acc, arr) => acc + arr.length, 0);
+
+  // Active category chip (Rishi-style horizontal nav)
+  const activeCategory = selectedFilters.category[0] || 'All';
+
+  const FilterSidebar = () => (
+    <div className="space-y-8" data-testid="filter-sidebar">
+      <div className="flex items-center justify-between pb-4 border-b border-stone-200">
+        <h3 className="text-xs tracking-[0.25em] uppercase font-medium text-stone-900">Filters</h3>
+        {activeFilterCount > 0 && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={clearFilters}
+            className="text-xs text-stone-700 hover:text-stone-900"
+            data-testid="clear-filters-btn"
+          >
+            Clear ({activeFilterCount})
+          </Button>
+        )}
+      </div>
+
+      <div className="space-y-3">
+        <h4 className="text-[11px] font-medium text-stone-900 uppercase tracking-[0.2em]">Category</h4>
+        {filterOptions.category.map((cat) => (
+          <div key={cat} className="flex items-center space-x-2">
+            <Checkbox
+              id={`cat-${cat}`}
+              checked={selectedFilters.category.includes(cat)}
+              onCheckedChange={() => toggleFilter('category', cat)}
+              data-testid={`filter-category-${cat}`}
+            />
+            <Label htmlFor={`cat-${cat}`} className="text-sm cursor-pointer text-stone-800">
+              {cat}
+            </Label>
+          </div>
+        ))}
+      </div>
+
+      <div className="space-y-3">
+        <h4 className="text-[11px] font-medium text-stone-900 uppercase tracking-[0.2em]">Type</h4>
+        {filterOptions.type.map((type) => (
+          <div key={type} className="flex items-center space-x-2">
+            <Checkbox
+              id={`type-${type}`}
+              checked={selectedFilters.type.includes(type)}
+              onCheckedChange={() => toggleFilter('type', type)}
+              data-testid={`filter-type-${type}`}
+            />
+            <Label htmlFor={`type-${type}`} className="text-sm cursor-pointer text-stone-800">
+              {type}
+            </Label>
+          </div>
+        ))}
+      </div>
+
+      <div className="space-y-3">
+        <h4 className="text-[11px] font-medium text-stone-900 uppercase tracking-[0.2em]">Benefits</h4>
+        {filterOptions.benefits.map((benefit) => (
+          <div key={benefit} className="flex items-center space-x-2">
+            <Checkbox
+              id={`benefit-${benefit}`}
+              checked={selectedFilters.benefits.includes(benefit)}
+              onCheckedChange={() => toggleFilter('benefits', benefit)}
+              data-testid={`filter-benefit-${benefit}`}
+            />
+            <Label htmlFor={`benefit-${benefit}`} className="text-sm cursor-pointer text-stone-800">
+              {benefit}
+            </Label>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-stone-800 mx-auto"></div>
+          <p className="mt-4 text-stone-700">Loading products...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // initials for the text-only product card monogram
+  const getInitials = (name) => {
+    const parts = name.replace(/[()]/g, '').split(/[\s-]+/).filter(Boolean);
+    return (parts[0]?.[0] || '') + (parts[1]?.[0] || '');
+  };
+
+  return (
+    <div className="min-h-screen bg-white" data-testid="best-sellers-page">
+      <Toaster position="top-right" />
+
+      {/* Hero Section — Editorial */}
+      <div className="bg-stone-50 py-24 px-4 border-b border-stone-200">
+        <div className="max-w-5xl mx-auto text-center">
+          <p className="text-xs tracking-[0.4em] uppercase text-stone-600 mb-6">Shop the Collection</p>
+          <h1 className="text-5xl md:text-7xl font-serif text-stone-900 mb-6 tracking-tight leading-[1.05]">
+            Best Sellers
+          </h1>
+          <div className="w-14 h-px bg-stone-400 mx-auto mb-7"></div>
+          <p className="text-base md:text-lg text-stone-700 max-w-2xl mx-auto leading-relaxed font-light">
+            Heritage millets, hand-blended spices, cold-pressed oils, ancient rices and more —
+            sourced directly from sustainable farms in Telangana.
+          </p>
+        </div>
+      </div>
+
+      {/* Horizontal Category Bar (Rishi Tea style) */}
+      <div className="border-b border-stone-200 bg-white sticky top-[68px] z-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center gap-1 overflow-x-auto py-4 no-scrollbar">
+            <button
+              onClick={() => setSelectedFilters((p) => ({ ...p, category: [] }))}
+              data-testid="category-tab-all"
+              className={`whitespace-nowrap text-[11px] tracking-[0.25em] uppercase px-5 py-2.5 transition-colors ${
+                activeCategory === 'All'
+                  ? 'text-stone-900 border-b-2 border-stone-900 font-medium'
+                  : 'text-stone-600 hover:text-stone-900 border-b-2 border-transparent'
+              }`}
+            >
+              All Products
+            </button>
+            {filterOptions.category.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedFilters((p) => ({ ...p, category: [cat] }))}
+                data-testid={`category-tab-${cat}`}
+                className={`whitespace-nowrap text-[11px] tracking-[0.25em] uppercase px-5 py-2.5 transition-colors ${
+                  activeCategory === cat
+                    ? 'text-stone-900 border-b-2 border-stone-900 font-medium'
+                    : 'text-stone-600 hover:text-stone-900 border-b-2 border-transparent'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="flex flex-col lg:flex-row gap-12">
+          <aside className="hidden lg:block w-60 flex-shrink-0">
+            <div className="sticky top-44">
+              <FilterSidebar />
+            </div>
+          </aside>
+
+          <div className="flex-1">
+            {/* Toolbar */}
+            <div className="flex items-center justify-between mb-10 pb-4 border-b border-stone-200">
+              <div className="flex items-center gap-4">
+                <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
+                  <SheetTrigger asChild>
+                    <Button variant="outline" className="lg:hidden rounded-none border-stone-900 text-stone-900" data-testid="mobile-filters-btn">
+                      <Filter className="w-4 h-4 mr-2" />
+                      Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="left" className="w-80">
+                    <SheetHeader>
+                      <SheetTitle>Filters</SheetTitle>
+                    </SheetHeader>
+                    <div className="mt-6">
+                      <FilterSidebar />
+                    </div>
+                  </SheetContent>
+                </Sheet>
+                <p className="text-xs tracking-[0.2em] uppercase text-stone-700" data-testid="product-count">
+                  {products.length} {products.length === 1 ? 'Product' : 'Products'}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="text-xs tracking-[0.15em] uppercase text-stone-700 hidden sm:inline">Sort</span>
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-[180px] rounded-none border-stone-300 text-stone-900" data-testid="sort-select">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="featured">Featured</SelectItem>
+                    <SelectItem value="price-low">Price: Low to High</SelectItem>
+                    <SelectItem value="price-high">Price: High to Low</SelectItem>
+                    <SelectItem value="name-az">Name: A–Z</SelectItem>
+                    <SelectItem value="name-za">Name: Z–A</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Product Grid — Editorial Cards with Imagery */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-stone-200" data-testid="product-grid">
+              {products.map((product) => (
+                <Card
+                  key={product.id}
+                  className="group bg-white border-0 ring-0 rounded-none shadow-none hover:shadow-md transition-all duration-300 flex flex-col"
+                  data-testid={`product-card-${product.id}`}
+                >
+                  {/* Image */}
+                  <div className="relative aspect-square overflow-hidden bg-stone-100">
+                    {product.image ? (
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="font-serif text-7xl text-stone-300 select-none">
+                          {getInitials(product.name).toUpperCase()}
+                        </span>
+                      </div>
+                    )}
+                    <div className="absolute top-4 left-4 right-4 flex items-start justify-between">
+                      <span className="text-[10px] tracking-[0.25em] uppercase text-white bg-stone-900/70 backdrop-blur-sm px-2.5 py-1">
+                        {product.category}
+                      </span>
+                      {product.badge && (
+                        <span className="text-[9px] tracking-[0.2em] uppercase text-stone-900 bg-white px-2.5 py-1">
+                          {product.badge}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Body */}
+                  <CardContent className="p-7 text-center flex-1 flex flex-col">
+                    <h3 className="font-serif text-2xl text-stone-900 mb-2 leading-tight tracking-tight">
+                      {product.name}
+                    </h3>
+                    <p className="text-sm text-stone-700 leading-relaxed mb-2">{product.description}</p>
+                    <p className="text-xs italic text-stone-600 mb-5">{product.profile}</p>
+
+                    <div className="border-t border-stone-200 pt-4 mt-auto">
+                      <div className="flex items-baseline justify-center gap-2 mb-4">
+                        <span className="text-[10px] tracking-[0.2em] uppercase text-stone-600">From</span>
+                        <span className="text-lg font-medium text-stone-900">₹{product.base_price}</span>
+                        <span className="text-xs text-stone-500">· {product.sizes.length} sizes</span>
+                      </div>
+                      <Button
+                        onClick={() => handleAddToCart(product)}
+                        data-testid={`add-to-cart-${product.id}`}
+                        className="w-full bg-stone-900 hover:bg-black text-white font-medium text-xs tracking-[0.25em] uppercase py-6 rounded-none border-0 transition-colors"
+                      >
+                        Quick Add
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {products.length === 0 && (
+              <div className="text-center py-20" data-testid="no-products">
+                <p className="text-stone-800 text-lg">No products found matching your filters.</p>
+                <Button
+                  onClick={clearFilters}
+                  variant="outline"
+                  className="mt-6 rounded-none border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white"
+                >
+                  Clear Filters
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Promotional Banner — Power of Siridhanya Millets */}
+      <div className="relative my-20 overflow-hidden">
+        <div className="relative h-[520px] md:h-[600px] w-full">
+          <img
+            src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+            alt="Siridhanya millet field"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-stone-900/70"></div>
+          <div className="relative h-full flex items-center justify-center px-4">
+            <div className="max-w-2xl text-center text-white">
+              <p className="text-[11px] tracking-[0.4em] uppercase mb-6 text-stone-200">Ancient Grains · Modern Wellness</p>
+              <h2 className="text-white text-5xl md:text-6xl font-serif font-light mb-7 leading-tight tracking-tight">
+                The Power of <em className="italic font-light">Siridhanya</em> Millets
+              </h2>
+              <div className="w-12 h-px bg-white/60 mx-auto mb-7"></div>
+              <p className="text-base md:text-lg leading-relaxed mb-10 text-stone-100 font-light max-w-xl mx-auto">
+                In every handful of our heritage millets lies nature's perfect balance — sustained energy, deep nourishment,
+                and a quiet return to the wisdom of the soil.
+              </p>
+              <Button
+                onClick={() => setSelectedFilters((p) => ({ ...p, category: ['Millets'] }))}
+                size="lg"
+                className="bg-transparent hover:bg-white text-white hover:text-stone-900 border border-white font-medium text-xs tracking-[0.25em] uppercase px-10 py-6 rounded-none transition-all duration-300"
+                data-testid="shop-millets-banner-btn"
+              >
+                Shop Millets
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Reviews Section */}
+      <div className="max-w-7xl mx-auto px-4 py-20">
+        <div className="text-center mb-14">
+          <p className="text-[11px] tracking-[0.3em] uppercase text-stone-600 mb-3">Reviews</p>
+          <h2 className="text-4xl md:text-5xl font-serif text-stone-900 tracking-tight">What Our Customers Are Saying</h2>
+          <div className="w-12 h-px bg-stone-400 mx-auto mt-6"></div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {testimonials.map((testimonial) => (
+            <Card key={testimonial.id} className="hover:shadow-md transition-shadow border-0 ring-1 ring-stone-200 rounded-none bg-white">
+              <CardContent className="p-6 space-y-4">
+                <p className="text-sm text-stone-800 italic leading-relaxed">"{testimonial.text}"</p>
+                <p className="text-sm font-medium text-stone-900">— {testimonial.name}</p>
+                <div className="pt-4 border-t border-stone-200 flex items-center gap-3">
+                  {testimonial.product_image && (
+                    <img
+                      src={testimonial.product_image}
+                      alt={testimonial.product_name}
+                      className="w-14 h-14 object-cover flex-shrink-0"
+                    />
+                  )}
+                  <div>
+                    <p className="text-[10px] font-medium text-stone-700 tracking-[0.2em] uppercase">on</p>
+                    <p className="text-sm font-serif text-stone-900 mt-0.5 leading-tight">{testimonial.product_name}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* Instagram / Videos Section */}
+      <div className="bg-stone-900 text-white py-24 px-4" data-testid="instagram-section">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-[11px] tracking-[0.4em] uppercase text-stone-300 mb-4">Follow Our Journey</p>
+            <h2 className="text-white text-4xl md:text-5xl font-serif tracking-tight mb-5">From Our Farms to Your Kitchen</h2>
+            <div className="w-12 h-px bg-stone-400 mx-auto mb-6"></div>
+            <p className="text-stone-300 max-w-xl mx-auto font-light leading-relaxed">
+              Watch how we sow, harvest and hand-pack each Siridhanya millet — live from the fields of Telangana on Instagram.
+            </p>
+          </div>
+
+          {/* Reel-style placeholder grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            {[
+              {
+                title: 'Harvest Season',
+                img: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80',
+              },
+              {
+                title: 'Hand-Sorted',
+                img: 'https://images.unsplash.com/photo-1599909533730-d8b3f6a9c1ad?auto=format&fit=crop&w=600&q=80',
+              },
+              {
+                title: 'Cold Pressing',
+                img: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80',
+              },
+              {
+                title: 'Spice Markets',
+                img: 'https://images.unsplash.com/photo-1532336414038-cf19250c5757?auto=format&fit=crop&w=600&q=80',
+              },
+            ].map((reel) => (
+              <a
+                key={reel.title}
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid={`reel-${reel.title.replace(/\s+/g, '-').toLowerCase()}`}
+                className="group relative aspect-[9/16] overflow-hidden bg-stone-800 block"
+              >
+                <img
+                  src={reel.img}
+                  alt={reel.title}
+                  className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/20 to-transparent"></div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center mb-3">
+                    <div className="w-0 h-0 border-y-[8px] border-y-transparent border-l-[12px] border-l-white ml-1"></div>
+                  </div>
+                </div>
+                <div className="absolute bottom-4 left-4 right-4">
+                  <p className="text-[10px] tracking-[0.3em] uppercase text-stone-300 mb-1">Reel</p>
+                  <p className="text-white font-serif text-lg">{reel.title}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="follow-instagram-btn"
+              className="inline-flex items-center gap-3 bg-white text-stone-900 hover:bg-stone-100 font-medium text-xs tracking-[0.25em] uppercase px-10 py-5 transition-all duration-300"
+            >
+              <Instagram className="w-4 h-4" />
+              Follow @shathabdhiorganics
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Educational Section */}
+      <div className="bg-stone-50 py-20 px-4 border-t border-stone-200">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-10">
+            <p className="text-[11px] tracking-[0.3em] uppercase text-stone-600 mb-3">Our Promise</p>
+            <h2 className="text-4xl md:text-5xl font-serif text-stone-900 tracking-tight">
+              Why Choose Shathabdhi Organics
+            </h2>
+            <div className="w-12 h-px bg-stone-400 mx-auto mt-6"></div>
+          </div>
+          <div className="max-w-none text-stone-800 space-y-5 text-base leading-relaxed text-center">
+            <p>
+              At Shathabdhi Organics, we bring you the finest quality organic millets, spices, oils, rices, dals, and
+              processed foods sourced directly from sustainable farms in Telangana. Our products are 100% organic,
+              pesticide-free, and packed with the nutrition your family deserves.
+            </p>
+            <p>
+              Ancient grains like millets have been a staple in Indian cuisine for thousands of years. They are
+              naturally gluten-free, low on the glycemic index, and rich in fibre — making them perfect for modern
+              healthy lifestyles.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BestSellers;
