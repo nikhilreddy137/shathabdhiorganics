@@ -10,13 +10,40 @@ import { toast } from '../components/ui/sonner';
 import { Toaster } from '../components/ui/sonner';
 import { logger } from '../utils/logger';
 
+const HERO_SLIDES = [
+  {
+    src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=2000&q=80',
+    alt: 'Golden fields at sunset',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=2000&q=80',
+    alt: 'Lush green millet crop',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=2000&q=80',
+    alt: 'Freshly harvested grains close up',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=2000&q=80',
+    alt: 'Sunlit golden grain field at dawn',
+  },
+];
+
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeSlide, setActiveSlide] = useState(0);
 
   const { addToCart } = useCart();
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
 
   const fetchData = React.useCallback(async () => {
     try {
@@ -105,13 +132,18 @@ const Home = () => {
       <Toaster position="top-right" />
       
       {/* Hero Banner */}
-      <div className="relative h-[640px] md:h-[720px] bg-stone-100 overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=2000&q=80"
-          alt="Golden millet fields"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-stone-900/75 via-stone-900/50 to-stone-900/20"></div>
+      <div className="relative h-[640px] md:h-[720px] bg-stone-100 overflow-hidden" data-testid="hero-carousel">
+        {HERO_SLIDES.map((slide, idx) => (
+          <img
+            key={slide.src}
+            src={slide.src}
+            alt={slide.alt}
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1800ms] ease-in-out ${
+              idx === activeSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+            }`}
+          />
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-r from-stone-900/85 via-stone-900/60 to-stone-900/30"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 h-full flex items-center">
           <div className="max-w-2xl text-white">
             <p className="text-[11px] tracking-[0.4em] uppercase text-stone-200 mb-6">Shathabdhi Organics</p>
@@ -125,17 +157,32 @@ const Home = () => {
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/collections/millets">
-                <Button size="lg" className="bg-white text-stone-900 hover:bg-stone-100 font-medium text-xs px-10 py-6 rounded-none uppercase tracking-[0.25em]">
+                <Button size="lg" className="bg-white text-stone-900 hover:bg-stone-100 font-medium text-xs px-10 py-6 rounded-none uppercase tracking-[0.25em]" data-testid="hero-shop-millets-btn">
                   Shop Millets
                 </Button>
               </Link>
               <Link to="/about">
-                <Button size="lg" variant="outline" className="bg-transparent border border-white text-white hover:bg-white hover:text-stone-900 font-medium text-xs px-10 py-6 rounded-none uppercase tracking-[0.25em]">
+                <Button size="lg" variant="outline" className="bg-transparent border border-white text-white hover:bg-white hover:text-stone-900 font-medium text-xs px-10 py-6 rounded-none uppercase tracking-[0.25em]" data-testid="hero-our-story-btn">
                   Our Story
                 </Button>
               </Link>
             </div>
           </div>
+        </div>
+
+        {/* Slide indicators */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3" data-testid="hero-indicators">
+          {HERO_SLIDES.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveSlide(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+              data-testid={`hero-indicator-${idx}`}
+              className={`h-[2px] transition-all duration-500 ${
+                idx === activeSlide ? 'w-12 bg-white' : 'w-6 bg-white/40 hover:bg-white/70'
+              }`}
+            />
+          ))}
         </div>
       </div>
 
