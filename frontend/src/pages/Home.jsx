@@ -24,8 +24,8 @@ const HERO_SLIDES = [
     alt: 'Freshly harvested grains close up',
   },
   {
-    src: 'https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=2000&q=80',
-    alt: 'Sunlit golden grain field at dawn',
+    src: 'https://images.pexels.com/photos/2589457/pexels-photo-2589457.jpeg?auto=compress&cs=tinysrgb&w=2000',
+    alt: 'Sunset over a rural rice paddy field',
   },
 ];
 
@@ -143,7 +143,13 @@ const Home = () => {
             }`}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-r from-stone-900/85 via-stone-900/60 to-stone-900/30"></div>
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to right, rgba(28,25,23,0.92) 0%, rgba(28,25,23,0.78) 35%, rgba(28,25,23,0.55) 65%, rgba(28,25,23,0.30) 100%)',
+          }}
+        ></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 h-full flex items-center">
           <div className="max-w-2xl text-white">
             <p className="text-[11px] tracking-[0.4em] uppercase text-stone-200 mb-6">Shathabdhi Organics</p>
