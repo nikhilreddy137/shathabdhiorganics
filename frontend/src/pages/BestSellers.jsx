@@ -243,22 +243,22 @@ const BestSellers = () => {
       <Toaster position="top-right" />
 
       {/* Hero Section — Why Switch to Organic */}
-      <div className="bg-stone-50 py-24 px-4 border-b border-stone-200">
+      <div className="bg-stone-50 py-16 md:py-24 px-4 border-b border-stone-200">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <p className="text-xs tracking-[0.4em] uppercase text-amber-700 mb-6">Why Switch to Organic</p>
-            <h1 className="text-5xl md:text-6xl font-serif text-stone-900 mb-6 tracking-tight leading-[1.05]">
+          <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
+            <p className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-amber-700 mb-5 md:mb-6">Why Switch to Organic</p>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif text-stone-900 mb-5 md:mb-6 tracking-tight leading-[1.05]">
               Your body knows<br />
               the <em className="italic text-amber-700">difference.</em>
             </h1>
-            <div className="w-14 h-px bg-amber-400 mx-auto mb-7"></div>
-            <p className="text-base md:text-lg text-stone-700 leading-relaxed font-light">
+            <div className="w-14 h-px bg-amber-400 mx-auto mb-6 md:mb-7"></div>
+            <p className="text-sm md:text-lg text-stone-700 leading-relaxed font-light">
               Modern food is engineered for shelf-life. <strong className="text-stone-900 font-semibold">Organic food is grown for life.</strong> Every grain, oil and spice in this collection is a small switch — and small switches compound into a longer, brighter, more rooted life.
             </p>
           </div>
 
           {/* 4 Reasons grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto" data-testid="why-organic-grid">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 max-w-5xl mx-auto" data-testid="why-organic-grid">
             {[
               {
                 num: '01',
@@ -283,12 +283,12 @@ const BestSellers = () => {
             ].map((r) => (
               <div
                 key={r.num}
-                className="group bg-white border border-stone-200 p-7 hover:border-amber-400 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
+                className="group bg-white border border-stone-200 p-5 md:p-7 hover:border-amber-400 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
                 data-testid={`why-organic-${r.num}`}
               >
-                <p className="text-3xl font-serif text-amber-700 mb-4 leading-none group-hover:text-amber-600 transition-colors">{r.num}</p>
-                <h3 className="text-base font-semibold text-stone-900 mb-3 leading-snug">{r.title}</h3>
-                <p className="text-sm text-stone-600 leading-relaxed font-light">{r.body}</p>
+                <p className="text-2xl md:text-3xl font-serif text-amber-700 mb-3 md:mb-4 leading-none group-hover:text-amber-600 transition-colors">{r.num}</p>
+                <h3 className="text-sm md:text-base font-semibold text-stone-900 mb-2 md:mb-3 leading-snug">{r.title}</h3>
+                <p className="text-xs md:text-sm text-stone-600 leading-relaxed font-light">{r.body}</p>
               </div>
             ))}
           </div>
@@ -314,16 +314,16 @@ const BestSellers = () => {
 
           <div className="flex-1">
             {/* Toolbar */}
-            <div className="flex items-center justify-between mb-10 pb-4 border-b border-stone-200">
-              <div className="flex items-center gap-4">
+            <div className="flex items-center justify-between gap-3 mb-10 pb-4 border-b border-stone-200">
+              <div className="flex items-center gap-3 min-w-0">
                 <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
                   <SheetTrigger asChild>
-                    <Button variant="outline" className="lg:hidden rounded-none border-stone-900 text-stone-900" data-testid="mobile-filters-btn">
-                      <Filter className="w-4 h-4 mr-2" />
-                      Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
+                    <Button variant="outline" className="lg:hidden rounded-none border-stone-900 text-stone-900 h-10 px-3 text-xs" data-testid="mobile-filters-btn">
+                      <Filter className="w-4 h-4 mr-1.5" />
+                      Filters{activeFilterCount > 0 && ` (${activeFilterCount})`}
                     </Button>
                   </SheetTrigger>
-                  <SheetContent side="left" className="w-80">
+                  <SheetContent side="left" className="w-[85vw] sm:w-80 overflow-y-auto">
                     <SheetHeader>
                       <SheetTitle>Filters</SheetTitle>
                     </SheetHeader>
@@ -332,15 +332,15 @@ const BestSellers = () => {
                     </div>
                   </SheetContent>
                 </Sheet>
-                <p className="text-xs tracking-[0.2em] uppercase text-stone-700" data-testid="product-count">
+                <p className="text-[10px] sm:text-xs tracking-[0.2em] uppercase text-stone-700 truncate" data-testid="product-count">
                   {products.length} {products.length === 1 ? 'Product' : 'Products'}
                 </p>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-shrink-0">
                 <span className="text-xs tracking-[0.15em] uppercase text-stone-700 hidden sm:inline">Sort</span>
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-[180px] rounded-none border-stone-300 text-stone-900" data-testid="sort-select">
+                  <SelectTrigger className="w-[140px] sm:w-[180px] rounded-none border-stone-300 text-stone-900 h-10" data-testid="sort-select">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -500,19 +500,19 @@ const BestSellers = () => {
       </div>
 
       {/* Instagram / Videos Section */}
-      <div className="bg-stone-900 text-white py-24 px-4" data-testid="instagram-section">
+      <div className="bg-stone-900 text-white py-16 md:py-24 px-4" data-testid="instagram-section">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-[11px] tracking-[0.4em] uppercase text-amber-300 mb-4">Follow Our Journey</p>
-            <h2 className="text-white text-4xl md:text-5xl font-serif tracking-tight mb-5">From Our Farms to Your Kitchen</h2>
-            <div className="w-12 h-px bg-amber-400 mx-auto mb-6"></div>
-            <p className="text-stone-300 max-w-xl mx-auto font-light leading-relaxed">
+          <div className="text-center mb-10 md:mb-14">
+            <p className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-amber-300 mb-3 md:mb-4">Follow Our Journey</p>
+            <h2 className="text-white text-3xl sm:text-4xl md:text-5xl font-serif tracking-tight mb-4 md:mb-5">From Our Farms to Your Kitchen</h2>
+            <div className="w-12 h-px bg-amber-400 mx-auto mb-5 md:mb-6"></div>
+            <p className="text-sm md:text-base text-stone-300 max-w-xl mx-auto font-light leading-relaxed">
               Watch how we sow, harvest and hand-pack each Siridhanya millet — live from the fields of Telangana.
             </p>
           </div>
 
           {/* Auto-playing video reels */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-10 md:mb-12">
             {[
               {
                 title: 'Harvest Season',

@@ -134,7 +134,7 @@ const Home = () => {
       <Toaster position="top-right" />
       
       {/* Hero Banner */}
-      <div className="relative h-[640px] md:h-[720px] bg-stone-100 overflow-hidden" data-testid="hero-carousel">
+      <div className="relative h-[560px] sm:h-[640px] md:h-[720px] bg-stone-100 overflow-hidden" data-testid="hero-carousel">
         {HERO_SLIDES.map((slide, idx) => (
           <img
             key={slide.src}
@@ -154,23 +154,23 @@ const Home = () => {
         ></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 h-full flex items-center">
           <div className="max-w-2xl text-white">
-            <p className="text-[11px] tracking-[0.4em] uppercase text-stone-200 mb-6">Shathabdhi Organics</p>
-            <h1 className="text-5xl md:text-7xl font-light mb-6 leading-[1.05]" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+            <p className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-stone-200 mb-4 md:mb-6">Shathabdhi Organics</p>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-light mb-5 md:mb-6 leading-[1.05]" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
               Nourishing Bodies,<br />
               <em className="italic font-light">Transforming Lives</em>
             </h1>
-            <div className="w-16 h-px bg-white/70 mb-7"></div>
-            <p className="text-base md:text-lg text-stone-100 font-light leading-relaxed mb-10 max-w-xl">
+            <div className="w-12 md:w-16 h-px bg-white/70 mb-6 md:mb-7"></div>
+            <p className="text-sm md:text-lg text-stone-100 font-light leading-relaxed mb-7 md:mb-10 max-w-xl">
               Heritage millets, hand-blended spices and cold-pressed oils — sourced directly from sustainable farms in Telangana, packed with the wisdom of our ancestors.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3 md:gap-4">
               <Link to="/collections/millets">
-                <Button size="lg" className="bg-white text-stone-900 hover:bg-stone-100 font-medium text-xs px-10 py-6 rounded-none uppercase tracking-[0.25em]" data-testid="hero-shop-millets-btn">
+                <Button size="lg" className="bg-white text-stone-900 hover:bg-stone-100 font-medium text-[11px] md:text-xs px-7 md:px-10 py-5 md:py-6 rounded-none uppercase tracking-[0.25em]" data-testid="hero-shop-millets-btn">
                   Shop Millets
                 </Button>
               </Link>
               <Link to="/about">
-                <Button size="lg" variant="outline" className="bg-transparent border border-white text-white hover:bg-white hover:text-stone-900 font-medium text-xs px-10 py-6 rounded-none uppercase tracking-[0.25em]" data-testid="hero-our-story-btn">
+                <Button size="lg" variant="outline" className="bg-transparent border border-white text-white hover:bg-white hover:text-stone-900 font-medium text-[11px] md:text-xs px-7 md:px-10 py-5 md:py-6 rounded-none uppercase tracking-[0.25em]" data-testid="hero-our-story-btn">
                   Our Story
                 </Button>
               </Link>
@@ -208,64 +208,64 @@ const Home = () => {
       </div>
 
       {/* Tagline / Mission Strip — Women-Led Manifesto */}
-      <div className="relative bg-stone-900 text-white py-24 px-4 overflow-hidden">
+      <div className="relative bg-stone-900 text-white py-16 md:py-24 px-4 overflow-hidden">
         {/* Background accent */}
         <div className="absolute inset-0 opacity-[0.06]" style={{
           backgroundImage: 'radial-gradient(circle at 20% 30%, #d4a574 0%, transparent 50%), radial-gradient(circle at 80% 70%, #8b5a3c 0%, transparent 50%)'
         }}></div>
 
         <div className="relative max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-12 gap-10 md:gap-14 items-start">
+          <div className="grid md:grid-cols-12 gap-8 md:gap-14 items-start">
             {/* Left: Eyebrow + Headline */}
             <div className="md:col-span-7">
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-3 mb-5 md:mb-6">
                 <span className="h-[2px] w-10 bg-amber-400"></span>
-                <p className="text-[11px] tracking-[0.4em] uppercase text-amber-300 font-semibold" data-testid="mission-eyebrow">
+                <p className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-amber-300 font-semibold" data-testid="mission-eyebrow">
                   Women-Led · Farmer-Owned
                 </p>
               </div>
-              <h2 className="text-white font-bold leading-[0.95] mb-8 tracking-tight" style={{ fontFamily: '"Cormorant Garamond", "Playfair Display", serif', fontSize: 'clamp(2.5rem, 5.5vw, 5rem)', fontWeight: 700 }} data-testid="mission-headline">
+              <h2 className="text-white font-bold leading-[0.95] mb-6 md:mb-8 tracking-tight" style={{ fontFamily: '"Cormorant Garamond", "Playfair Display", serif', fontSize: 'clamp(2rem, 5.5vw, 5rem)', fontWeight: 700 }} data-testid="mission-headline">
                 Backed by the hands<br />
                 that <em className="italic text-amber-300 font-bold">feed nations.</em>
               </h2>
-              <p className="text-lg md:text-xl text-stone-100 font-normal leading-relaxed max-w-xl" data-testid="mission-tagline">
+              <p className="text-base md:text-xl text-stone-100 font-normal leading-relaxed max-w-xl" data-testid="mission-tagline">
                 Shathabdhi is built by <strong className="text-white font-semibold">women entrepreneurs &amp; smallholder farmers</strong> in Telangana — reviving ancient millets, paying fair wages, and putting soil, dignity and tradition before profit.
               </p>
             </div>
 
             {/* Right: Impact Stats */}
             <div className="md:col-span-5 md:pl-8 md:border-l md:border-stone-700">
-              <div className="grid grid-cols-2 gap-y-10 gap-x-6">
+              <div className="grid grid-cols-2 gap-y-8 md:gap-y-10 gap-x-6">
                 <div data-testid="stat-women-farmers">
-                  <p className="text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-2" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
-                    2,400<span className="text-2xl align-top">+</span>
+                  <p className="text-4xl sm:text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-2" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+                    2,400<span className="text-xl md:text-2xl align-top">+</span>
                   </p>
-                  <p className="text-[11px] tracking-[0.2em] uppercase text-stone-300 font-medium">Women Farmers Empowered</p>
+                  <p className="text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-stone-300 font-medium">Women Farmers Empowered</p>
                 </div>
                 <div data-testid="stat-villages">
-                  <p className="text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-2" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+                  <p className="text-4xl sm:text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-2" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
                     87
                   </p>
-                  <p className="text-[11px] tracking-[0.2em] uppercase text-stone-300 font-medium">Telangana Villages</p>
+                  <p className="text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-stone-300 font-medium">Telangana Villages</p>
                 </div>
                 <div data-testid="stat-acres">
-                  <p className="text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-2" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
-                    11K<span className="text-2xl align-top">+</span>
+                  <p className="text-4xl sm:text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-2" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+                    11K<span className="text-xl md:text-2xl align-top">+</span>
                   </p>
-                  <p className="text-[11px] tracking-[0.2em] uppercase text-stone-300 font-medium">Acres of Organic Soil</p>
+                  <p className="text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-stone-300 font-medium">Acres of Organic Soil</p>
                 </div>
                 <div data-testid="stat-zero-chemicals">
-                  <p className="text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-2" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+                  <p className="text-4xl sm:text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-2" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
                     0
                   </p>
-                  <p className="text-[11px] tracking-[0.2em] uppercase text-stone-300 font-medium">Chemicals. Ever.</p>
+                  <p className="text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-stone-300 font-medium">Chemicals. Ever.</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Bottom: Sri Bhanu Spotlight + Instagram Reel */}
-          <div className="mt-20 pt-14 border-t border-stone-700 grid md:grid-cols-12 gap-10 md:gap-14 items-center">
+          <div className="mt-14 md:mt-20 pt-10 md:pt-14 border-t border-stone-700 grid md:grid-cols-12 gap-8 md:gap-14 items-center">
             {/* Left: Instagram Reel */}
             <div className="md:col-span-5" data-testid="sri-bhanu-reel">
               <div className="relative bg-black rounded-sm overflow-hidden border border-stone-700/60 shadow-2xl shadow-black/40 mx-auto md:mx-0" style={{ maxWidth: '420px' }}>
@@ -287,28 +287,28 @@ const Home = () => {
 
             {/* Right: Bold statement */}
             <div className="md:col-span-7">
-              <div className="flex items-center gap-3 mb-5">
+              <div className="flex items-center gap-3 mb-4 md:mb-5">
                 <span className="h-[2px] w-10 bg-amber-400"></span>
-                <p className="text-[11px] tracking-[0.4em] uppercase text-amber-300 font-semibold" data-testid="sri-bhanu-eyebrow">
+                <p className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-amber-300 font-semibold" data-testid="sri-bhanu-eyebrow">
                   Meet Sri Bhanu
                 </p>
               </div>
               <h3
-                className="text-white font-bold leading-[0.98] mb-7 tracking-tight"
-                style={{ fontFamily: '"Cormorant Garamond", "Playfair Display", serif', fontSize: 'clamp(2rem, 4.2vw, 3.75rem)', fontWeight: 700 }}
+                className="text-white font-bold leading-[0.98] mb-6 md:mb-7 tracking-tight"
+                style={{ fontFamily: '"Cormorant Garamond", "Playfair Display", serif', fontSize: 'clamp(1.75rem, 4.2vw, 3.75rem)', fontWeight: 700 }}
                 data-testid="sri-bhanu-headline"
               >
                 She didn't ask the world<br />
                 for a seat.<br />
                 <em className="italic text-amber-300">She built her own table.</em>
               </h3>
-              <p className="text-lg md:text-xl text-stone-100 font-normal leading-relaxed mb-5" data-testid="sri-bhanu-body">
+              <p className="text-base md:text-xl text-stone-100 font-normal leading-relaxed mb-4 md:mb-5" data-testid="sri-bhanu-body">
                 When the world told her women belong indoors, <strong className="text-white font-semibold">Sri Bhanu walked straight into the field.</strong> She turned forgotten heirloom seeds into income for <strong className="text-amber-300 font-semibold">2,400+ women</strong>, restored <strong className="text-amber-300 font-semibold">11,000 acres</strong> to organic life, and handed dignity back to grandmothers who have fed dynasties.
               </p>
-              <p className="text-lg md:text-xl text-stone-100 font-normal leading-relaxed mb-8">
+              <p className="text-base md:text-xl text-stone-100 font-normal leading-relaxed mb-6 md:mb-8">
                 Every kilo we ship is a quiet rebellion — proof that when <span className="text-amber-300 font-semibold">women own the soil</span>, they rewrite who eats, who earns, and <em className="italic">who decides.</em>
               </p>
-              <p className="text-xl md:text-2xl text-stone-100 font-light leading-snug mb-10 italic border-l-2 border-amber-400 pl-6" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+              <p className="text-lg md:text-2xl text-stone-100 font-light leading-snug mb-8 md:mb-10 italic border-l-2 border-amber-400 pl-5 md:pl-6" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
                 "We aren't growing grain. We're growing power — one sister, one seed, one season at a time."
               </p>
               <div className="flex flex-wrap gap-4">
@@ -316,7 +316,7 @@ const Home = () => {
                   href="https://www.instagram.com/p/DOYnn2Xj_9l/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 bg-amber-400 text-stone-900 hover:bg-amber-300 transition-colors text-xs tracking-[0.25em] uppercase font-semibold px-8 py-4"
+                  className="inline-flex items-center gap-3 bg-amber-400 text-stone-900 hover:bg-amber-300 transition-colors text-xs tracking-[0.25em] uppercase font-semibold px-7 md:px-8 py-4"
                   data-testid="sri-bhanu-watch-cta"
                 >
                   Watch Her Story
@@ -343,7 +343,7 @@ const Home = () => {
           </div>
 
           {/* Reactive category chips */}
-          <div className="flex flex-wrap justify-center gap-3 mb-14" data-testid="featured-category-chips">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-10 md:mb-14 px-2" data-testid="featured-category-chips">
             {['All', 'Millets', 'Spices & Powders', 'Rices', 'Oils', 'Dals', 'Cookies', 'Processed Products'].map((c) => {
               const isActive = activeChip === c;
               const count = c === 'All'
@@ -355,7 +355,7 @@ const Home = () => {
                   type="button"
                   onClick={() => setActiveChip(c)}
                   data-testid={`featured-chip-${c.replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase()}`}
-                  className={`group inline-flex items-center gap-2 rounded-full border px-5 py-2 text-[11px] uppercase tracking-[0.2em] font-medium transition-all duration-300 ease-out
+                  className={`group inline-flex items-center gap-1.5 md:gap-2 rounded-full border px-3.5 md:px-5 py-1.5 md:py-2 text-[10px] md:text-[11px] uppercase tracking-[0.15em] md:tracking-[0.2em] font-medium transition-all duration-300 ease-out
                     ${isActive
                       ? 'bg-stone-900 text-white border-stone-900 shadow-md -translate-y-0.5'
                       : 'bg-white text-stone-800 border-stone-300 hover:border-amber-400 hover:text-stone-900 hover:bg-amber-50 hover:-translate-y-0.5'}`}

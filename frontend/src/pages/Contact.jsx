@@ -37,7 +37,7 @@ const Contact = () => {
       <Toaster position="top-right" />
 
       {/* Editorial Hero */}
-      <div className="relative h-[58vh] min-h-[440px] bg-stone-100 overflow-hidden">
+      <div className="relative h-[52vh] min-h-[380px] md:h-[58vh] md:min-h-[440px] bg-stone-100 overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=2000&q=80"
           alt="Sunlit farm fields"
@@ -47,24 +47,24 @@ const Contact = () => {
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to right, rgba(28,25,23,0.88) 0%, rgba(28,25,23,0.62) 50%, rgba(28,25,23,0.30) 100%)',
+              'linear-gradient(to right, rgba(28,25,23,0.92) 0%, rgba(28,25,23,0.72) 50%, rgba(28,25,23,0.40) 100%)',
           }}
         ></div>
         <div className="relative h-full max-w-7xl mx-auto px-4 flex items-center">
           <div className="max-w-2xl text-white">
-            <p className="text-[11px] tracking-[0.4em] uppercase text-amber-300 mb-6" data-testid="contact-eyebrow">
+            <p className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-amber-300 mb-4 md:mb-6" data-testid="contact-eyebrow">
               Talk To Us
             </p>
             <h1
-              className="text-white font-bold leading-[0.98] mb-7"
-              style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(2.75rem, 5.5vw, 5rem)' }}
+              className="text-white font-bold leading-[0.98] mb-5 md:mb-7"
+              style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(2.25rem, 5.5vw, 5rem)' }}
               data-testid="contact-headline"
             >
               We answer<br />
               <em className="italic text-amber-300">every email.</em>
             </h1>
-            <div className="w-16 h-px bg-amber-400 mb-7"></div>
-            <p className="text-base md:text-lg text-stone-100 leading-relaxed font-light max-w-xl">
+            <div className="w-14 md:w-16 h-px bg-amber-400 mb-6 md:mb-7"></div>
+            <p className="text-sm md:text-lg text-stone-100 leading-relaxed font-light max-w-xl">
               Questions about grains, bulk orders, retail partnerships, or just want to say hi to the women behind every packet? You're in the right place.
             </p>
           </div>
@@ -73,7 +73,7 @@ const Contact = () => {
 
       {/* Contact Strip — quick stats */}
       <div className="border-b border-stone-200 bg-stone-50">
-        <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div className="max-w-7xl mx-auto px-4 py-5 md:py-6 grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 text-center">
           {[
             { num: '< 24h', label: 'Email Response' },
             { num: '2,400+', label: 'Happy Households' },
@@ -81,26 +81,26 @@ const Contact = () => {
             { num: '100%', label: 'Human Replies' },
           ].map((s) => (
             <div key={s.label} data-testid={`contact-stat-${s.label.replace(/\s+/g, '-').toLowerCase()}`}>
-              <p className="text-2xl md:text-3xl font-serif text-amber-700 font-semibold leading-none">{s.num}</p>
-              <p className="text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-2">{s.label}</p>
+              <p className="text-xl sm:text-2xl md:text-3xl font-serif text-amber-700 font-semibold leading-none">{s.num}</p>
+              <p className="text-[9px] md:text-[10px] tracking-[0.2em] md:tracking-[0.25em] uppercase text-stone-600 mt-2 leading-tight">{s.label}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div className="max-w-7xl mx-auto px-4 py-14 md:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-12">
           {/* Left: Contact Info Cards */}
           <div className="lg:col-span-5 space-y-5" data-testid="contact-info">
             <div>
-              <p className="text-[11px] tracking-[0.4em] uppercase text-amber-700 mb-3">Reach Us</p>
-              <h2 className="text-4xl md:text-5xl font-serif text-stone-900 mb-5 leading-[1.05]">
+              <p className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-amber-700 mb-3">Reach Us</p>
+              <h2 className="text-3xl md:text-5xl font-serif text-stone-900 mb-4 md:mb-5 leading-[1.05]">
                 Five ways<br />
                 <em className="italic text-amber-700">to start a conversation.</em>
               </h2>
-              <div className="w-12 h-px bg-amber-400 mb-7"></div>
-              <p className="text-stone-700 font-light leading-relaxed mb-10">
+              <div className="w-12 h-px bg-amber-400 mb-6 md:mb-7"></div>
+              <p className="text-sm md:text-base text-stone-700 font-light leading-relaxed mb-8 md:mb-10">
                 Whether it's a recipe question, a bulk enquiry, or you want to bring our heritage millets to your city — we read every word.
               </p>
             </div>
@@ -170,12 +170,12 @@ const Contact = () => {
 
           {/* Right: Form Card */}
           <div className="lg:col-span-7" data-testid="contact-form-section">
-            <div className="bg-stone-50 border border-stone-200 p-8 md:p-12 sticky top-28">
-              <p className="text-[11px] tracking-[0.4em] uppercase text-amber-700 mb-3">Drop A Line</p>
-              <h2 className="text-3xl md:text-4xl font-serif text-stone-900 mb-2 leading-tight">
+            <div className="bg-stone-50 border border-stone-200 p-6 sm:p-8 md:p-12 lg:sticky lg:top-28">
+              <p className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-amber-700 mb-3">Drop A Line</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-stone-900 mb-2 leading-tight">
                 Send us a message
               </h2>
-              <p className="text-stone-600 font-light mb-10 leading-relaxed">
+              <p className="text-sm md:text-base text-stone-600 font-light mb-8 md:mb-10 leading-relaxed">
                 A real human (often Bhanu herself) reads every form — no bots, no auto-replies.
               </p>
 
@@ -280,8 +280,8 @@ const Contact = () => {
       </div>
 
       {/* FAQ teaser strip */}
-      <div className="bg-stone-900 text-white py-20 px-4" data-testid="contact-faq-strip">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-10">
+      <div className="bg-stone-900 text-white py-14 md:py-20 px-4" data-testid="contact-faq-strip">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 md:gap-10">
           {[
             {
               q: 'How fresh is your stock?',
@@ -296,8 +296,8 @@ const Contact = () => {
               a: 'Absolutely. Email partners@shathabdhiorganics.com to schedule a guided farm visit in Telangana.',
             },
           ].map((f, i) => (
-            <div key={i} className="border-l-2 border-amber-400 pl-5">
-              <h3 className="text-xl font-serif mb-3 leading-tight">{f.q}</h3>
+            <div key={i} className="border-l-2 border-amber-400 pl-4 md:pl-5">
+              <h3 className="text-lg md:text-xl font-serif mb-2 md:mb-3 leading-tight">{f.q}</h3>
               <p className="text-stone-300 font-light leading-relaxed text-sm">{f.a}</p>
             </div>
           ))}
@@ -305,7 +305,7 @@ const Contact = () => {
       </div>
 
       {/* Live Map */}
-      <div className="w-full h-[420px] bg-stone-200" data-testid="contact-map">
+      <div className="w-full h-[320px] md:h-[420px] bg-stone-200" data-testid="contact-map">
         <iframe
           title="Shathabdhi Organics — Hyderabad"
           src="https://www.google.com/maps?q=Banjara+Hills,+Hyderabad,+Telangana&output=embed"
