@@ -296,14 +296,18 @@ const Home = () => {
                 style={{ fontFamily: '"Cormorant Garamond", "Playfair Display", serif', fontSize: 'clamp(2rem, 4.2vw, 3.75rem)', fontWeight: 700 }}
                 data-testid="sri-bhanu-headline"
               >
-                She didn't wait for permission.<br />
-                <em className="italic text-amber-300">She built the movement.</em>
+                She didn't ask the world<br />
+                for a seat.<br />
+                <em className="italic text-amber-300">She built her own table.</em>
               </h3>
               <p className="text-lg md:text-xl text-stone-100 font-normal leading-relaxed mb-5" data-testid="sri-bhanu-body">
-                Sri Bhanu walked away from a corporate desk to put a sickle back in the hands of women in her village. Today, she leads an army of <strong className="text-white font-semibold">2,400+ women entrepreneurs &amp; farmers</strong> reviving India's lost millets, rewriting rural economics, and proving that the future of food is <span className="text-amber-300 font-semibold">female, fearless and rooted in soil.</span>
+                When the world told her women belong indoors, <strong className="text-white font-semibold">Sri Bhanu walked straight into the field.</strong> She turned forgotten heirloom seeds into income for <strong className="text-amber-300 font-semibold">2,400+ women</strong>, restored <strong className="text-amber-300 font-semibold">11,000 acres</strong> to organic life, and handed dignity back to grandmothers who have fed dynasties.
               </p>
-              <p className="text-base md:text-lg text-stone-300 font-light leading-relaxed mb-8 italic" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
-                "Every packet you pick up is a woman, a village, and a thousand years of wisdom — refusing to be forgotten."
+              <p className="text-lg md:text-xl text-stone-100 font-normal leading-relaxed mb-8">
+                Every kilo we ship is a quiet rebellion — proof that when <span className="text-amber-300 font-semibold">women own the soil</span>, they rewrite who eats, who earns, and <em className="italic">who decides.</em>
+              </p>
+              <p className="text-xl md:text-2xl text-stone-100 font-light leading-snug mb-10 italic border-l-2 border-amber-400 pl-6" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+                "We aren't growing grain. We're growing power — one sister, one seed, one season at a time."
               </p>
               <div className="flex flex-wrap gap-4">
                 <a
@@ -316,13 +320,6 @@ const Home = () => {
                   Watch Her Story
                   <ArrowRight className="w-4 h-4" />
                 </a>
-                <Link
-                  to="/social"
-                  className="inline-flex items-center gap-3 border border-stone-500 text-stone-100 hover:bg-white hover:text-stone-900 transition-colors text-xs tracking-[0.25em] uppercase font-semibold px-8 py-4"
-                  data-testid="sri-bhanu-meet-women-cta"
-                >
-                  Meet The Women
-                </Link>
               </div>
             </div>
           </div>
