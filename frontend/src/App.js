@@ -11,6 +11,7 @@ import BestSellers from "./pages/BestSellers";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Social from "./pages/Social";
+import ProductDetail from "./pages/ProductDetail";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/collections/snacks-and-bars" element={<BestSellers />} />
             <Route path="/collections/sweets-and-treats" element={<BestSellers />} />
             <Route path="/collections/health-drinks" element={<BestSellers />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/social" element={<Social />} />
             <Route path="/contact" element={<Contact />} />

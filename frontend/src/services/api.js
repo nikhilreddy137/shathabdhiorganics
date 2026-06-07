@@ -24,6 +24,16 @@ export const productAPI = {
       throw error;
     }
   },
+
+  search: async (q, limit = 20) => {
+    try {
+      const response = await axios.get(`${API_URL}/products/search`, { params: { q, limit } });
+      return response.data;
+    } catch (error) {
+      logger.error('Error searching products:', error);
+      throw error;
+    }
+  },
 };
 
 // Cart API

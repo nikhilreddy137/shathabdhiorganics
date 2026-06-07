@@ -83,8 +83,8 @@ const Home = () => {
   };
 
   const ProductCard = ({ product }) => (
-    <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-200 rounded-none bg-white">
-      <div className="relative aspect-square overflow-hidden bg-white">
+    <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-200 rounded-none bg-white" data-testid={`product-card-${product.id}`}>
+      <Link to={`/product/${product.id}`} className="block relative aspect-square overflow-hidden bg-white" data-testid={`product-image-${product.id}`}>
         <img
           src={product.image}
           alt={product.name}
@@ -97,10 +97,12 @@ const Home = () => {
             </Badge>
           </div>
         )}
-      </div>
+      </Link>
       <CardContent className="p-6 space-y-3">
         <div>
-          <h3 className="font-normal text-lg text-gray-900 mb-1" style={{ fontFamily: 'Cormorant Garamond, serif' }}>{product.name}</h3>
+          <Link to={`/product/${product.id}`} className="block hover:text-amber-700 transition-colors" data-testid={`product-link-${product.id}`}>
+            <h3 className="font-normal text-lg text-gray-900 mb-1" style={{ fontFamily: 'Cormorant Garamond, serif' }}>{product.name}</h3>
+          </Link>
           <p className="text-xs text-gray-500 uppercase tracking-wide">{product.description}</p>
         </div>
         <p className="text-sm text-gray-600">{product.profile}</p>
@@ -110,6 +112,7 @@ const Home = () => {
         </div>
         <Button
           onClick={() => handleAddToCart(product)}
+          data-testid={`add-to-cart-home-${product.id}`}
           className="w-full bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-normal text-xs uppercase tracking-wider transition-all rounded-none py-5"
         >
           ADD TO CART

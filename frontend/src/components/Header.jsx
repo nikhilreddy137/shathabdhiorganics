@@ -3,10 +3,12 @@ import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 import CartDrawer from './CartDrawer';
+import SearchOverlay from './SearchOverlay';
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const { cartItemCount } = useCart();
 
   const navItems = [
@@ -69,7 +71,7 @@ const Header = () => {
 
             {/* Right Icons */}
             <div className="flex items-center space-x-2">
-              <button data-testid="header-search-btn" aria-label="Search" className="hidden md:flex items-center justify-center w-10 h-10 rounded-full hover:bg-amber-50 hover:scale-110 active:scale-95 transition-all duration-200">
+              <button data-testid="header-search-btn" onClick={() => setSearchOpen(true)} aria-label="Search" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-amber-50 hover:scale-110 active:scale-95 transition-all duration-200">
                 <Search className="w-4 h-4 text-gray-700" />
               </button>
               <button data-testid="header-account-btn" aria-label="Account" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-amber-50 hover:scale-110 active:scale-95 transition-all duration-200">
@@ -114,6 +116,7 @@ const Header = () => {
 
       {/* Cart Drawer */}
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+      {searchOpen && <SearchOverlay onClose={() => setSearchOpen(false)} />}
     </>
   );
 };

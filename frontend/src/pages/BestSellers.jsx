@@ -366,7 +366,7 @@ const BestSellers = () => {
                   data-testid={`product-card-${product.id}`}
                 >
                   {/* Image */}
-                  <div className="relative aspect-square overflow-hidden bg-stone-100">
+                  <Link to={`/product/${product.id}`} className="relative aspect-square overflow-hidden bg-stone-100 block" data-testid={`product-image-${product.id}`}>
                     {product.image ? (
                       <img
                         src={product.image}
@@ -391,13 +391,15 @@ const BestSellers = () => {
                         </span>
                       )}
                     </div>
-                  </div>
+                  </Link>
 
                   {/* Body */}
                   <CardContent className="p-7 text-center flex-1 flex flex-col">
-                    <h3 className="font-serif text-2xl text-stone-900 mb-2 leading-tight tracking-tight">
-                      {product.name}
-                    </h3>
+                    <Link to={`/product/${product.id}`} className="hover:text-amber-700 transition-colors" data-testid={`product-link-${product.id}`}>
+                      <h3 className="font-serif text-2xl text-stone-900 mb-2 leading-tight tracking-tight">
+                        {product.name}
+                      </h3>
+                    </Link>
                     <p className="text-sm text-stone-700 leading-relaxed mb-2">{product.description}</p>
                     <p className="text-xs italic text-stone-600 mb-5">{product.profile}</p>
 

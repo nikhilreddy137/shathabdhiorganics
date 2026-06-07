@@ -133,6 +133,41 @@ async def get_products(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@api_router.get("/products/search")
+async def search_products(
+    q: str = Query("", description="Search query"),
+    limit: int = Query(20, ge=1, le=50)
+):
+    """Search products by name, description, profile, category, type, benefits, or origin."""
+    try:
+        q = (q or "").strip()
+        if not q:
+            return {"query": q, "results": [], "total": 0}
+
+        # Case-insensitive regex against multiple fields
+        regex = {"$regex": q, "$options": "i"}
+        query = {
+            "$or": [
+                {"name": regex},
+                {"description": regex},
+                {"profile": regex},
+                {"category": regex},
+                {"type": regex},
+                {"origin": regex},
+                {"benefits": regex},
+            ]
+        }
+        total = await db.products.count_documents(query)
+        cursor = db.products.find(query).limit(limit)
+        results = await cursor.to_list(length=limit)
+        for p in results:
+            p.pop("_id", None)
+        return {"query": q, "results": results, "total": total}
+    except Exception as e:
+        logger.error(f"Search error: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @api_router.get("/products/{product_id}", response_model=Product)
 async def get_product(product_id: str):
     """Get a single product by ID"""
