@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { Filter, Instagram } from 'lucide-react';
+import { Filter, Instagram, ArrowRight } from 'lucide-react';
 import { productAPI, categoryAPI, testimonialAPI } from '../services/api';
 import { useCart } from '../contexts/CartContext';
 import { Button } from '../components/ui/button';
@@ -245,23 +245,103 @@ const BestSellers = () => {
     <div className="min-h-screen bg-white" data-testid="best-sellers-page">
       <Toaster position="top-right" />
 
-      {/* Hero Section — Why Switch to Organic (only on the main /best-sellers landing) */}
+      {/* Hero Section — Cinematic Video Hero (only on the main /best-sellers landing) */}
       {location.pathname.endsWith('/best-sellers') && (
-      <div className="bg-stone-50 py-16 md:py-24 px-4 border-b border-stone-200">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
-            <p className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-amber-700 mb-5 md:mb-6">Why Switch to Organic</p>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif text-stone-900 mb-5 md:mb-6 tracking-tight leading-[1.05]">
-              Your body knows<br />
-              the <em className="italic text-amber-700">difference.</em>
-            </h1>
-            <div className="w-14 h-px bg-amber-400 mx-auto mb-6 md:mb-7"></div>
-            <p className="text-sm md:text-lg text-stone-700 leading-relaxed font-light">
-              Modern food is engineered for shelf-life. <strong className="text-stone-900 font-semibold">Organic food is grown for life.</strong> Every grain, oil and spice in this collection is a small switch — and small switches compound into a longer, brighter, more rooted life.
+      <>
+      <section className="relative min-h-[88vh] md:min-h-[92vh] flex items-center justify-center overflow-hidden bg-stone-900" data-testid="bestsellers-hero">
+        {/* Looping background video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=2400&q=80"
+          className="absolute inset-0 w-full h-full object-cover"
+          data-testid="bestsellers-hero-video"
+        >
+          <source src="https://videos.pexels.com/video-files/2495944/2495944-uhd_2560_1440_24fps.mp4" type="video/mp4" />
+        </video>
+
+        {/* Cinematic gradient overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(circle at 30% 50%, rgba(28,25,23,0.55) 0%, rgba(28,25,23,0.85) 80%), linear-gradient(180deg, rgba(28,25,23,0.4) 0%, rgba(28,25,23,0.65) 60%, rgba(28,25,23,0.85) 100%)',
+          }}
+        ></div>
+
+        {/* Subtle grain */}
+        <div className="absolute inset-0 opacity-[0.08] mix-blend-overlay pointer-events-none"
+          style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '3px 3px' }}
+        ></div>
+
+        {/* Content */}
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center text-white py-20">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <span className="h-[2px] w-10 bg-amber-400"></span>
+            <p className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-amber-300 font-semibold">
+              Why Switch to Organic
             </p>
+            <span className="h-[2px] w-10 bg-amber-400"></span>
           </div>
 
-          {/* 4 Reasons grid */}
+          <h1
+            className="text-white font-bold leading-[0.95] mb-6 md:mb-8 tracking-tight drop-shadow-lg"
+            style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(2.75rem, 7vw, 6rem)' }}
+            data-testid="bestsellers-hero-title"
+          >
+            Your body knows<br />
+            the <em className="italic text-amber-300">difference.</em>
+          </h1>
+
+          <p className="text-base md:text-xl text-stone-100 leading-relaxed font-light max-w-2xl mx-auto mb-10 md:mb-12">
+            Modern food is engineered for shelf-life. <strong className="text-white font-semibold">Organic food is grown for life.</strong> Heritage millets, hand-blended spices and cold-pressed oils — from soil that is alive.
+          </p>
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+            <Link
+              to="/collections/millets"
+              data-testid="bestsellers-hero-shop-millets-cta"
+              className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-amber-400 text-stone-900 hover:bg-amber-300 hover:-translate-y-0.5 active:scale-[0.98] font-bold text-xs tracking-[0.3em] uppercase px-10 py-5 rounded-none shadow-xl shadow-amber-500/20 transition-all duration-300"
+            >
+              Shop Millets
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <a
+              href="#bestsellers-grid"
+              data-testid="bestsellers-hero-explore-cta"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 border border-white/60 text-white hover:bg-white hover:text-stone-900 hover:-translate-y-0.5 active:scale-[0.98] font-semibold text-xs tracking-[0.3em] uppercase px-10 py-5 transition-all duration-300 backdrop-blur-sm"
+            >
+              Explore Collection
+            </a>
+          </div>
+
+          {/* Trust micro-line */}
+          <div className="mt-10 md:mt-14 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[10px] tracking-[0.25em] uppercase text-stone-300">
+            <span>2,400+ Women Farmers</span>
+            <span className="hidden sm:inline text-amber-400">·</span>
+            <span>0 Chemicals</span>
+            <span className="hidden sm:inline text-amber-400">·</span>
+            <span>Free Shipping ₹500+</span>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <a
+          href="#why-organic-grid"
+          aria-label="Scroll down"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-white/40 text-white hover:bg-white/10 transition-colors animate-bounce"
+        >
+          <ArrowRight className="w-4 h-4 rotate-90" />
+        </a>
+      </section>
+
+      {/* 4 Reasons grid — directly below hero */}
+      <div className="bg-stone-50 py-16 md:py-24 px-4 border-b border-stone-200" id="why-organic-grid">
+        <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 max-w-5xl mx-auto" data-testid="why-organic-grid">
             {[
               {
@@ -298,12 +378,13 @@ const BestSellers = () => {
           </div>
 
           {/* Soft divider into the catalogue */}
-          <div className="text-center mt-16">
+          <div className="text-center mt-14 md:mt-16" id="bestsellers-grid">
             <p className="text-[11px] tracking-[0.35em] uppercase text-stone-600 mb-3">Start the Switch Below</p>
             <h2 className="text-3xl md:text-4xl font-serif text-stone-900">Best Sellers</h2>
           </div>
         </div>
       </div>
+      </>
       )}
 
       {/* Slim category banner — only on individual category pages (not /best-sellers) */}
