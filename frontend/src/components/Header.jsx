@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
+import { Search, ShoppingCart, Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 import CartDrawer from './CartDrawer';
@@ -73,9 +73,6 @@ const Header = () => {
             <div className="flex items-center space-x-2">
               <button data-testid="header-search-btn" onClick={() => setSearchOpen(true)} aria-label="Search" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-amber-50 hover:scale-110 active:scale-95 transition-all duration-200">
                 <Search className="w-4 h-4 text-gray-700" />
-              </button>
-              <button data-testid="header-account-btn" aria-label="Account" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-amber-50 hover:scale-110 active:scale-95 transition-all duration-200">
-                <User className="w-4 h-4 text-gray-700" />
               </button>
               <button
                 onClick={() => setCartOpen(true)}

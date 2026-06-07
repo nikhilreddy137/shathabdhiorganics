@@ -51,7 +51,7 @@ const ProductDetail = () => {
     if (!product || !selectedSize) return;
     try {
       setAdding(true);
-      await addToCart(product, selectedSize, quantity);
+      await addToCart(product.id, selectedSize.size, quantity);
       toast.success(`${quantity} × ${product.name} added to cart`);
     } catch (err) {
       logger.error('Failed to add to cart', err);

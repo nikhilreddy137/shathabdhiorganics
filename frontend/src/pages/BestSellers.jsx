@@ -245,7 +245,8 @@ const BestSellers = () => {
     <div className="min-h-screen bg-white" data-testid="best-sellers-page">
       <Toaster position="top-right" />
 
-      {/* Hero Section — Why Switch to Organic */}
+      {/* Hero Section — Why Switch to Organic (only on the main /best-sellers landing) */}
+      {location.pathname.endsWith('/best-sellers') && (
       <div className="bg-stone-50 py-16 md:py-24 px-4 border-b border-stone-200">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
@@ -303,6 +304,25 @@ const BestSellers = () => {
           </div>
         </div>
       </div>
+      )}
+
+      {/* Slim category banner — only on individual category pages (not /best-sellers) */}
+      {!location.pathname.endsWith('/best-sellers') && initialCategory && (
+        <div className="bg-stone-900 text-white border-b border-stone-800" data-testid="category-banner">
+          <div className="max-w-7xl mx-auto px-4 py-6 md:py-8 flex items-center justify-between flex-wrap gap-3">
+            <div>
+              <p className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-amber-300 mb-1">Collection</p>
+              <h1 className="text-2xl md:text-3xl font-serif text-white leading-none">{initialCategory}</h1>
+            </div>
+            <Link
+              to="/collections/best-sellers"
+              className="inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-stone-300 hover:text-amber-300 transition-colors"
+            >
+              ← Shop All
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* (Horizontal Category Bar removed — filters live in the reactive sidebar) */}
 
