@@ -37,9 +37,11 @@ const Header = () => {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-20">
-            {/* Mobile Menu Button */}
+            {/* Mobile / Tablet Menu Button */}
             <button
-              className="lg:hidden p-2"
+              data-testid="mobile-menu-btn"
+              aria-label="Toggle navigation"
+              className="xl:hidden p-2.5 -ml-2 rounded-full hover:bg-amber-50 active:scale-95 transition-all touch-manipulation"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -47,15 +49,15 @@ const Header = () => {
 
             {/* Logo */}
             <Link to="/" data-testid="header-logo" className="group flex items-center transition-transform duration-300 hover:scale-[1.02]">
-              <h1 className="text-xl font-light text-gray-900 tracking-widest transition-colors group-hover:text-amber-700" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+              <h1 className="text-base sm:text-xl font-light text-gray-900 tracking-widest transition-colors group-hover:text-amber-700 leading-tight" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
                 SHATHABDHI
                 <br />
-                <span className="text-[10px] tracking-[0.3em] text-gray-600 group-hover:text-amber-600 transition-colors">ORGANICS</span>
+                <span className="text-[9px] sm:text-[10px] tracking-[0.3em] text-gray-600 group-hover:text-amber-600 transition-colors">ORGANICS</span>
               </h1>
             </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-x-5 xl:gap-x-7">
+            {/* Desktop Navigation — only on screens ≥ 1280px (12 items need room) */}
+            <nav className="hidden xl:flex items-center gap-x-5 2xl:gap-x-7">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
@@ -90,9 +92,9 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile / Tablet Menu */}
           {mobileMenuOpen && (
-            <div className="lg:hidden py-4 border-t">
+            <div className="xl:hidden py-4 border-t max-h-[70vh] overflow-y-auto">
               <nav className="flex flex-col space-y-1">
                 {navItems.map((item) => (
                   <Link
