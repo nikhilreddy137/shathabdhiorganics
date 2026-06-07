@@ -34,18 +34,10 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeSlide, setActiveSlide] = useState(0);
 
   const { addToCart } = useCart();
 
   const [activeChip, setActiveChip] = useState('All');
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 5000);
-    return () => clearInterval(id);
-  }, []);
 
   const fetchData = React.useCallback(async () => {
     try {
@@ -136,18 +128,23 @@ const Home = () => {
     <div className="min-h-screen bg-white">
       <Toaster position="top-right" />
       
-      {/* Hero Banner */}
-      <div className="relative h-[560px] sm:h-[640px] md:h-[720px] bg-stone-100 overflow-hidden" data-testid="hero-carousel">
-        {HERO_SLIDES.map((slide, idx) => (
-          <img
-            key={slide.src}
-            src={slide.src}
-            alt={slide.alt}
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1800ms] ease-in-out ${
-              idx === activeSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
-            }`}
-          />
-        ))}
+      {/* Hero Banner — Cinematic Video Carousel */}
+      <div className="relative h-[600px] sm:h-[680px] md:h-[780px] bg-stone-900 overflow-hidden" data-testid="hero-carousel">
+        {/* Looping background video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={HERO_SLIDES[0].src}
+          className="absolute inset-0 w-full h-full object-cover"
+          data-testid="hero-video"
+        >
+          <source src="https://videos.pexels.com/video-files/2495944/2495944-uhd_2560_1440_24fps.mp4" type="video/mp4" />
+        </video>
+
+        {/* Cinematic overlay */}
         <div
           className="absolute inset-0"
           style={{
@@ -155,45 +152,48 @@ const Home = () => {
               'linear-gradient(to right, rgba(28,25,23,0.92) 0%, rgba(28,25,23,0.78) 35%, rgba(28,25,23,0.55) 65%, rgba(28,25,23,0.30) 100%)',
           }}
         ></div>
+
+        {/* Subtle grain texture */}
+        <div className="absolute inset-0 opacity-[0.08] mix-blend-overlay pointer-events-none"
+          style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '3px 3px' }}
+        ></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 h-full flex items-center">
           <div className="max-w-2xl text-white">
-            <p className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-stone-200 mb-4 md:mb-6">Shathabdhi Organics</p>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-light mb-5 md:mb-6 leading-[1.05]" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+            <div className="flex items-center gap-3 mb-5 md:mb-6">
+              <span className="h-[2px] w-10 bg-amber-400"></span>
+              <p className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-amber-300 font-semibold">Shathabdhi Organics</p>
+            </div>
+            <h1 className="text-white text-4xl sm:text-5xl md:text-7xl font-light mb-5 md:mb-6 leading-[1.05] drop-shadow-2xl" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
               Nourishing Bodies,<br />
-              <em className="italic font-light">Transforming Lives</em>
+              <em className="italic font-light text-amber-300">Transforming Lives</em>
             </h1>
-            <div className="w-12 md:w-16 h-px bg-white/70 mb-6 md:mb-7"></div>
+            <div className="w-12 md:w-16 h-px bg-amber-400 mb-6 md:mb-7"></div>
             <p className="text-sm md:text-lg text-stone-100 font-light leading-relaxed mb-7 md:mb-10 max-w-xl">
               Heritage millets, hand-blended spices and cold-pressed oils — sourced directly from sustainable farms in Telangana, packed with the wisdom of our ancestors.
             </p>
             <div className="flex flex-wrap gap-3 md:gap-4">
               <Link to="/collections/millets">
-                <Button size="lg" className="bg-white text-stone-900 hover:bg-stone-100 font-medium text-[11px] md:text-xs px-7 md:px-10 py-5 md:py-6 rounded-none uppercase tracking-[0.25em]" data-testid="hero-shop-millets-btn">
+                <Button size="lg" className="group bg-amber-400 text-stone-900 hover:bg-amber-300 hover:-translate-y-0.5 active:scale-[0.98] font-bold text-[11px] md:text-xs px-7 md:px-10 py-5 md:py-6 rounded-none uppercase tracking-[0.3em] shadow-xl shadow-amber-500/20 transition-all duration-300" data-testid="hero-shop-millets-btn">
                   Shop Millets
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link to="/about">
-                <Button size="lg" variant="outline" className="bg-transparent border border-white text-white hover:bg-white hover:text-stone-900 font-medium text-[11px] md:text-xs px-7 md:px-10 py-5 md:py-6 rounded-none uppercase tracking-[0.25em]" data-testid="hero-our-story-btn">
+                <Button size="lg" variant="outline" className="bg-transparent border border-white/70 text-white hover:bg-white hover:text-stone-900 hover:-translate-y-0.5 active:scale-[0.98] font-semibold text-[11px] md:text-xs px-7 md:px-10 py-5 md:py-6 rounded-none uppercase tracking-[0.3em] backdrop-blur-sm transition-all duration-300" data-testid="hero-our-story-btn">
                   Our Story
                 </Button>
               </Link>
             </div>
-          </div>
-        </div>
 
-        {/* Slide indicators */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3" data-testid="hero-indicators">
-          {HERO_SLIDES.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveSlide(idx)}
-              aria-label={`Go to slide ${idx + 1}`}
-              data-testid={`hero-indicator-${idx}`}
-              className={`h-[2px] transition-all duration-500 ${
-                idx === activeSlide ? 'w-12 bg-white' : 'w-6 bg-white/40 hover:bg-white/70'
-              }`}
-            />
-          ))}
+            {/* Trust micro-strip */}
+            <div className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 text-[10px] tracking-[0.25em] uppercase text-stone-300">
+              <span>2,400+ Women Farmers</span>
+              <span className="text-amber-400">·</span>
+              <span>0 Chemicals</span>
+              <span className="text-amber-400">·</span>
+              <span>Free Shipping ₹500+</span>
+            </div>
+          </div>
         </div>
       </div>
 
