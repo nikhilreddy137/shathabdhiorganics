@@ -197,19 +197,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Welcome Section */}
-      <div className="py-20 px-4 bg-white">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-[10px] text-stone-600 uppercase tracking-[0.3em] mb-4">WELCOME TO SHATHABDHI ORGANICS</p>
-          <h2 className="text-4xl md:text-5xl font-light text-stone-900 mb-4" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
-            Purveyors of Direct-Trade, Organic Millets
-          </h2>
-          <p className="text-xl md:text-2xl text-stone-600 italic font-light max-w-2xl mx-auto" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
-            From off the beaten path — straight from Telangana's farms to your table.
-          </p>
-        </div>
-      </div>
-
       {/* Tagline / Mission Strip — Women-Led Manifesto */}
       <div className="relative bg-stone-900 text-white py-16 md:py-24 px-4 overflow-hidden">
         {/* Background accent */}
