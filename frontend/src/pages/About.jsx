@@ -99,12 +99,32 @@ const About = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
             <div className="lg:col-span-5">
               <div className="relative" data-testid="founder-portrait">
-                <img
-                  src="https://customer-assets.emergentagent.com/job_ancient-grains-shop/artifacts/atpfm9c4_Screenshot%202026-06-05%20at%2018.44.27.png"
-                  alt="Sri Bhanu — Founder"
-                  className="w-full h-auto shadow-2xl shadow-stone-900/20"
-                />
-                <div className="absolute -bottom-5 -right-5 bg-amber-400 text-stone-900 py-3 px-5 shadow-lg hidden sm:block">
+                <div className="relative group" data-testid="founder-video-wrapper">
+                  <video
+                    ref={videoRef}
+                    className="w-full h-auto shadow-2xl shadow-stone-900/20"
+                    poster={FOUNDER_POSTER}
+                    controls={videoPlaying}
+                    playsInline
+                    preload="none"
+                    data-testid="founder-video"
+                  >
+                    <source src={FOUNDER_VIDEO} type="video/mp4" />
+                  </video>
+                  {!videoPlaying && (
+                    <button
+                      onClick={playFounderVideo}
+                      className="absolute inset-0 w-full h-full flex items-center justify-center bg-stone-900/30 hover:bg-stone-900/20 transition-colors duration-300 cursor-pointer"
+                      aria-label="Play founder story video"
+                      data-testid="founder-video-play-button"
+                    >
+                      <span className="flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full bg-amber-400 text-stone-900 shadow-xl shadow-amber-400/30 group-hover:scale-110 transition-transform duration-300">
+                        <Play className="w-7 h-7 md:w-8 md:h-8 ml-1" fill="currentColor" />
+                      </span>
+                    </button>
+                  )}
+                </div>
+                <div className="absolute -bottom-5 -right-5 bg-amber-400 text-stone-900 py-3 px-5 shadow-lg hidden sm:block z-10">
                   <p className="text-[10px] tracking-[0.3em] uppercase font-bold">Founder</p>
                   <p className="text-lg font-serif">Sri Bhanu</p>
                 </div>
@@ -143,53 +163,6 @@ const About = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* ============ FOUNDER VIDEO ============ */}
-      <div className="relative bg-stone-900 py-20 md:py-28 px-4 overflow-hidden" data-testid="founder-video-section">
-        <div className="absolute inset-0 opacity-[0.06]" style={{
-          backgroundImage: 'radial-gradient(circle at 20% 30%, #d4a574 0%, transparent 55%), radial-gradient(circle at 80% 70%, #8b5a3c 0%, transparent 55%)'
-        }}></div>
-        <div className="relative max-w-5xl mx-auto">
-          <div className="text-center mb-10 md:mb-12">
-            <p className="text-[11px] tracking-[0.4em] uppercase text-amber-300 mb-5 font-semibold">In Her Own Words</p>
-            <h2 className="text-white font-serif font-bold leading-[1.05] mb-5" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 4rem)' }}>
-              The story behind<br />
-              <em className="italic text-amber-300">every packet.</em>
-            </h2>
-            <div className="w-12 h-px bg-amber-400 mx-auto"></div>
-          </div>
-
-          <div className="relative aspect-video overflow-hidden shadow-2xl shadow-black/50 group" data-testid="founder-video-wrapper">
-            <video
-              ref={videoRef}
-              className="absolute inset-0 w-full h-full object-cover"
-              poster={FOUNDER_POSTER}
-              controls={videoPlaying}
-              playsInline
-              preload="none"
-              data-testid="founder-video"
-            >
-              <source src={FOUNDER_VIDEO} type="video/mp4" />
-            </video>
-            {!videoPlaying && (
-              <button
-                onClick={playFounderVideo}
-                className="absolute inset-0 w-full h-full flex items-center justify-center bg-stone-900/40 hover:bg-stone-900/30 transition-colors duration-300 cursor-pointer"
-                aria-label="Play founder story video"
-                data-testid="founder-video-play-button"
-              >
-                <span className="flex items-center justify-center w-20 h-20 md:w-24 md:h-24 rounded-full bg-amber-400 text-stone-900 shadow-xl shadow-amber-400/30 group-hover:scale-110 transition-transform duration-300">
-                  <Play className="w-8 h-8 md:w-9 md:h-9 ml-1" fill="currentColor" />
-                </span>
-              </button>
-            )}
-          </div>
-
-          <p className="text-center text-stone-400 text-sm md:text-base font-light mt-8 italic" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
-            {"\u201CWe have better. We have millets. Why are we looking elsewhere?\u201D"} — Sri Bhanu
-          </p>
         </div>
       </div>
 
