@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Sprout, Hand, Leaf, Heart, Shield, Play } from 'lucide-react';
 
 const FOUNDER_POSTER = 'https://customer-assets.emergentagent.com/job_ancient-grains-shop/artifacts/atpfm9c4_Screenshot%202026-06-05%20at%2018.44.27.png';
-const FOUNDER_VIDEO = 'https://assets.mixkit.co/videos/17120/17120-360.mp4';
+const FOUNDER_VIDEO = '/founder-video.mp4';
 
 const About = () => {
   const [videoPlaying, setVideoPlaying] = useState(false);
@@ -40,7 +40,7 @@ const About = () => {
             </div>
             <h1
               className="text-white font-bold leading-[0.95] mb-7 md:mb-8"
-              style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(2.5rem, 6vw, 6rem)' }}
+              style={{ fontFamily: '"Instrument Serif", serif', fontSize: 'clamp(2.5rem, 6vw, 6rem)' }}
               data-testid="about-headline"
             >
               A century of grain.<br />
@@ -65,7 +65,7 @@ const About = () => {
             { num: '11K+', label: 'Organic Acres' },
           ].map((s) => (
             <div key={s.label} className="md:border-l md:first:border-l-0 md:border-stone-700 md:pl-6">
-              <p className="text-4xl sm:text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-3" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+              <p className="text-4xl sm:text-5xl md:text-6xl text-amber-300 font-bold leading-none mb-3" style={{ fontFamily: '"Instrument Serif", serif' }}>
                 {s.num}
               </p>
               <p className="text-[10px] md:text-[11px] tracking-[0.25em] uppercase text-stone-300 font-medium">{s.label}</p>
@@ -80,7 +80,7 @@ const About = () => {
           <p className="text-[11px] tracking-[0.4em] uppercase text-amber-700 mb-6 font-semibold">Our Manifesto</p>
           <p
             className="text-2xl sm:text-3xl md:text-4xl font-light text-stone-900 italic leading-snug mb-8"
-            style={{ fontFamily: '"Cormorant Garamond", serif' }}
+            style={{ fontFamily: '"Instrument Serif", serif' }}
             data-testid="about-manifesto"
           >
             {"\u201CWe did not start a brand. We started a quiet rebellion \u2014 against forgotten grains, against poisoned soil, against the idea that women belong indoors. "}<span className="not-italic font-medium text-amber-700">Every packet is a small act of remembering.</span>{"\u201D"}
@@ -109,6 +109,7 @@ const About = () => {
                     preload="none"
                     data-testid="founder-video"
                   >
+                    <source src="/founder-video.webm" type="video/webm" />
                     <source src={FOUNDER_VIDEO} type="video/mp4" />
                   </video>
                   {!videoPlaying && (
@@ -153,7 +154,7 @@ const About = () => {
                   I started walking from village to village, sitting cross-legged with women farmers who knew the soil better than any agronomist. They had the knowledge. They had the seeds. What they did not have was a market — or a voice.
                 </p>
 
-                <blockquote className="text-xl md:text-2xl italic text-stone-900 border-l-4 border-amber-400 pl-6 my-10 leading-snug" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+                <blockquote className="text-xl md:text-2xl italic text-stone-900 border-l-4 border-amber-400 pl-6 my-10 leading-snug" style={{ fontFamily: '"Instrument Serif", serif' }}>
                   {"\u201CWhat if I could bring back the foods that healed us for centuries \u2014 and pay the women who grow them with the dignity they deserve?\u201D"}
                 </blockquote>
 
@@ -283,7 +284,7 @@ const About = () => {
                 <p>
                   When you buy a packet from us, you are not buying a commodity. You are sending a daughter to school. You are letting a grandmother retire with dignity. You are paying a young woman the wage her work has always deserved.
                 </p>
-                <p className="text-xl md:text-2xl italic text-amber-300 font-light pt-3" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+                <p className="text-xl md:text-2xl italic text-amber-300 font-light pt-3" style={{ fontFamily: '"Instrument Serif", serif' }}>
                   This is the quiet economics of every kilo we ship.
                 </p>
               </div>
@@ -347,7 +348,7 @@ const About = () => {
             <p>
               Every grain that reaches your home has been touched by women who treat food as medicine and soil as sacred. <strong className="text-stone-900 font-semibold">If it does not taste like something your grandmother would have served — send it back.</strong>
             </p>
-            <p className="text-2xl md:text-3xl text-stone-900 font-light pt-4 italic" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+            <p className="text-2xl md:text-3xl text-stone-900 font-light pt-4 italic" style={{ fontFamily: '"Instrument Serif", serif' }}>
               We sell hope. Health. Heritage. — and the future of every daughter learning how to feed her family.
             </p>
           </div>

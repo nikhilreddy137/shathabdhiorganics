@@ -56,7 +56,7 @@ const CartDrawer = ({ open, onClose }) => {
           {/* Header */}
           <SheetHeader className="px-6 py-6 border-b border-gray-200">
             <div className="flex items-center justify-between">
-              <SheetTitle className="text-xl font-light" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+              <SheetTitle className="text-xl font-light" style={{ fontFamily: 'Instrument Serif, serif' }}>
                 Shopping Cart
               </SheetTitle>
               <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
@@ -86,7 +86,7 @@ const CartDrawer = ({ open, onClose }) => {
                     </div>
                     <div className="flex-1">
                       <div className="flex justify-between mb-2">
-                        <h3 className="font-normal text-gray-900" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+                        <h3 className="font-normal text-gray-900" style={{ fontFamily: 'Instrument Serif, serif' }}>
                           {item.product_name}
                         </h3>
                         <button
@@ -128,7 +128,7 @@ const CartDrawer = ({ open, onClose }) => {
             <div className="border-t border-gray-200 px-6 py-6 bg-gray-50">
               <div className="flex justify-between mb-6">
                 <span className="text-base font-normal text-gray-900">Subtotal</span>
-                <span className="text-xl font-light" data-testid="cart-subtotal" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+                <span className="text-xl font-light" data-testid="cart-subtotal" style={{ fontFamily: 'Instrument Serif, serif' }}>
                   ₹{cart.total?.toFixed(2) || '0.00'}
                 </span>
               </div>

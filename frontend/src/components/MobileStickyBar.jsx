@@ -17,7 +17,7 @@ const MobileStickyBar = () => {
   const location = useLocation();
 
   // Hide on contact (form already prominent)
-  const hideOnPaths = ['/contact'];
+  const hideOnPaths = ['/contact', '/product'];
   const shouldHide = hideOnPaths.some((p) => location.pathname.startsWith(p));
 
   useEffect(() => {

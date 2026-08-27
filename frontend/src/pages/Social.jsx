@@ -38,7 +38,7 @@ const reels = [
     id: 'nani-secret',
     headline: "Your Nani's Summer Secret.",
     subline: 'Introducing Amla Pickle — sour, spicy, soul food.',
-    productImg: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/1_15e8b739-81fa-4831-96c8-ad3368bdbc6a.webp?v=1722854573',
+    productImg: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/1_ac79970c-0869-49c8-8b9d-9f5734ad63c3.webp?v=1787405590',
     tag: 'Amla Pickle',
     isReel: false,
   },
@@ -78,7 +78,7 @@ const reels = [
     id: 'foxtail-fresh',
     headline: 'Foxtail Millet — Fresh From The Field.',
     subline: 'Korralu, the way your grandmother bought it.',
-    productImg: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/Foxtail_Millet_1.jpg?v=1724434250',
+    productImg: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/1_1b009359-70b1-414a-891d-f8cd85f57c94.webp?v=1787405595',
     tag: 'Foxtail Millet',
     isReel: false,
   },
@@ -94,7 +94,7 @@ const reels = [
     id: 'cold-pressed',
     headline: 'Cold-Pressed. Wood-Pressed. Honest.',
     subline: 'The way oils were always meant to be.',
-    productImg: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/1_57e6957c-15a3-4ec5-b3ed-a54f30814344.webp?v=1722857652',
+    productImg: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/sunflower_cp_oil.jpg?v=1787778755',
     tag: 'Sunflower Oil',
     isReel: false,
   },
@@ -122,7 +122,7 @@ const Social = () => {
         <div className="relative h-full flex items-center justify-center px-4">
           <div className="text-center text-white max-w-3xl">
             <p className="text-[11px] tracking-[0.4em] uppercase text-stone-200 mb-6">@shathabdhiorganics</p>
-            <h1 className="text-white text-5xl md:text-7xl font-light leading-[1.05] mb-7" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+            <h1 className="text-white text-5xl md:text-7xl font-light leading-[1.05] mb-7" style={{ fontFamily: 'Instrument Serif, serif' }}>
               Follow Our Journey on <em className="italic">Instagram</em>
             </h1>
             <div className="w-14 h-px bg-white/70 mx-auto mb-7"></div>
@@ -146,7 +146,7 @@ const Social = () => {
       {/* Eyebrow */}
       <div className="py-14 px-4 text-center bg-white border-b border-stone-200">
         <p className="text-[11px] tracking-[0.3em] uppercase text-stone-600 mb-3">Latest Posts &amp; Reels</p>
-        <h2 className="text-3xl md:text-4xl font-light text-stone-900" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+        <h2 className="text-3xl md:text-4xl font-light text-stone-900" style={{ fontFamily: 'Instrument Serif, serif' }}>
           Straight from our Instagram
         </h2>
         <div className="w-12 h-px bg-stone-400 mx-auto mt-6"></div>
@@ -227,7 +227,7 @@ const Social = () => {
       {/* Bottom Stripe */}
       <div className="bg-stone-50 py-16 px-4 border-t border-stone-200">
         <div className="max-w-3xl mx-auto text-center">
-          <h3 className="text-3xl font-light text-stone-900 mb-5" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+          <h3 className="text-3xl font-light text-stone-900 mb-5" style={{ fontFamily: 'Instrument Serif, serif' }}>
             Tag us in your stories
           </h3>
           <p className="text-stone-700 font-light leading-relaxed mb-8">

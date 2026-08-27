@@ -7,6 +7,22 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        display: ['var(--font-display)', 'Georgia', 'serif'],
+        body: ['var(--font-body)', 'system-ui', 'sans-serif'],
+        label: ['var(--font-body)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-display)', 'Georgia', 'serif'],
+        sans: ['var(--font-body)', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        hero: ['clamp(2.5rem, 1.5rem + 4.4vw, 5rem)', { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '400' }],
+        h1: ['clamp(2rem, 1.4rem + 2.7vw, 3.5rem)', { lineHeight: '1.1', letterSpacing: '-0.015em', fontWeight: '400' }],
+        h2: ['clamp(1.625rem, 1.25rem + 1.7vw, 2.5rem)', { lineHeight: '1.15', letterSpacing: '-0.01em', fontWeight: '400' }],
+        h3: ['clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem)', { lineHeight: '1.25', letterSpacing: '-0.005em', fontWeight: '400' }],
+        'body-lg': ['clamp(1.0625rem, 1rem + 0.3vw, 1.25rem)', { lineHeight: '1.65' }],
+        body: ['clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem)', { lineHeight: '1.7' }],
+        eyebrow: ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.12em', fontWeight: '500' }],
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -56,20 +72,12 @@ module.exports = {
       },
       keyframes: {
         'accordion-down': {
-          from: {
-            height: '0'
-          },
-          to: {
-            height: 'var(--radix-accordion-content-height)'
-          }
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' }
         },
         'accordion-up': {
-          from: {
-            height: 'var(--radix-accordion-content-height)'
-          },
-          to: {
-            height: '0'
-          }
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' }
         }
       },
       animation: {

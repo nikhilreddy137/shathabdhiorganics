@@ -85,7 +85,7 @@ async def get_products(
     benefits: Optional[str] = Query(None),
     sort_by: Optional[str] = Query("featured"),
     page: int = Query(1, ge=1),
-    per_page: int = Query(20, ge=1, le=100)
+    per_page: int = Query(20, ge=1, le=200)
 ):
     """Get all products with filtering, sorting, and pagination"""
     try:

@@ -2,6 +2,7 @@ import React from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./contexts/CartContext";
+import SmoothScroll from "./components/SmoothScroll";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
@@ -19,6 +20,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <SmoothScroll>
         <CartProvider>
           <Header />
           <Routes>
@@ -35,6 +37,7 @@ function App() {
           <WhatsAppButton />
           <MobileStickyBar />
         </CartProvider>
+        </SmoothScroll>
       </BrowserRouter>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Minus, Plus, ShoppingBag, Check, Leaf, Hand, Award } from 'lucide-react';
 import { productAPI } from '../services/api';
@@ -8,6 +8,7 @@ import { toast } from '../components/ui/sonner';
 import { Toaster } from '../components/ui/sonner';
 import { logger } from '../utils/logger';
 import { TruncatedText } from '../components/TruncatedText';
+import { Img } from '../components/Img';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -20,6 +21,16 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
+  const [showStickyAtc, setShowStickyAtc] = useState(false);
+  const atcRef = useRef(null);
+
+  useEffect(() => {
+    const el = atcRef.current;
+    if (!el || !product) return undefined;
+    const io = new IntersectionObserver(([entry]) => setShowStickyAtc(!entry.isIntersecting), { threshold: 0 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [product]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -109,11 +120,14 @@ const ProductDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
           {/* Image */}
           <div className="lg:col-span-7" data-testid="product-detail-image">
-            <div className="relative aspect-square bg-stone-100 overflow-hidden lg:sticky lg:top-24">
-              <img
+            <div className="relative lg:sticky lg:top-24">
+              <Img
                 src={product.image}
-                alt={product.name}
-                className="absolute inset-0 w-full h-full object-cover"
+                alt={`${product.name} — organic product from Shathabdhi farms`}
+                ratio="1/1"
+                sizes="(min-width: 1024px) 58vw, 100vw"
+                priority
+                className="w-full"
               />
               <div className="absolute top-5 left-5 flex flex-col gap-2">
                 <span className="text-[10px] tracking-[0.3em] uppercase text-white bg-stone-900/80 backdrop-blur-sm px-3 py-1.5 w-fit">
@@ -135,7 +149,7 @@ const ProductDetail = () => {
             </p>
             <h1
               className="font-serif text-stone-900 mb-3 leading-[1.05]"
-              style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(2.25rem, 4.5vw, 3.75rem)' }}
+              style={{ fontFamily: '"Instrument Serif", serif', fontSize: 'clamp(2.25rem, 4.5vw, 3.75rem)' }}
               data-testid="product-detail-title"
             >
               {product.name}
@@ -218,12 +232,12 @@ const ProductDetail = () => {
             </div>
 
             {/* Add to Cart */}
-            <div className="flex items-center gap-3 mb-3">
+            <div className="flex items-center gap-3 mb-3" ref={atcRef}>
               <Button
                 onClick={handleAdd}
                 disabled={adding || !selectedSize}
                 data-testid="add-to-cart-btn"
-                className="flex-1 bg-stone-900 hover:bg-amber-500 hover:text-stone-900 active:scale-[0.98] text-white font-semibold text-xs tracking-[0.3em] uppercase py-7 rounded-none transition-all duration-300 disabled:opacity-60"
+                className="flex-1 bg-stone-900 hover:bg-amber-500 hover:text-stone-900 active:scale-[0.98] text-white font-medium text-xs tracking-[0.06em] uppercase py-7 rounded-none transition-all duration-300 disabled:opacity-60 price"
               >
                 <ShoppingBag className="w-4 h-4 mr-3" />
                 {adding ? 'Adding…' : `Add · ₹${total.toFixed(0)}`}
@@ -270,6 +284,30 @@ const ProductDetail = () => {
               ))}
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Sticky mobile add-to-cart */}
+      <div
+        data-testid="sticky-mobile-atc"
+        aria-hidden={!showStickyAtc}
+        className={`md:hidden fixed left-0 right-0 bottom-0 z-40 bg-white border-t border-stone-200 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-transform duration-300
+          ${showStickyAtc ? 'translate-y-0' : 'translate-y-full pointer-events-none'}`}
+      >
+        <div className="flex items-center gap-3">
+          <div className="min-w-0">
+            <p className="text-sm text-stone-900 truncate">{product.name}</p>
+            <p className="text-sm text-stone-500 price">₹{total.toFixed(0)}{selectedSize && selectedSize.size !== 'Default Title' ? ` · ${selectedSize.size}` : ''}</p>
+          </div>
+          <button
+            type="button"
+            onClick={handleAdd}
+            disabled={adding || !selectedSize}
+            data-testid="sticky-atc-btn"
+            className="ml-auto flex-shrink-0 min-h-[48px] px-7 bg-stone-900 text-white hover:bg-amber-400 hover:text-stone-900 text-xs font-medium uppercase tracking-[0.06em] transition-all disabled:opacity-60"
+          >
+            {adding ? 'Adding…' : 'Add to cart'}
+          </button>
         </div>
       </div>
 

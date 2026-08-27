@@ -1,412 +1,354 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowRight, Star } from 'lucide-react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { productAPI, categoryAPI, testimonialAPI } from '../services/api';
 import { useCart } from '../contexts/CartContext';
-import { Button } from '../components/ui/button';
-import { Card, CardContent } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { toast } from '../components/ui/sonner';
-import { Toaster } from '../components/ui/sonner';
+import { toast, Toaster } from '../components/ui/sonner';
 import { logger } from '../utils/logger';
-import { TruncatedText } from '../components/TruncatedText';
+import { Img } from '../components/Img';
+import { ProductCard, SkeletonCard } from '../components/catalog/ProductCard';
+import { QuickAddSheet } from '../components/catalog/QuickAddSheet';
+import { slugify } from '../components/catalog/CategoryRail';
+import { Reveal, SplitLines, Marquee } from '../components/motion/Primitives';
+import { TestimonialStage } from '../components/TestimonialStage';
 
-const HERO_SLIDES = [
+const MARQUEE_ITEMS = [
+  'Heritage millets',
+  'Cold-pressed oils',
+  'Hand-pounded spices',
+  'Raw forest honey',
+  'Bilona ghee',
+  'Unpolished dals',
+  'Sun-cured pickles',
+];
+
+const CHAPTERS = [
   {
-    src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=2000&q=80',
-    alt: 'Golden fields at sunset',
+    num: '01',
+    title: 'Living soil',
+    body: 'No synthetic pesticides, herbicides or GMO seeds — ever. Our fields in Telangana are farmed the way they were a century ago: compost, crop rotation and patience. What touches your plate touches your DNA.',
+    image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80',
+    alt: 'Lush green millet crop growing in chemical-free living soil',
+    eyebrow: 'Certified organic',
   },
   {
-    src: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=2000&q=80',
-    alt: 'Lush green millet crop',
+    num: '02',
+    title: 'Heirloom seed',
+    body: 'Siridhanya millets and heritage grains carry up to 60% more iron, zinc and magnesium than industrial crops. Naturally gluten-free, low on the glycemic index and rich in fibre — grains your grandmother would recognise.',
+    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80',
+    alt: 'Close-up of unpolished heritage grains',
+    eyebrow: 'Up to 60% more nutrients',
   },
   {
-    src: 'https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=2000&q=80',
-    alt: 'Cows grazing in a misty pasture',
-  },
-  {
-    src: 'https://images.pexels.com/photos/2589457/pexels-photo-2589457.jpeg?auto=compress&cs=tinysrgb&w=2000',
-    alt: 'Sunset over a rural rice paddy field',
+    num: '03',
+    title: 'Her hands',
+    body: 'Every kilo is grown, sorted and hand-packed by a collective of 2,400+ women farmers — and pays them directly. No middlemen, no cold storage, no shortcuts between her field and your kitchen.',
+    image: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80',
+    alt: 'A farmer\'s hands cradling ripened grain in the field',
+    eyebrow: '2,400+ women farmers',
   },
 ];
+
+const FEATURED_CHIPS = ['All', 'Millets', 'Spices & Powders', 'Rices', 'Oils', 'Cookies', 'Snacks & Bars', 'Health Drinks'];
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeChip, setActiveChip] = useState('All');
+  const [quickAdd, setQuickAdd] = useState({ product: null, variant: null, open: false });
 
   const { addToCart } = useCart();
 
-  const [activeChip, setActiveChip] = useState('All');
-
-  const fetchData = React.useCallback(async () => {
-    try {
-      setLoading(true);
-      const [productsData, categoriesData, testimonialsData] = await Promise.all([
-        productAPI.getAll({ per_page: 100 }),
-        categoryAPI.getAll(),
-        testimonialAPI.getAll({ is_featured: true, limit: 4 })
-      ]);
-      
-      setProducts(productsData.products || []);
-      setCategories(categoriesData);
-      setTestimonials(testimonialsData);
-    } catch (error) {
-      logger.error('Error fetching data:', error);
-      toast.error('Failed to load data');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const videoY = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    (async () => {
+      try {
+        setLoading(true);
+        const [productsData, categoriesData, testimonialsData] = await Promise.all([
+          productAPI.getAll({ per_page: 200 }),
+          categoryAPI.getAll(),
+          testimonialAPI.getAll({ is_featured: true, limit: 4 }),
+        ]);
+        setProducts(productsData.products || []);
+        setCategories(categoriesData);
+        setTestimonials(testimonialsData);
+      } catch (error) {
+        logger.error('Error fetching data:', error);
+        toast.error('Failed to load data');
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
-  const handleAddToCart = async (product) => {
+  const handleAddSingle = async (product) => {
     try {
-      const defaultSize = product.sizes[0];
-      await addToCart(product.id, defaultSize.size, 1);
-      toast.success(`${product.name} added to cart!`);
+      await addToCart(product.id, product.sizes[0].size, 1);
+      toast.success(`${product.name} added to cart`);
     } catch (error) {
       logger.error('Error adding to cart:', error);
-      toast.error('Failed to add item to cart');
+      toast.error('Could not add to cart — please try again.');
     }
   };
 
-  const ProductCard = ({ product }) => (
-    <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-200 rounded-none bg-white" data-testid={`product-card-${product.id}`}>
-      <Link to={`/product/${product.id}`} className="block relative aspect-square overflow-hidden bg-white" data-testid={`product-image-${product.id}`}>
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        {product.badge && (
-          <div className="absolute top-1.5 left-1.5 sm:top-3 sm:left-3">
-            <Badge className="bg-gray-900 text-white font-normal text-[8px] sm:text-[10px] uppercase tracking-wider rounded-none px-1.5 sm:px-3 py-0.5 sm:py-1">
-              {product.badge}
-            </Badge>
-          </div>
-        )}
-      </Link>
-      <CardContent className="p-2.5 sm:p-6 space-y-1 sm:space-y-3">
-        <div>
-          <Link to={`/product/${product.id}`} className="block hover:text-amber-700 transition-colors" data-testid={`product-link-${product.id}`}>
-            <h3 className="font-normal text-xs sm:text-lg text-gray-900 mb-0.5 sm:mb-1 leading-snug" style={{ fontFamily: 'Cormorant Garamond, serif' }}>{product.name}</h3>
-          </Link>
-          <TruncatedText
-            text={product.description}
-            maxLength={70}
-            className="hidden sm:block text-xs text-gray-500 uppercase tracking-wide"
-            testId={`product-description-${product.id}`}
-          />
-        </div>
-        <p className="hidden sm:block text-sm text-gray-600">{product.profile}</p>
-        <div className="flex items-baseline gap-1 sm:gap-2">
-          <span className="hidden sm:inline text-xs text-gray-500">from</span>
-          <span className="text-sm sm:text-lg font-light text-gray-900">₹{product.base_price}</span>
-        </div>
-        <Button
-          onClick={() => handleAddToCart(product)}
-          data-testid={`add-to-cart-home-${product.id}`}
-          className="w-full bg-transparent border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-normal text-[9px] sm:text-xs uppercase tracking-wider transition-all rounded-none py-2.5 sm:py-5"
-        >
-          Add to Cart
-        </Button>
-      </CardContent>
-    </Card>
-  );
+  const handleQuickAddSheet = async (product, variant, qty) => {
+    try {
+      await addToCart(product.id, variant.size, qty);
+      toast.success(`${qty} × ${product.name} added to cart`);
+    } catch (error) {
+      logger.error('Error adding to cart:', error);
+      toast.error('Could not add to cart — please try again.');
+      throw error;
+    }
+  };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
-          <p className="mt-4 text-gray-600 text-sm">Loading...</p>
-        </div>
-      </div>
-    );
-  }
+  const featured = useMemo(() => {
+    const matching = activeChip === 'All' ? products : products.filter((p) => p.category === activeChip);
+    return matching.slice(0, 8);
+  }, [products, activeChip]);
 
   return (
     <div className="min-h-screen bg-white">
       <Toaster position="top-right" />
-      
-      {/* Hero Banner — Cinematic Video Carousel */}
-      <div className="relative h-[600px] sm:h-[680px] md:h-[780px] bg-stone-900 overflow-hidden" data-testid="hero-carousel">
-        {/* Looping background video */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={HERO_SLIDES[0].src}
-          className="absolute inset-0 w-full h-full object-cover"
-          data-testid="hero-video"
-        >
-          <source src="https://assets.mixkit.co/videos/17547/17547-360.mp4" type="video/mp4" />
-        </video>
 
-        {/* Cinematic overlay */}
+      {/* ---------- Kinetic hero ---------- */}
+      <section ref={heroRef} className="relative min-h-[92svh] bg-stone-900 overflow-hidden flex items-end" data-testid="hero-carousel">
+        <motion.div style={{ y: videoY }} className="absolute inset-0 will-change-transform">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/hero-poster.jpg"
+            className="absolute inset-0 w-full h-full object-cover hero-zoom"
+            data-testid="hero-video"
+          >
+            <source src="https://assets.mixkit.co/videos/48769/48769-720.mp4" type="video/mp4" />
+          </video>
+        </motion.div>
         <div
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to right, rgba(28,25,23,0.92) 0%, rgba(28,25,23,0.78) 35%, rgba(28,25,23,0.55) 65%, rgba(28,25,23,0.30) 100%)',
+              'linear-gradient(to top, rgba(18,13,8,0.94) 0%, rgba(24,16,8,0.45) 45%, rgba(30,20,8,0.25) 100%), radial-gradient(ellipse at 70% 30%, rgba(251,191,36,0.10) 0%, transparent 55%)',
           }}
         ></div>
+        <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 220px 60px rgba(10,7,4,0.55)' }}></div>
+        <div className="absolute inset-0 grain opacity-[0.08] mix-blend-overlay pointer-events-none"></div>
 
-        {/* Subtle grain texture */}
-        <div className="absolute inset-0 opacity-[0.08] mix-blend-overlay pointer-events-none"
-          style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '3px 3px' }}
-        ></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 h-full flex items-center">
-          <div className="max-w-2xl text-white">
-            <div className="flex items-center gap-3 mb-5 md:mb-6">
-              <span className="h-[2px] w-10 bg-amber-400"></span>
-              <p className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-amber-300 font-semibold">Shathabdhi Organics</p>
-            </div>
-            <h1 className="text-white text-4xl sm:text-5xl md:text-7xl font-light mb-5 md:mb-6 leading-[1.05] drop-shadow-2xl" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
-              Nourishing Bodies,<br />
-              <em className="italic font-light text-amber-300">Transforming Lives</em>
-            </h1>
-            <div className="w-12 md:w-16 h-px bg-amber-400 mb-6 md:mb-7"></div>
-            <p className="text-sm md:text-lg text-stone-100 font-light leading-relaxed mb-7 md:mb-10 max-w-xl">
-              Heritage millets, hand-blended spices and cold-pressed oils — sourced directly from sustainable farms in Telangana, packed with the wisdom of our ancestors.
+        <motion.div style={{ opacity: contentOpacity }} className="relative z-10 w-full max-w-7xl mx-auto px-4 pb-14 md:pb-20 pt-40">
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.05 }}
+            className="text-eyebrow uppercase text-amber-300 mb-5 flex items-center gap-3"
+          >
+            <span className="h-px w-10 bg-amber-400 inline-block"></span>
+            Direct from the farmer · Telangana
+          </motion.p>
+
+          <h1 className="font-display text-white mb-6" style={{ fontSize: 'clamp(3rem, 1.5rem + 7vw, 7rem)', lineHeight: 1.02, letterSpacing: '-0.02em' }} data-testid="hero-title">
+            <SplitLines
+              lines={['A century of soil,']}
+              delay={0.2}
+            />
+            <span className="block overflow-hidden">
+              <motion.span
+                className="block italic text-amber-300"
+                initial={{ y: '112%' }}
+                animate={{ y: '0%' }}
+                transition={{ duration: 1, delay: 0.33, ease: [0.22, 1, 0.36, 1] }}
+              >
+                in every grain
+              </motion.span>
+            </span>
+          </h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.65 }}
+            className="flex flex-col md:flex-row md:items-end md:justify-between gap-8"
+          >
+            <p className="text-body-lg text-stone-200 font-light measure max-w-xl">
+              Shathabdhi means a hundred years — the way our grain was always grown. Heritage millets, hand-pounded spices and cold-pressed oils from 2,400+ women farmers in Telangana. Zero chemicals, ever.
             </p>
-            <div className="flex flex-wrap gap-3 md:gap-4">
-              <Link to="/collections/millets">
-                <Button size="lg" className="group bg-amber-400 text-stone-900 hover:bg-amber-300 hover:-translate-y-0.5 active:scale-[0.98] font-bold text-[11px] md:text-xs px-7 md:px-10 py-5 md:py-6 rounded-none uppercase tracking-[0.3em] shadow-xl shadow-amber-500/20 transition-all duration-300" data-testid="hero-shop-millets-btn">
-                  Shop Millets
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
+            <div className="flex flex-wrap gap-3 flex-shrink-0">
+              <Link
+                to="/collections/millets"
+                data-testid="hero-shop-millets-btn"
+                className="group inline-flex items-center justify-center gap-3 min-h-[52px] bg-amber-400 text-stone-900 hover:bg-amber-300 hover:-translate-y-0.5 active:scale-[0.98] font-medium text-xs tracking-[0.06em] uppercase px-9 transition-all duration-300"
+              >
+                Shop millets
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link to="/about">
-                <Button size="lg" variant="outline" className="bg-transparent border border-white/70 text-white hover:bg-white hover:text-stone-900 hover:-translate-y-0.5 active:scale-[0.98] font-semibold text-[11px] md:text-xs px-7 md:px-10 py-5 md:py-6 rounded-none uppercase tracking-[0.3em] backdrop-blur-sm transition-all duration-300" data-testid="hero-our-story-btn">
-                  Our Story
-                </Button>
+              <Link
+                to="/about"
+                data-testid="hero-our-story-btn"
+                className="inline-flex items-center justify-center min-h-[52px] border border-white/60 text-white hover:bg-white hover:text-stone-900 hover:-translate-y-0.5 active:scale-[0.98] font-medium text-xs tracking-[0.06em] uppercase px-9 backdrop-blur-sm transition-all duration-300"
+              >
+                Our story
               </Link>
             </div>
+          </motion.div>
+        </motion.div>
+      </section>
 
-            {/* Trust micro-strip */}
-            <div className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 text-[10px] tracking-[0.25em] uppercase text-stone-300">
-              <span>2,400+ Women Farmers</span>
-              <span className="text-amber-400">·</span>
-              <span>0 Chemicals</span>
-              <span className="text-amber-400">·</span>
-              <span>Free Shipping ₹500+</span>
-            </div>
-          </div>
-        </div>
+      {/* ---------- Editorial marquee ---------- */}
+      <div className="bg-white border-b border-stone-200 py-6 md:py-8 text-stone-900" data-testid="editorial-marquee">
+        <Marquee items={MARQUEE_ITEMS} />
       </div>
 
-      {/* Featured Selections — show ALL products with reactive category chips */}
-      <div className="py-20 px-4 bg-white border-t border-stone-200">
+      {/* ---------- Featured selections ---------- */}
+      <section className="py-16 md:py-24 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-[11px] tracking-[0.3em] uppercase text-amber-700 mb-3">Shop The Whole Pantry</p>
-            <h2 className="text-4xl md:text-5xl font-light text-stone-900" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
-              Featured Selections
-            </h2>
-            <div className="w-12 h-px bg-amber-400 mx-auto mt-6 mb-6"></div>
-            <p className="text-sm md:text-base text-stone-600 max-w-2xl mx-auto font-light leading-relaxed">
-              Every grain, oil and spice we make — filter by category or browse the entire collection below.
-            </p>
-          </div>
+          <Reveal className="mb-10">
+            <p className="text-eyebrow uppercase text-amber-700 mb-3">Shop the whole pantry</p>
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+              <h2 className="font-display text-h1 text-stone-900">Featured selections</h2>
+              <Link
+                to="/collections/best-sellers"
+                data-testid="shop-all-bestsellers-btn"
+                className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.06em] text-stone-900 hover:text-amber-800 hover:gap-3.5 transition-all min-h-[44px]"
+              >
+                Shop the full collection
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </Reveal>
 
-          {/* Reactive category chips */}
-          <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-10 md:mb-14 px-2" data-testid="featured-category-chips">
-            {['All', 'Millets', 'Spices & Powders', 'Rices', 'Oils', 'Dals', 'Cookies', 'Snacks & Bars', 'Sweets & Treats', 'Health Drinks', 'Processed Products'].map((c) => {
+          <div className="flex gap-2 mb-10 overflow-x-auto no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap" data-testid="featured-category-chips">
+            {FEATURED_CHIPS.map((c) => {
               const isActive = activeChip === c;
-              const count = c === 'All'
-                ? products.length
-                : products.filter((p) => p.category === c).length;
               return (
                 <button
                   key={c}
                   type="button"
                   onClick={() => setActiveChip(c)}
                   data-testid={`featured-chip-${c.replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase()}`}
-                  className={`group inline-flex items-center gap-1.5 md:gap-2 rounded-full border px-3.5 md:px-5 py-1.5 md:py-2 text-[10px] md:text-[11px] uppercase tracking-[0.15em] md:tracking-[0.2em] font-medium transition-all duration-300 ease-out
+                  className={`flex-shrink-0 min-h-[44px] rounded-full border px-5 text-sm transition-all duration-300
                     ${isActive
-                      ? 'bg-stone-900 text-white border-stone-900 shadow-md -translate-y-0.5'
-                      : 'bg-white text-stone-800 border-stone-300 hover:border-amber-400 hover:text-stone-900 hover:bg-amber-50 hover:-translate-y-0.5'}`}
+                      ? 'bg-stone-900 text-white border-stone-900'
+                      : 'bg-white text-stone-700 border-stone-300 hover:border-stone-900 hover:text-stone-900'}`}
                 >
-                  <span>{c}</span>
-                  <span className={`text-[9px] px-1.5 py-0.5 rounded-full transition-colors ${isActive ? 'bg-amber-400 text-stone-900' : 'bg-stone-100 text-stone-600 group-hover:bg-amber-200 group-hover:text-stone-900'}`}>
-                    {count}
-                  </span>
+                  {c}
                 </button>
               );
             })}
           </div>
 
-          {/* Products grid — show up to 10 products in the active filter */}
-          {(() => {
-            const matching = activeChip === 'All' ? products : products.filter((p) => p.category === activeChip);
-            const visible = matching.slice(0, 10);
-            if (!loading && matching.length === 0) {
-              return (
-                <div className="text-center py-20 text-stone-500" data-testid="featured-empty">
-                  No products in this collection yet — try another filter.
-                </div>
-              );
-            }
-            return (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-testid="featured-grid">
-                {visible.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            );
-          })()}
-
-          <div className="text-center mt-12">
-            <Link to="/collections/best-sellers">
-              <Button className="bg-stone-900 text-white hover:bg-amber-500 hover:text-stone-900 active:scale-[0.98] font-semibold text-xs uppercase tracking-[0.25em] px-12 py-6 rounded-none transition-all duration-300" data-testid="shop-all-bestsellers-btn">
-                Shop the Full Collection <ArrowRight className="w-3 h-3 ml-2" />
-              </Button>
-            </Link>
-          </div>
+          {loading ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-3 gap-y-6 md:gap-x-6">
+              {Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)}
+            </div>
+          ) : featured.length === 0 ? (
+            <div className="text-center py-16 text-stone-500" data-testid="featured-empty">
+              No products in this collection yet — try another filter.
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-3 gap-y-6 md:gap-x-6" data-testid="featured-grid">
+              {featured.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAddSingle={handleAddSingle}
+                  onQuickAdd={(p, variant) => setQuickAdd({ product: p, variant: variant || null, open: true })}
+                />
+              ))}
+            </div>
+          )}
         </div>
-      </div>
+      </section>
 
-      {/* Begin Your Journey Section */}
-      <div className="py-20 px-4 bg-stone-50">
+      {/* ---------- Numbered manifesto chapters ---------- */}
+      <section className="bg-stone-900 text-white py-20 md:py-32 px-4" data-testid="manifesto-section">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-[11px] tracking-[0.3em] uppercase text-stone-600 mb-3">Our Promise</p>
-            <h2 className="text-4xl md:text-5xl font-light text-stone-900" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
-              Begin Your Journey with Shathabdhi
+          <Reveal className="mb-16 md:mb-24">
+            <p className="text-eyebrow uppercase text-amber-300 mb-3">Why we exist</p>
+            <h2 className="font-display text-h1 text-white max-w-3xl">
+              Modern food is engineered for shelf-life. <em className="italic text-amber-300">Ours is grown for life.</em>
             </h2>
-            <div className="w-12 h-px bg-stone-400 mx-auto mt-6"></div>
-          </div>
+          </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div className="text-center">
-              <div className="aspect-[4/5] overflow-hidden mb-6 bg-white">
-                <img
-                  src="https://cdn.shopify.com/s/files/1/0657/0832/6964/files/Foxtail_Millet_1.jpg?v=1724434250"
-                  alt="Certified Organic Millets"
-                  loading="lazy"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
+          <div className="space-y-20 md:space-y-28">
+            {CHAPTERS.map((ch, i) => (
+              <div
+                key={ch.num}
+                className={`grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center ${i % 2 === 1 ? '' : ''}`}
+                data-testid={`manifesto-chapter-${ch.num}`}
+              >
+                <Reveal className={`md:col-span-5 ${i % 2 === 1 ? 'md:order-2 md:col-start-8' : ''}`}>
+                  <Img
+                    src={ch.image}
+                    alt={ch.alt}
+                    ratio="3/2"
+                    sizes="(min-width: 768px) 42vw, 100vw"
+                    className="w-full"
+                  />
+                </Reveal>
+                <Reveal delay={0.12} className={`md:col-span-6 ${i % 2 === 1 ? 'md:order-1 md:col-start-1' : 'md:col-start-7'}`}>
+                  <p className="font-display italic text-hero text-stone-700 leading-none select-none" aria-hidden="true">{ch.num}</p>
+                  <p className="text-eyebrow uppercase text-amber-300 mt-4 mb-2">{ch.eyebrow}</p>
+                  <h3 className="font-display text-h2 text-white mb-4">{ch.title}</h3>
+                  <p className="text-body text-stone-300 font-light measure">{ch.body}</p>
+                </Reveal>
               </div>
-              <p className="text-[10px] text-stone-600 uppercase tracking-[0.3em] mb-3">Certified Organic</p>
-              <h3 className="text-xl text-stone-900 mb-3 font-light" style={{ fontFamily: 'Cormorant Garamond, serif' }}>100% Pure, 0% Chemicals</h3>
-              <p className="text-sm text-stone-700 leading-relaxed font-light">
-                Our millets and spices are healthier for the planet — and for the people who grow, craft and enjoy them. Over 95% certified organic.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="aspect-[4/5] overflow-hidden mb-6 bg-white">
-                <img
-                  src="https://cdn.shopify.com/s/files/1/0657/0832/6964/files/1_57e6957c-15a3-4ec5-b3ed-a54f30814344.webp?v=1722857652"
-                  alt="Direct Trade Cold Pressed Oils"
-                  loading="lazy"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-              <p className="text-[10px] text-stone-600 uppercase tracking-[0.3em] mb-3">Direct Trade</p>
-              <h3 className="text-xl text-stone-900 mb-3 font-light" style={{ fontFamily: 'Cormorant Garamond, serif' }}>From Farm to Family</h3>
-              <p className="text-sm text-stone-700 leading-relaxed font-light">
-                Ethically sourced from artisan women farmers in Telangana. Our deep relationships are the foundation of every grain, bottle and pouch.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="aspect-[4/5] overflow-hidden mb-6 bg-white">
-                <img
-                  src="https://cdn.shopify.com/s/files/1/0657/0832/6964/files/1_15e8b739-81fa-4831-96c8-ad3368bdbc6a.webp?v=1722854573"
-                  alt="Hand-blended spices"
-                  loading="lazy"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-              <p className="text-[10px] text-stone-600 uppercase tracking-[0.3em] mb-3">Beautiful Ingredients</p>
-              <h3 className="text-xl text-stone-900 mb-3 font-light" style={{ fontFamily: 'Cormorant Garamond, serif' }}>Ayurvedic Heritage</h3>
-              <p className="text-sm text-stone-700 leading-relaxed font-light">
-                Inspired by ancient Ayurvedic traditions and modern culinary innovation — pure, wholesome ingredients that respect both tradition and taste.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Category Gallery */}
-      <div className="py-20 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-[11px] tracking-[0.3em] uppercase text-stone-600 mb-3">Shop by Category</p>
-            <h2 className="text-4xl md:text-5xl font-light text-stone-900" style={{ fontFamily: 'Cormorant Garamond, serif' }}>Explore the Collection</h2>
-            <div className="w-12 h-px bg-stone-400 mx-auto mt-6"></div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-stone-200">
-            {categories.map((cat) => {
-              const slug = cat.name.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
-              return (
-                <Link
-                  key={cat.id}
-                  to={`/collections/${slug}`}
-                  className="group relative aspect-square overflow-hidden bg-white"
-                >
-                  {cat.image && (
-                    <img
-                      src={cat.image}
-                      alt={cat.name}
-                      loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-stone-900/85 via-stone-900/20 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-5 text-center">
-                    <p className="text-white text-[10px] tracking-[0.25em] uppercase font-medium">{cat.name}</p>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* Reviews Section */}
-      <div className="py-20 px-4 bg-white border-t border-gray-200">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light text-gray-900 mb-3" style={{ fontFamily: 'Cormorant Garamond, serif' }}>Reviews</h2>
-            <p className="text-lg text-gray-600 font-light" style={{ fontFamily: 'Cormorant Garamond, serif' }}>What Our Customers Are Saying</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {testimonials.map(testimonial => (
-              <Card key={testimonial.id} className="hover:shadow-lg transition-shadow border border-gray-200 rounded-none">
-                <CardContent className="p-6 space-y-4">
-                  <div className="flex gap-1 mb-2">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={`star-${testimonial.id}-${i}`} className="w-3 h-3 fill-gray-900 text-gray-900" />
-                    ))}
-                  </div>
-                  <p className="text-sm text-gray-700 leading-relaxed">"{testimonial.text}"</p>
-                  <p className="text-xs text-gray-900 font-normal">—{testimonial.name}</p>
-                  <div className="pt-4 border-t border-gray-200">
-                    <img
-                      src={testimonial.product_image}
-                      alt={testimonial.product_name}
-                      className="w-16 h-16 object-cover mb-2"
-                    />
-                    <p className="text-xs text-gray-600">{testimonial.product_name}</p>
-                  </div>
-                </CardContent>
-              </Card>
             ))}
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* ---------- Category gallery ---------- */}
+      <section className="py-16 md:py-24 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <Reveal className="mb-10">
+            <p className="text-eyebrow uppercase text-stone-500 mb-3">Shop by category</p>
+            <h2 className="font-display text-h1 text-stone-900">Explore the collection</h2>
+          </Reveal>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-stone-200" data-testid="category-gallery">
+            {categories.map((cat, i) => (
+              <Link
+                key={cat.id}
+                to={`/collections/${slugify(cat.name)}`}
+                className="group relative bg-white overflow-hidden"
+                data-testid={`category-tile-${slugify(cat.name)}`}
+              >
+                <Img
+                  src={cat.image}
+                  alt={`${cat.name} — organic ${cat.name.toLowerCase()} from Shathabdhi farms`}
+                  ratio="3/4"
+                  sizes="(min-width: 1024px) 17vw, (min-width: 768px) 33vw, 50vw"
+                  imgClassName="group-hover:scale-[1.05] transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/10 to-transparent pointer-events-none"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <p className="text-white text-sm font-medium leading-tight">{cat.name}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Reviews ---------- */}
+      {testimonials.length > 0 && <TestimonialStage testimonials={testimonials} />}
+
+      <QuickAddSheet
+        product={quickAdd.product}
+        initialVariant={quickAdd.variant}
+        open={quickAdd.open}
+        onClose={() => setQuickAdd((q) => ({ ...q, open: false }))}
+        onAdd={handleQuickAddSheet}
+      />
     </div>
   );
 };

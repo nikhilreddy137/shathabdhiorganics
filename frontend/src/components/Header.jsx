@@ -30,8 +30,8 @@ const Header = () => {
   return (
     <>
       {/* Top Banner */}
-      <div className="bg-gray-900 text-white text-center py-2 px-4 text-xs tracking-wide">
-        Free shipping on orders over ₹500. <span className="underline cursor-pointer">Shop Now</span>
+      <div className="bg-stone-900 text-white text-center py-2 px-4 text-xs tracking-[0.02em]" style={{ paddingTop: 'max(0.5rem, env(safe-area-inset-top))' }}>
+        Free shipping on orders over ₹500. <Link to="/collections/best-sellers" className="underline">Shop now</Link>
       </div>
 
       {/* Main Header */}
@@ -50,7 +50,7 @@ const Header = () => {
 
             {/* Logo */}
             <Link to="/" data-testid="header-logo" className="group flex items-center transition-transform duration-300 hover:scale-[1.02]">
-              <h1 className="text-base sm:text-xl font-light text-gray-900 tracking-widest transition-colors group-hover:text-amber-700 leading-tight" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+              <h1 className="text-base sm:text-xl font-light text-gray-900 tracking-widest transition-colors group-hover:text-amber-700 leading-tight" style={{ fontFamily: 'Instrument Serif, serif' }}>
                 SHATHABDHI
                 <br />
                 <span className="text-[9px] sm:text-[10px] tracking-[0.3em] text-gray-600 group-hover:text-amber-600 transition-colors">ORGANICS</span>
@@ -64,7 +64,7 @@ const Header = () => {
                   key={item.name}
                   to={item.href}
                   data-testid={`nav-${item.name.replace(/\s+/g, '-').toLowerCase()}`}
-                  className="relative text-xs text-gray-700 hover:text-gray-900 font-medium tracking-[0.15em] uppercase py-2 transition-all duration-300 hover:-translate-y-[1px]
+                  className="relative text-sm text-stone-700 hover:text-stone-900 tracking-[0.02em] py-2.5 transition-all duration-300 hover:-translate-y-[1px]
                   after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[1.5px] after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full"
                 >
                   {item.name}
@@ -101,7 +101,7 @@ const Header = () => {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="group flex items-center justify-between text-sm text-gray-700 hover:text-amber-700 hover:bg-amber-50/60 font-medium tracking-[0.15em] uppercase px-3 py-3 rounded transition-all duration-200"
+                    className="group flex items-center justify-between text-sm text-stone-700 hover:text-amber-800 hover:bg-amber-50/60 tracking-[0.02em] px-3 py-3 min-h-[44px] rounded transition-all duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span>{item.name}</span>

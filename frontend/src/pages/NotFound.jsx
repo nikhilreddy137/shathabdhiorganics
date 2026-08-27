@@ -7,7 +7,7 @@ const NotFound = () => {
     <div className="min-h-[70vh] flex items-center justify-center px-4 py-24 bg-stone-50" data-testid="not-found-page">
       <div className="text-center max-w-md">
         <p className="text-[11px] tracking-[0.4em] uppercase text-amber-700 mb-4">404</p>
-        <h1 className="text-3xl md:text-4xl font-serif text-stone-900 mb-4" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
+        <h1 className="text-3xl md:text-4xl font-serif text-stone-900 mb-4" style={{ fontFamily: 'Instrument Serif, serif' }}>
           This page wandered off the farm.
         </h1>
         <p className="text-sm text-stone-500 mb-8">

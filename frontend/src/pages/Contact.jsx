@@ -57,7 +57,7 @@ const Contact = () => {
             </p>
             <h1
               className="text-white font-bold leading-[0.98] mb-5 md:mb-7"
-              style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(2.25rem, 5.5vw, 5rem)' }}
+              style={{ fontFamily: '"Instrument Serif", serif', fontSize: 'clamp(2.25rem, 5.5vw, 5rem)' }}
               data-testid="contact-headline"
             >
               We answer<br />

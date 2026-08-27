@@ -10,8 +10,8 @@ const Footer = () => {
       {/* Newsletter Section */}
       <div className="bg-gray-800 py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h3 className="text-2xl font-light text-white mb-3" style={{ fontFamily: 'Cormorant Garamond, serif' }}>Stay Connected</h3>
-          <p className="text-gray-400 mb-8 text-sm">Subscribe to get special offers, recipes, and health tips</p>
+          <h3 className="font-display text-h3 text-white mb-3">Stay connected</h3>
+          <p className="text-gray-400 mb-8 text-sm">Subscribe to get special offers, recipes and health tips</p>
           <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <Input
               type="email"
@@ -30,7 +30,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* About Section */}
           <div>
-            <h4 className="text-white font-light text-lg mb-6" style={{ fontFamily: 'Cormorant Garamond, serif' }}>Shathabdhi Organics</h4>
+            <h4 className="font-display text-h3 text-white mb-6">Shathabdhi Organics</h4>
             <p className="text-sm mb-6 text-gray-400 leading-relaxed">
               Bringing you the finest organic millets and spices from the farms of Telangana.
               Pure, wholesome, and sustainable.
@@ -50,7 +50,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-normal text-xs uppercase tracking-wider mb-6">Quick Links</h4>
+            <h4 className="text-white text-eyebrow uppercase mb-6">Quick Links</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link></li>
               <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Our Story</a></li>
@@ -62,7 +62,7 @@ const Footer = () => {
 
           {/* Shop */}
           <div>
-            <h4 className="text-white font-normal text-xs uppercase tracking-wider mb-6">Shop</h4>
+            <h4 className="text-white text-eyebrow uppercase mb-6">Shop</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/collections/millets" className="text-gray-400 hover:text-amber-300 transition-colors">Millets</Link></li>
               <li><Link to="/collections/millet-flours" className="text-gray-400 hover:text-amber-300 transition-colors">Millet Flours</Link></li>
@@ -83,7 +83,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="text-white font-normal text-xs uppercase tracking-wider mb-6">Contact Us</h4>
+            <h4 className="text-white text-eyebrow uppercase mb-6">Contact Us</h4>
             <ul className="space-y-4 text-sm">
               <li className="flex items-start space-x-3">
                 <MapPin className="w-4 h-4 mt-1 flex-shrink-0 text-gray-400" />

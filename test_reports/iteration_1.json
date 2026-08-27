@@ -1,0 +1,45 @@
+{
+  "summary": "Frontend-only verification of Typography & Imagery Overhaul PRD (Home kinetic hero, editorial catalog rebuild, Quick Add, Filter/Sort sheets, product detail sticky ATC, cart drawer). All critical flows pass on desktop 1920x1080 and mobile 390x844, no console errors, no broken images, no horizontal overflow at 320px.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verified_features": [
+    "Home hero-title renders 'A century of soil,' + 'in every grain' with SplitLines/mask reveal; <video data-testid=hero-video> and poster present (playback not verified — headless codec limitation, per agent note)",
+    "Editorial marquee visible; manifesto-section renders 3 chapters — all 3 manifesto-chapter images loaded (naturalWidth=806, unsplash urls, no 404)",
+    "Featured chips (All/Millets/Spices & Powders/Rices/Oils/Cookies/Snacks & Bars/Health Drinks) render and switch active state; grid re-renders reactively on chip change (chip=Millets returns 8 filtered products)",
+    "Home Quick Add (single-variant) increments header cart badge (0 -> 1) and shows toast 'added to cart'",
+    "Category gallery: 21 tiles render, hrefs point to /collections/<slug>",
+    "/collections/best-sellers: H1 'Shop all', category-rail with 22 tiles, sticky-filter-bar sticky-positioned, product-count reads '164 products'",
+    "FilterSheet opens with 35 options across Category (21) + Benefits (14), footer shows live 'Show N results' updating from 164 -> 2 on toggling Antioxidant benefit; URL updates to ?benefits=Antioxidant; applied-filter-chips render (chip-benefit-Antioxidant + Clear all)",
+    "chips-clear-all resets URL back to /collections/best-sellers with no query",
+    "SortSheet: choosing sort-option-price-low updates URL to ?sort=price-low and bar label to 'Sort: Price, low to high'",
+    "Editorial break-in cards: 20 rendered on /collections/best-sellers with no filters (~every 8 products across 164), 0 when a benefits filter is applied — behaviour matches spec",
+    "Multi-variant Quick Add (Oils): quick-add-sheet opens, quick-add-qty-increase works, quick-add-confirm-btn shows 'Add to cart · ₹854'; confirm closes sheet and increments cart",
+    "Empty state: ?benefits=NonExistentBenefit123 renders no-products block with empty-clear-filters-btn that resets filters",
+    "Product detail (/product/:id): image, size selector, quantity stepper, add-to-cart-btn all present and functional (cart badge increments)",
+    "Mobile 390px: sticky-mobile-atc rendered and visible after scrolling past main ATC on product detail",
+    "Cart drawer opens from header-cart-btn, shows item + Default Title + ₹55, checkout button data-testid=cart-checkout-btn triggers GET /api/shopify/checkout -> 200 (redirect URL generated). Purchase NOT completed.",
+    "Mobile catalog grid = 2 cols (173px 173px) at 390px viewport",
+    "No horizontal overflow at 320px: Home scrollWidth == clientWidth == 320; Catalog scrollWidth == clientWidth == 320",
+    "Typography audit: h1 computed font-family = '\"Instrument Serif\", serif'; body computed font-family = '\"Hanken Grotesk\", \"Hanken Fallback\", system-ui, sans-serif' — Instrument Serif + Hanken Grotesk resolved, no fallback to system-ui/Arial in primary position",
+    "No broken images (naturalWidth==0) on Home, best-sellers, product-detail, mobile viewports",
+    "No console errors captured across Home, catalog, product detail, cart drawer flows"
+  ],
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "BestSellers.jsx uses eslint-disable-next-line react-hooks/exhaustive-deps twice — acceptable but consider stable deps via useCallback for applyFilters to avoid subtle stale-closure bugs when facet counts get more complex.",
+    "Home.jsx CHAPTERS + BestSellers.jsx have inlined arrays that duplicate PATH_TO_CATEGORY / MARQUEE / CHAPTERS style; consider colocating in /constants for reuse.",
+    "Home hero-title contains two spans across a fixed style block; screen-readers will read 'A century of soil,in every grain' with no space between the two lines — consider adding a visually hidden space or aria-label='A century of soil, in every grain' on the h1 for a11y."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (not tested this iteration per request)", "frontend": "100% (18/18 verified features pass)"},
+  "test_credentials": "none — public storefront",
+  "seed_data_creation": "none — used existing 164 Shopify-synced products",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend GET /api/products supports per_page up to 200, Home + BestSellers fetch all 164 in one call. Hero <video> h264 mp4 cannot autoplay in Playwright headless — verify element/poster only. Multi-variant products live under /collections/oils (e.g., Virgin Coconut Cold Pressed Oil has 3 sizes). Cart drawer requires clicking header-cart-btn via JS after add-to-cart because Sonner toast (top-right) can overlay the cart icon for ~4s. Add-to-cart calls POST /api/cart with session_id; checkout via GET /api/shopify/checkout?session_id=… returns 200 with checkout_url."
+}
