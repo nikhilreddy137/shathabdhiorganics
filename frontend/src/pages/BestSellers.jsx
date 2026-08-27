@@ -29,9 +29,11 @@ const INSTAGRAM_URL = 'https://www.instagram.com/shathabdhiorganics/';
 // Map URL slugs → exact category names in DB
 const PATH_TO_CATEGORY = {
   millets: 'Millets',
+  'millet-flours': 'Millet Flours',
   spices: 'Spices & Powders',
   'spices-and-powders': 'Spices & Powders',
   dals: 'Dals',
+  'dals-and-pulses': 'Dals & Pulses',
   oils: 'Oils',
   cookies: 'Cookies',
   rices: 'Rices',
@@ -39,6 +41,15 @@ const PATH_TO_CATEGORY = {
   'snacks-and-bars': 'Snacks & Bars',
   'sweets-and-treats': 'Sweets & Treats',
   'health-drinks': 'Health Drinks',
+  'idli-and-upma-ravas': 'Idli & Upma Ravas',
+  'fruits-and-vegetables': 'Fruits & Vegetables',
+  'nuts-seeds-and-spices': 'Nuts, Seeds & Spices',
+  pickles: 'Pickles',
+  honey: 'Honey',
+  ghee: 'Ghee',
+  'jaggery-and-sweeteners': 'Jaggery & Sweeteners',
+  'combo-packs': 'Combo Packs',
+  'poultry-and-eggs': 'Poultry & Eggs',
 };
 
 const BestSellers = () => {

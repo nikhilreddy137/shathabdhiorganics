@@ -348,7 +348,7 @@ const Home = () => {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-stone-200">
             {categories.map((cat) => {
-              const slug = cat.name.toLowerCase().replace(/&/g, 'and').replace(/\s+/g, '-');
+              const slug = cat.name.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
               return (
                 <Link
                   key={cat.id}

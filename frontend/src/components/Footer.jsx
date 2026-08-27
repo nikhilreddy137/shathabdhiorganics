@@ -65,15 +65,19 @@ const Footer = () => {
             <h4 className="text-white font-normal text-xs uppercase tracking-wider mb-6">Shop</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/collections/millets" className="text-gray-400 hover:text-amber-300 transition-colors">Millets</Link></li>
-              <li><Link to="/collections/spices-and-powders" className="text-gray-400 hover:text-amber-300 transition-colors">Spices & Powders</Link></li>
+              <li><Link to="/collections/millet-flours" className="text-gray-400 hover:text-amber-300 transition-colors">Millet Flours</Link></li>
+              <li><Link to="/collections/idli-and-upma-ravas" className="text-gray-400 hover:text-amber-300 transition-colors">Idli & Upma Ravas</Link></li>
               <li><Link to="/collections/rices" className="text-gray-400 hover:text-amber-300 transition-colors">Rices</Link></li>
               <li><Link to="/collections/oils" className="text-gray-400 hover:text-amber-300 transition-colors">Oils</Link></li>
-              <li><Link to="/collections/dals" className="text-gray-400 hover:text-amber-300 transition-colors">Dals</Link></li>
+              <li><Link to="/collections/nuts-seeds-and-spices" className="text-gray-400 hover:text-amber-300 transition-colors">Nuts, Seeds & Spices</Link></li>
+              <li><Link to="/collections/fruits-and-vegetables" className="text-gray-400 hover:text-amber-300 transition-colors">Fruits & Vegetables</Link></li>
               <li><Link to="/collections/cookies" className="text-gray-400 hover:text-amber-300 transition-colors">Cookies</Link></li>
               <li><Link to="/collections/snacks-and-bars" className="text-gray-400 hover:text-amber-300 transition-colors">Snacks & Bars</Link></li>
               <li><Link to="/collections/sweets-and-treats" className="text-gray-400 hover:text-amber-300 transition-colors">Sweets & Treats</Link></li>
               <li><Link to="/collections/health-drinks" className="text-gray-400 hover:text-amber-300 transition-colors">Health Drinks</Link></li>
-              <li><Link to="/collections/processed-products" className="text-gray-400 hover:text-amber-300 transition-colors">Processed Products</Link></li>
+              <li><Link to="/collections/pickles" className="text-gray-400 hover:text-amber-300 transition-colors">Pickles</Link></li>
+              <li><Link to="/collections/honey" className="text-gray-400 hover:text-amber-300 transition-colors">Honey</Link></li>
+              <li><Link to="/collections/ghee" className="text-gray-400 hover:text-amber-300 transition-colors">Ghee</Link></li>
             </ul>
           </div>
 

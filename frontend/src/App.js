@@ -23,18 +23,7 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/collections/best-sellers" element={<BestSellers />} />
-            <Route path="/collections/millets" element={<BestSellers />} />
-            <Route path="/collections/spices" element={<BestSellers />} />
-            <Route path="/collections/spices-and-powders" element={<BestSellers />} />
-            <Route path="/collections/dals" element={<BestSellers />} />
-            <Route path="/collections/oils" element={<BestSellers />} />
-            <Route path="/collections/cookies" element={<BestSellers />} />
-            <Route path="/collections/rices" element={<BestSellers />} />
-            <Route path="/collections/processed-products" element={<BestSellers />} />
-            <Route path="/collections/snacks-and-bars" element={<BestSellers />} />
-            <Route path="/collections/sweets-and-treats" element={<BestSellers />} />
-            <Route path="/collections/health-drinks" element={<BestSellers />} />
+            <Route path="/collections/:slug" element={<BestSellers />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/admin/shopify" element={<AdminShopify />} />
             <Route path="/about" element={<About />} />

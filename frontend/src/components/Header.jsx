@@ -13,14 +13,15 @@ const Header = () => {
 
   const navItems = [
     { name: 'Millets', href: '/collections/millets' },
-    { name: 'Spices', href: '/collections/spices-and-powders' },
+    { name: 'Flours', href: '/collections/millet-flours' },
+    { name: 'Ravas', href: '/collections/idli-and-upma-ravas' },
     { name: 'Rices', href: '/collections/rices' },
     { name: 'Oils', href: '/collections/oils' },
-    { name: 'Dals', href: '/collections/dals' },
+    { name: 'Spices', href: '/collections/nuts-seeds-and-spices' },
     { name: 'Cookies', href: '/collections/cookies' },
     { name: 'Snacks', href: '/collections/snacks-and-bars' },
     { name: 'Sweets', href: '/collections/sweets-and-treats' },
-    { name: 'Drinks', href: '/collections/health-drinks' },
+    { name: 'Pickles', href: '/collections/pickles' },
     { name: 'Social', href: '/social' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
