@@ -89,8 +89,8 @@ async def get_products(
 ):
     """Get all products with filtering, sorting, and pagination"""
     try:
-        # Build filter query (exclude Shopify billing/app-managed products from the storefront)
-        query = {"category": {"$ne": "Subscription Management"}}
+        # Build filter query (exclude Shopify billing/app-managed products and photo-less products from the storefront)
+        query = {"category": {"$ne": "Subscription Management"}, "image": {"$ne": ""}}
         
         if category:
             query["category"] = category if category != "Subscription Management" else {"$in": []}
@@ -160,6 +160,7 @@ async def search_products(
         regex = {"$regex": q, "$options": "i"}
         query = {
             "category": {"$ne": "Subscription Management"},
+            "image": {"$ne": ""},
             "$or": [
                 {"name": regex},
                 {"description": regex},

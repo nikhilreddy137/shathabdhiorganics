@@ -24,9 +24,13 @@ Build the Shathabdhi Organics e-commerce landing page/store locally from https:/
 - Verified end-to-end: home, collection listing (images load), product detail, add-to-cart, search, and real Shopify checkout URL generation (shathabdhiorganics.com checkout)
 
 ## Known Gaps / Notes
-- 4 Shopify products have no image in Shopify (show placeholder in grid)
-- Auto-seed on startup only runs when products collection is empty (safe — 167 products present)
+- Auto-seed on startup only runs when products collection is empty (safe — 164 products present)
 - Storefront has no user auth (by design)
+
+## Implemented (Aug 27, 2026 — session 2)
+- Founder video section on About page ("In Her Own Words") — click-to-play cinematic video with Sri Bhanu portrait poster, native controls on play
+- Removed 3 photo-less Shopify products (White Sesame Cold Pressed Oil, Multi Millet Idli Rava, Jowar Rich Multi Grain Atta); products + search endpoints now exclude image-less products so future Shopify syncs keep them hidden (sync-safe)
+- Fixed 3 broken old-CDN images in the About gallery (millet, chilli powder, basmati) with live Shopify CDN URLs — gallery verified 0 broken images
 
 ## Backlog
 - P0: none blocking

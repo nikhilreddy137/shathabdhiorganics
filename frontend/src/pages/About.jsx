@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sprout, Hand, Leaf, Heart, Shield } from 'lucide-react';
+import { ArrowRight, Sprout, Hand, Leaf, Heart, Shield, Play } from 'lucide-react';
+
+const FOUNDER_POSTER = 'https://customer-assets.emergentagent.com/job_ancient-grains-shop/artifacts/atpfm9c4_Screenshot%202026-06-05%20at%2018.44.27.png';
+const FOUNDER_VIDEO = 'https://assets.mixkit.co/videos/17120/17120-360.mp4';
 
 const About = () => {
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const videoRef = useRef(null);
+
+  const playFounderVideo = () => {
+    setVideoPlaying(true);
+    videoRef.current?.play();
+  };
+
   return (
     <div className="min-h-screen bg-white" data-testid="about-page">
       {/* ============ EDITORIAL HERO ============ */}
@@ -132,6 +143,53 @@ const About = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* ============ FOUNDER VIDEO ============ */}
+      <div className="relative bg-stone-900 py-20 md:py-28 px-4 overflow-hidden" data-testid="founder-video-section">
+        <div className="absolute inset-0 opacity-[0.06]" style={{
+          backgroundImage: 'radial-gradient(circle at 20% 30%, #d4a574 0%, transparent 55%), radial-gradient(circle at 80% 70%, #8b5a3c 0%, transparent 55%)'
+        }}></div>
+        <div className="relative max-w-5xl mx-auto">
+          <div className="text-center mb-10 md:mb-12">
+            <p className="text-[11px] tracking-[0.4em] uppercase text-amber-300 mb-5 font-semibold">In Her Own Words</p>
+            <h2 className="text-white font-serif font-bold leading-[1.05] mb-5" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 4rem)' }}>
+              The story behind<br />
+              <em className="italic text-amber-300">every packet.</em>
+            </h2>
+            <div className="w-12 h-px bg-amber-400 mx-auto"></div>
+          </div>
+
+          <div className="relative aspect-video overflow-hidden shadow-2xl shadow-black/50 group" data-testid="founder-video-wrapper">
+            <video
+              ref={videoRef}
+              className="absolute inset-0 w-full h-full object-cover"
+              poster={FOUNDER_POSTER}
+              controls={videoPlaying}
+              playsInline
+              preload="none"
+              data-testid="founder-video"
+            >
+              <source src={FOUNDER_VIDEO} type="video/mp4" />
+            </video>
+            {!videoPlaying && (
+              <button
+                onClick={playFounderVideo}
+                className="absolute inset-0 w-full h-full flex items-center justify-center bg-stone-900/40 hover:bg-stone-900/30 transition-colors duration-300 cursor-pointer"
+                aria-label="Play founder story video"
+                data-testid="founder-video-play-button"
+              >
+                <span className="flex items-center justify-center w-20 h-20 md:w-24 md:h-24 rounded-full bg-amber-400 text-stone-900 shadow-xl shadow-amber-400/30 group-hover:scale-110 transition-transform duration-300">
+                  <Play className="w-8 h-8 md:w-9 md:h-9 ml-1" fill="currentColor" />
+                </span>
+              </button>
+            )}
+          </div>
+
+          <p className="text-center text-stone-400 text-sm md:text-base font-light mt-8 italic" style={{ fontFamily: '"Cormorant Garamond", serif' }}>
+            {"\u201CWe have better. We have millets. Why are we looking elsewhere?\u201D"} — Sri Bhanu
+          </p>
         </div>
       </div>
 
@@ -275,13 +333,13 @@ const About = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4" data-testid="about-gallery">
             {[
               { src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=800&q=80', alt: 'Golden millet field', label: 'Harvest' },
-              { src: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/Foxtail_Millet_1.jpg?v=1724434250', alt: 'Foxtail Millet', label: 'Sort & Mill' },
+              { src: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/Barnyard_Millet_1_15271776-2fe4-4afc-ad51-3dfb07f129d4.jpg?v=1787405609', alt: 'Barnyard Millet', label: 'Sort & Mill' },
               { src: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=800&q=80', alt: 'Hand-blended spices', label: 'Spices' },
-              { src: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/1_15e8b739-81fa-4831-96c8-ad3368bdbc6a.webp?v=1722854573', alt: 'Turmeric powder', label: 'Stone Ground' },
+              { src: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/1_00eed46e-56ee-4d23-806d-ed3865450eac.webp?v=1787405549', alt: 'Stone-ground chilli powder', label: 'Stone Ground' },
               { src: 'https://images.pexels.com/photos/20327922/pexels-photo-20327922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', alt: 'Women farmers', label: 'Hand-Sorted' },
               { src: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/1_57e6957c-15a3-4ec5-b3ed-a54f30814344.webp?v=1722857652', alt: 'Cold-pressed oil', label: 'Cold-Pressed' },
               { src: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/Jowar-Millet-Cookies-768x768.webp?v=1721349636', alt: 'Hand baked cookies', label: 'Small Batch' },
-              { src: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/basmathi_rice.jpg?v=1724496761', alt: 'Aged Basmati rice', label: 'Heritage Rice' },
+              { src: 'https://cdn.shopify.com/s/files/1/0657/0832/6964/files/basmathi_rice_f20fd4b6-fee5-4566-abca-4f03fe524442.jpg?v=1787405542', alt: 'Aged Basmati rice', label: 'Heritage Rice' },
             ].map((img) => (
               <div key={img.src} className="group relative aspect-[3/4] overflow-hidden bg-stone-100">
                 <img
