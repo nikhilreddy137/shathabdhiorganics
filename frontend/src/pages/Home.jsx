@@ -52,6 +52,23 @@ const CHAPTERS = [
 
 const FEATURED_CHIPS = ['All', 'Millets', 'Spices & Powders', 'Rices', 'Oils', 'Cookies', 'Snacks & Bars', 'Health Drinks'];
 
+// Lead the curated grid with the most iconic categories first.
+const CATEGORY_PRIORITY = [
+  'Millets', 'Oils', 'Ghee', 'Honey', 'Cookies', 'Snacks & Bars',
+  'Rices', 'Spices & Powders', 'Sweets & Treats', 'Health Drinks',
+];
+
+// Only surface products shot with real branded studio photography — the generic
+// WhatsApp catalog snapshots (wa_catalog_*, many are "Waiting_for_image") look
+// off-brand and are hidden from the home page to keep an iconic, premium feel.
+const hasStudioPhoto = (p) => {
+  const img = (p.image || '').toLowerCase();
+  if (!img) return false;
+  if (img.includes('wa_catalog')) return false;
+  if (img.includes('waiting_for')) return false;
+  return true;
+};
+
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -110,8 +127,32 @@ const Home = () => {
   };
 
   const featured = useMemo(() => {
-    const matching = activeChip === 'All' ? products : products.filter((p) => p.category === activeChip);
-    return matching.slice(0, 8);
+    const studio = products.filter(hasStudioPhoto);
+
+    if (activeChip !== 'All') {
+      return studio.filter((p) => p.category === activeChip).slice(0, 8);
+    }
+
+    // Curate an iconic, diverse set: round-robin one standout per category,
+    // leading with the hero categories, until we have 8.
+    const byCat = {};
+    studio.forEach((p) => {
+      (byCat[p.category] = byCat[p.category] || []).push(p);
+    });
+    const cats = Object.keys(byCat).sort((a, b) => {
+      const ai = CATEGORY_PRIORITY.indexOf(a);
+      const bi = CATEGORY_PRIORITY.indexOf(b);
+      return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+    });
+
+    const picked = [];
+    let idx = 0;
+    while (picked.length < 8 && cats.some((c) => byCat[c].length)) {
+      const c = cats[idx % cats.length];
+      if (byCat[c].length) picked.push(byCat[c].shift());
+      idx++;
+    }
+    return picked;
   }, [products, activeChip]);
 
   return (

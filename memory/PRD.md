@@ -42,6 +42,7 @@ Build the Shathabdhi Organics e-commerce landing page/store locally from https:/
 - Motion: lenis smooth scrolling (SmoothScroll wrapper, reduced-motion aware), framer-motion Reveal/SplitLines/Marquee primitives
 - Fixes: replaced 5 dead Shopify CDN URLs (404) in Home CHAPTERS, EditorialCard, Social.jsx with live catalog/Unsplash images; backend per_page cap raised 100→200
 - Testing: full frontend pass by testing agent (iteration_1.json) — ALL features verified, no console errors, no broken images, fonts resolve correctly, no overflow at 320px
+- [2026-06] Home "Featured selections" now shows only iconic branded studio photos: hasStudioPhoto() in Home.jsx hides generic WhatsApp catalog snapshots (wa_catalog_*, Waiting_for_*). "All" chip round-robins one standout per category (CATEGORY_PRIORITY order) for a curated 8-item iconic grid; category chips show up to 8 studio products. Filter is Home-only — Shop All / category pages keep the full catalog so nothing is unbuyable. Verified via live API data (8 clean diverse picks, 0 wa_catalog).
 
 ## Backlog
 - P1: Category filters sidebar ordering (superseded by new FilterSheet — review if still needed)
