@@ -16,8 +16,8 @@ import { TestimonialStage } from '../components/TestimonialStage';
 const HERO_VIDEOS = [
   // First video stays the current one, per request.
   'https://assets.mixkit.co/videos/48769/48769-720.mp4', // hands cradling heritage grain
-  'https://assets.mixkit.co/videos/22437/22437-720.mp4', // golden wheat field at harvest
-  'https://assets.mixkit.co/videos/20998/20998-720.mp4', // close-up of freshly harvested grain
+  'https://assets.mixkit.co/videos/2122/2122-1080.mp4', // crop fields at sunrise (Full HD)
+  'https://assets.mixkit.co/videos/520/520-1080.mp4', // sunlight through tall forest trees (Full HD)
 ];
 
 const MARQUEE_ITEMS = [  'Heritage millets',

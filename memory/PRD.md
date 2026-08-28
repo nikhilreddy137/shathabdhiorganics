@@ -45,6 +45,7 @@ Build the Shathabdhi Organics e-commerce landing page/store locally from https:/
 - [2026-06] Home "Featured selections" now shows only iconic branded studio photos: hasStudioPhoto() in Home.jsx hides generic WhatsApp catalog snapshots (wa_catalog_*, Waiting_for_*). "All" chip round-robins one standout per category (CATEGORY_PRIORITY order) for a curated 8-item iconic grid; category chips show up to 8 studio products. Filter is Home-only — Shop All / category pages keep the full catalog so nothing is unbuyable. Verified via live API data (8 clean diverse picks, 0 wa_catalog).
 - [2026-06] Removed "Amla Pickle in Cold Pressed Oil (250g)" from the storefront via EXCLUDED_PRODUCT_NAMES in server.py (applied to GET /api/products list + /api/products/search). Catalog now 163 products; verified absent from list and search.
 - [2026-06] Home hero is now a 3-video auto-rotating stack (HERO_VIDEOS in Home.jsx), crossfading every 6.5s with clickable indicator dots (data-testid hero-video-dot-0..2). First video unchanged (mixkit 48769, hands in grain); added golden wheat harvest (22437) + harvested-grain close-up (20998) for organic essence. All 3 URLs verified live (206 video/mp4).
+- [2026-06] Hero videos 2 & 3 upgraded per user: video 2 → mixkit 2122-1080 (crop fields at sunrise, Full HD for clarity), video 3 → mixkit 520-1080 (sunlight through tall forest trees, forest-organics concept). Both verified HTTP 200 and rendering in DOM via screenshot.
 
 ## Backlog
 - P1: Category filters sidebar ordering (superseded by new FilterSheet — review if still needed)
