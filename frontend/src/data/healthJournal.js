@@ -1,7 +1,7 @@
 export const HEALTH_VIDEOS = [
   {
     id: 'why-organic',
-    video: 'https://assets.mixkit.co/videos/9202/9202-720.mp4',
+    video: 'https://videos.pexels.com/video-files/8732183/8732183-sd_960_540_30fps.mp4',
     eyebrow: 'Why organic',
     title: 'Food without the chemical burden',
     lede: 'Pesticide residues are fat-soluble — they accumulate in the body over years. Certified-organic food removes that daily exposure at the source.',
@@ -22,7 +22,7 @@ export const HEALTH_VIDEOS = [
   },
   {
     id: 'millets-insulin',
-    video: 'https://assets.mixkit.co/videos/24913/24913-720.mp4',
+    video: 'https://videos.pexels.com/video-files/5636708/5636708-sd_960_540_30fps.mp4',
     eyebrow: 'Millets & insulin',
     title: 'The grain that refuses to spike',
     lede: 'Polished white rice hits the bloodstream like sugar. Unpolished millets release glucose slowly — no spike, no crash, no 4 pm slump.',
@@ -43,7 +43,7 @@ export const HEALTH_VIDEOS = [
   },
   {
     id: 'diabetic-day',
-    video: 'https://assets.mixkit.co/videos/40515/40515-1080.mp4',
+    video: 'https://videos.pexels.com/video-files/30044762/12888307_1080_1920_30fps.mp4',
     eyebrow: 'Living with diabetes',
     title: 'How low-GI eating rewires a diabetic day',
     lede: 'Steady glucose is not just a lab number. It is stable energy, clearer thinking, fewer cravings — a different quality of life by week three.',
@@ -64,7 +64,7 @@ export const HEALTH_VIDEOS = [
   },
   {
     id: 'food-as-medicine',
-    video: 'https://assets.mixkit.co/videos/40536/40536-1080.mp4',
+    video: 'https://videos.pexels.com/video-files/9346247/9346247-sd_540_960_24fps.mp4',
     eyebrow: 'Food as medicine',
     title: 'Small swaps, changed lives',
     lede: 'Cold-pressed oil instead of refined. Millet instead of polished rice. Jaggery instead of white sugar. The body notices within a month.',
