@@ -294,12 +294,12 @@ const Home = () => {
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
               <h2 className="font-display text-h1 text-charcoal">Featured selections</h2>
               <Link
-                to="/collections/best-sellers"
+                to={activeChip !== 'All' ? `/collections/${slugify(activeChip)}` : '/collections/best-sellers'}
                 data-testid="shop-all-bestsellers-btn"
-                className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.06em] text-charcoal hover:text-jaggery hover:gap-3.5 transition-all min-h-[44px]"
+                className="inline-flex items-center justify-center gap-2.5 min-h-[50px] rounded-full bg-soil text-cream hover:bg-jaggery hover:gap-4 active:scale-[0.98] font-bold text-xs tracking-[0.08em] uppercase px-8 transition-all duration-300 self-start"
               >
                 Shop the full collection
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </Reveal>
