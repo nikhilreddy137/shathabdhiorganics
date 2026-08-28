@@ -1,7 +1,7 @@
 export const HEALTH_VIDEOS = [
   {
     id: 'why-organic',
-    video: 'https://videos.pexels.com/video-files/8732183/8732183-sd_960_540_30fps.mp4',
+    video: 'https://videos.pexels.com/video-files/12658936/12658936-hd_1920_1080_60fps.mp4',
     eyebrow: 'Why organic',
     title: 'Food without the chemical burden',
     lede: 'Pesticide residues are fat-soluble — they accumulate in the body over years. Certified-organic food removes that daily exposure at the source.',
@@ -22,7 +22,7 @@ export const HEALTH_VIDEOS = [
   },
   {
     id: 'millets-insulin',
-    video: 'https://videos.pexels.com/video-files/5636708/5636708-sd_960_540_30fps.mp4',
+    video: 'https://videos.pexels.com/video-files/7000020/7000020-sd_960_540_25fps.mp4',
     eyebrow: 'Millets & insulin',
     title: 'The grain that refuses to spike',
     lede: 'Polished white rice hits the bloodstream like sugar. Unpolished millets release glucose slowly — no spike, no crash, no 4 pm slump.',
@@ -64,7 +64,7 @@ export const HEALTH_VIDEOS = [
   },
   {
     id: 'food-as-medicine',
-    video: 'https://videos.pexels.com/video-files/9346247/9346247-sd_540_960_24fps.mp4',
+    video: 'https://videos.pexels.com/video-files/9466963/9466963-sd_960_540_25fps.mp4',
     eyebrow: 'Food as medicine',
     title: 'Small swaps, changed lives',
     lede: 'Cold-pressed oil instead of refined. Millet instead of polished rice. Jaggery instead of white sugar. The body notices within a month.',
