@@ -41,6 +41,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Products hidden from the storefront (removed on request, kept in Shopify sync)
+EXCLUDED_PRODUCT_NAMES = [
+    "Amla Pickle in Cold Pressed Oil (250g)",
+]
+
 
 async def verify_admin_key(x_admin_key: Optional[str] = Header(None)):
     admin_key = os.environ.get("ADMIN_PANEL_KEY")
@@ -90,7 +95,11 @@ async def get_products(
     """Get all products with filtering, sorting, and pagination"""
     try:
         # Build filter query (exclude Shopify billing/app-managed products and photo-less products from the storefront)
-        query = {"category": {"$ne": "Subscription Management"}, "image": {"$ne": ""}}
+        query = {
+            "category": {"$ne": "Subscription Management"},
+            "image": {"$ne": ""},
+            "name": {"$nin": EXCLUDED_PRODUCT_NAMES},
+        }
         
         if category:
             query["category"] = category if category != "Subscription Management" else {"$in": []}
@@ -161,6 +170,7 @@ async def search_products(
         query = {
             "category": {"$ne": "Subscription Management"},
             "image": {"$ne": ""},
+            "name": {"$nin": EXCLUDED_PRODUCT_NAMES},
             "$or": [
                 {"name": regex},
                 {"description": regex},

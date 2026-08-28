@@ -13,8 +13,14 @@ import { slugify } from '../components/catalog/CategoryRail';
 import { Reveal, SplitLines, Marquee } from '../components/motion/Primitives';
 import { TestimonialStage } from '../components/TestimonialStage';
 
-const MARQUEE_ITEMS = [
-  'Heritage millets',
+const HERO_VIDEOS = [
+  // First video stays the current one, per request.
+  'https://assets.mixkit.co/videos/48769/48769-720.mp4', // hands cradling heritage grain
+  'https://assets.mixkit.co/videos/22437/22437-720.mp4', // golden wheat field at harvest
+  'https://assets.mixkit.co/videos/20998/20998-720.mp4', // close-up of freshly harvested grain
+];
+
+const MARQUEE_ITEMS = [  'Heritage millets',
   'Cold-pressed oils',
   'Hand-pounded spices',
   'Raw forest honey',
@@ -75,9 +81,17 @@ const Home = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeChip, setActiveChip] = useState('All');
+  const [activeVideo, setActiveVideo] = useState(0);
   const [quickAdd, setQuickAdd] = useState({ product: null, variant: null, open: false });
 
   const { addToCart } = useCart();
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveVideo((i) => (i + 1) % HERO_VIDEOS.length);
+    }, 6500);
+    return () => clearInterval(id);
+  }, []);
 
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
@@ -162,18 +176,21 @@ const Home = () => {
       {/* ---------- Kinetic hero ---------- */}
       <section ref={heroRef} className="relative min-h-[92svh] bg-stone-900 overflow-hidden flex items-end" data-testid="hero-carousel">
         <motion.div style={{ y: videoY }} className="absolute inset-0 will-change-transform">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster="/hero-poster.jpg"
-            className="absolute inset-0 w-full h-full object-cover hero-zoom"
-            data-testid="hero-video"
-          >
-            <source src="https://assets.mixkit.co/videos/48769/48769-720.mp4" type="video/mp4" />
-          </video>
+          {HERO_VIDEOS.map((src, i) => (
+            <video
+              key={src}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload={i === 0 ? 'auto' : 'metadata'}
+              poster="/hero-poster.jpg"
+              className={`absolute inset-0 w-full h-full object-cover hero-zoom transition-opacity duration-[1200ms] ease-in-out ${i === activeVideo ? 'opacity-100' : 'opacity-0'}`}
+              data-testid={i === 0 ? 'hero-video' : `hero-video-${i}`}
+            >
+              <source src={src} type="video/mp4" />
+            </video>
+          ))}
         </motion.div>
         <div
           className="absolute inset-0"
@@ -184,6 +201,19 @@ const Home = () => {
         ></div>
         <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 220px 60px rgba(10,7,4,0.55)' }}></div>
         <div className="absolute inset-0 grain opacity-[0.08] mix-blend-overlay pointer-events-none"></div>
+
+        <div className="absolute z-20 top-24 right-4 md:top-28 md:right-8 flex items-center gap-2" data-testid="hero-video-dots">
+          {HERO_VIDEOS.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setActiveVideo(i)}
+              aria-label={`Show hero video ${i + 1}`}
+              data-testid={`hero-video-dot-${i}`}
+              className={`h-1.5 rounded-full transition-all duration-500 hover:bg-amber-200 ${i === activeVideo ? 'w-9 bg-amber-300' : 'w-3.5 bg-white/45'}`}
+            />
+          ))}
+        </div>
 
         <motion.div style={{ opacity: contentOpacity }} className="relative z-10 w-full max-w-7xl mx-auto px-4 pb-14 md:pb-20 pt-40">
           <motion.p

@@ -43,6 +43,8 @@ Build the Shathabdhi Organics e-commerce landing page/store locally from https:/
 - Fixes: replaced 5 dead Shopify CDN URLs (404) in Home CHAPTERS, EditorialCard, Social.jsx with live catalog/Unsplash images; backend per_page cap raised 100→200
 - Testing: full frontend pass by testing agent (iteration_1.json) — ALL features verified, no console errors, no broken images, fonts resolve correctly, no overflow at 320px
 - [2026-06] Home "Featured selections" now shows only iconic branded studio photos: hasStudioPhoto() in Home.jsx hides generic WhatsApp catalog snapshots (wa_catalog_*, Waiting_for_*). "All" chip round-robins one standout per category (CATEGORY_PRIORITY order) for a curated 8-item iconic grid; category chips show up to 8 studio products. Filter is Home-only — Shop All / category pages keep the full catalog so nothing is unbuyable. Verified via live API data (8 clean diverse picks, 0 wa_catalog).
+- [2026-06] Removed "Amla Pickle in Cold Pressed Oil (250g)" from the storefront via EXCLUDED_PRODUCT_NAMES in server.py (applied to GET /api/products list + /api/products/search). Catalog now 163 products; verified absent from list and search.
+- [2026-06] Home hero is now a 3-video auto-rotating stack (HERO_VIDEOS in Home.jsx), crossfading every 6.5s with clickable indicator dots (data-testid hero-video-dot-0..2). First video unchanged (mixkit 48769, hands in grain); added golden wheat harvest (22437) + harvested-grain close-up (20998) for organic essence. All 3 URLs verified live (206 video/mp4).
 
 ## Backlog
 - P1: Category filters sidebar ordering (superseded by new FilterSheet — review if still needed)
