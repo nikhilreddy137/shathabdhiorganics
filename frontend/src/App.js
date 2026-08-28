@@ -14,6 +14,9 @@ import Contact from "./pages/Contact";
 import Social from "./pages/Social";
 import ProductDetail from "./pages/ProductDetail";
 import AdminShopify from "./pages/AdminShopify";
+import Health from "./pages/Health";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -28,6 +31,9 @@ function App() {
             <Route path="/collections/:slug" element={<BestSellers />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/admin/shopify" element={<AdminShopify />} />
+            <Route path="/health" element={<Health />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/about" element={<About />} />
             <Route path="/social" element={<Social />} />
             <Route path="/contact" element={<Contact />} />

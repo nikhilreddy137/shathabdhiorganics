@@ -53,6 +53,8 @@ const Footer = () => {
             <h4 className="text-cream text-eyebrow uppercase mb-6">Quick Links</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/about" className="text-cream/60 hover:text-cream transition-colors">About Us</Link></li>
+              <li><Link to="/health" className="text-cream/60 hover:text-cream transition-colors">Health Journal</Link></li>
+              <li><Link to="/blog" className="text-cream/60 hover:text-cream transition-colors">Blog</Link></li>
               <li><a href="#" className="text-cream/60 hover:text-cream transition-colors">Our Story</a></li>
               <li><a href="#" className="text-cream/60 hover:text-cream transition-colors">Sustainability</a></li>
               <li><a href="#" className="text-cream/60 hover:text-cream transition-colors">Certifications</a></li>

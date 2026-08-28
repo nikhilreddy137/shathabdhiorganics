@@ -22,6 +22,8 @@ const Header = () => {
     { name: 'Snacks', href: '/collections/snacks-and-bars' },
     { name: 'Sweets', href: '/collections/sweets-and-treats' },
     { name: 'Pickles', href: '/collections/pickles' },
+    { name: 'Health', href: '/health' },
+    { name: 'Blog', href: '/blog' },
     { name: 'Social', href: '/social' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },

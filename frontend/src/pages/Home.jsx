@@ -12,6 +12,8 @@ import { QuickAddSheet } from '../components/catalog/QuickAddSheet';
 import { slugify } from '../components/catalog/CategoryRail';
 import { Reveal, SplitLines, Marquee } from '../components/motion/Primitives';
 import { TestimonialStage } from '../components/TestimonialStage';
+import { HealthJournal } from '../components/HealthJournal';
+import { Seo } from '../components/Seo';
 
 const HERO_VIDEOS = [
   // First video stays the current one, per request.
@@ -171,6 +173,12 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-cream">
+      <Seo
+        title="Shathabdhi Organics — Organic Millets, Cold-Pressed Oils & Spices from Telangana"
+        description="Unpolished siridhanya millets, wood-churned cold-pressed oils and hand-pounded spices grown chemical-free by 2,400+ women farmers in Telangana. Low-GI staples for steady blood sugar."
+        keywords={['organic millets India', 'siridhanya millets', 'millets for diabetes', 'cold pressed oils', 'organic food Telangana']}
+        path="/"
+      />
       <Toaster position="top-right" />
 
       {/* ---------- Kinetic hero ---------- */}
@@ -338,6 +346,9 @@ const Home = () => {
           )}
         </div>
       </section>
+
+      {/* ---------- Health Journal ---------- */}
+      <HealthJournal compact />
 
       {/* ---------- Numbered manifesto chapters ---------- */}
       <section className="bg-charcoal text-cream py-20 md:py-32 px-4" data-testid="manifesto-section">
