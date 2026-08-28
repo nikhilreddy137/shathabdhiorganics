@@ -15,7 +15,7 @@ body {
   font-weight: 400;
   font-size: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
   line-height: 1.7;
-  color: #1c1917;
+  color: #272522;
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -23,7 +23,7 @@ body {
 }
 
 html {
-  background-color: #ffffff;
+  background-color: #F9F7F3;
   overflow-x: clip;
 }
 body { overflow-x: clip; }
@@ -47,13 +47,13 @@ input, textarea, select { font-size: 16px; }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     font-weight: 400;
-    color: #171412;
+    color: #272522;
     text-wrap: balance;
   }
   h5, h6 { font-family: var(--font-body); font-weight: 500; }
   p { text-wrap: pretty; }
   :focus-visible {
-    outline: 2px solid #b45309;
+    outline: 2px solid #B55A2A;
     outline-offset: 2px;
   }
 }
@@ -64,8 +64,8 @@ code {
 
 @layer base {
   :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 8%;
+        --background: 40 33% 96%;
+        --foreground: 30 4% 14%;
         --card: 0 0% 100%;
         --card-foreground: 0 0% 8%;
         --popover: 0 0% 100%;
@@ -130,7 +130,7 @@ code {
 .img-frame {
   position: relative;
   overflow: hidden;
-  background-color: #efece4;
+  background-color: #F0EBE1;
 }
 .img-el {
   position: absolute;
@@ -176,7 +176,7 @@ code {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.55; }
 }
-.skeleton { background: #eceae2; animation: skeleton-pulse 1.6s ease-in-out infinite; }
+.skeleton { background: #E6DFD3; animation: skeleton-pulse 1.6s ease-in-out infinite; }
 
 /* Horizontal snap rail */
 .snap-rail {

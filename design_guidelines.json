@@ -1,0 +1,142 @@
+{
+  "project_name": "Shathabdhi Organics",
+  "app_type": "headless Shopify ecommerce",
+  "design_philosophy": {
+    "identity": "Editorial organic-food aesthetic combining Telangana earth tones with clean modern ecommerce structure.",
+    "core_principles": [
+      "Heritage meets Modernity: Use refined serif for storytelling, clean readable sans-serif for commerce.",
+      "Authenticity over Artificiality: Real farm photography, deep textures, no generic shiny stock images.",
+      "Restrained Geometry: Softly rounded product cards, airy padding, deliberate negative space.",
+      "Cinematic Storytelling: Kinetic scrolling, cross-fading videos, and bold editorial layouts to create emotional connection."
+    ]
+  },
+  "theme": "light",
+  "colors": {
+    "background": {
+      "primary": "#F9F7F3",
+      "secondary": "#F0EBE1",
+      "tertiary": "#E6DFD3"
+    },
+    "text": {
+      "primary": "#272522",
+      "secondary": "#5C5852",
+      "inverse": "#F9F7F3"
+    },
+    "brand": {
+      "deep_soil_brown": "#3E2A1E",
+      "millet_gold": "#C69C45",
+      "leaf_green": "#415D39",
+      "jaggery_amber": "#B55A2A",
+      "restrained_charcoal": "#272522",
+      "warm_cream": "#F9F7F3"
+    }
+  },
+  "typography": {
+    "fonts": {
+      "heading": "'Instrument Serif', serif",
+      "body": "'Hanken Grotesk', sans-serif"
+    },
+    "scales": {
+      "hero_h1": "text-5xl md:text-7xl font-normal tracking-tight leading-[1.1]",
+      "h2": "text-4xl md:text-5xl font-normal tracking-tight leading-tight",
+      "h3": "text-2xl md:text-3xl font-medium tracking-tight",
+      "body_lg": "text-lg md:text-xl font-normal leading-relaxed tracking-normal",
+      "body": "text-base font-normal leading-relaxed",
+      "ui_labels": "text-xs font-semibold uppercase tracking-[0.15em]"
+    },
+    "rules": [
+      "Use Instrument Serif for all main headings and editorial callouts. NEVER make Instrument Serif bold; use font-normal or italic for elegance.",
+      "Use Hanken Grotesk for prices, buttons, filters, navigation, and dense body copy.",
+      "For typography on top of images/video, use text-white/90 with a subtle drop-shadow-sm for contrast if necessary, or rely on dark gradient overlays (max 40% opacity)."
+    ]
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous Spacing Philosophy: Use 2-3x more spacing than typical e-commerce designs. Let the photography and typography breathe.",
+    "containers": "max-w-7xl mx-auto px-6 md:px-12 lg:px-16",
+    "section_padding": "py-24 md:py-32",
+    "grid_patterns": {
+      "product_grid": "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8",
+      "manifesto_bento": "grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 (Use spans like col-span-8 and col-span-4 to create asymmetry)"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#3E2A1E] text-[#F9F7F3] hover:bg-[#272522] rounded-full px-8 py-4 transition-all duration-300 flex items-center justify-center font-medium font-body",
+      "secondary": "border border-[#3E2A1E] text-[#3E2A1E] hover:bg-[#3E2A1E] hover:text-[#F9F7F3] rounded-full px-8 py-4 transition-all duration-300 font-medium font-body",
+      "quick_add": "w-full bg-[#B55A2A] text-white hover:bg-[#94461E] rounded-xl py-3 font-semibold transition-colors duration-200 shadow-sm hover:shadow-md"
+    },
+    "product_cards": {
+      "container": "group relative flex flex-col gap-4 rounded-2xl bg-white p-4 transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(62,42,30,0.1)] border border-transparent hover:border-[#F0EBE1]",
+      "image_wrapper": "relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-[#F9F7F3]",
+      "image": "h-full w-full object-cover transition-transform duration-700 group-hover:scale-105",
+      "details": "flex flex-col gap-1",
+      "title": "font-body font-medium text-[#272522] line-clamp-1",
+      "price": "font-body font-semibold text-[#3E2A1E]"
+    },
+    "header": {
+      "style": "fixed top-0 w-full z-50 backdrop-blur-xl bg-[#F9F7F3]/80 border-b border-[#3E2A1E]/5 transition-all duration-300",
+      "layout": "flex items-center justify-between px-6 py-4 md:px-12",
+      "nav_links": "hidden md:flex gap-8 font-body text-sm font-medium text-[#5C5852] hover:text-[#272522] transition-colors"
+    },
+    "marquee": {
+      "style": "bg-[#415D39] text-[#F9F7F3] py-4 overflow-hidden flex items-center border-y border-[#272522]/10",
+      "text": "font-heading italic text-2xl tracking-wide whitespace-nowrap px-8"
+    }
+  },
+  "interactive_motion": {
+    "scrolling": "Implement @studio-freight/react-lenis for smooth, momentum-based scrolling. Tune lerp to 0.08 for a 'heavy, luxurious' feel.",
+    "hero_video": "3-video cinematic auto-crossfading sequence (hands in grain -> crop fields -> sunlight in forest). Absolute positioning with framer-motion opacity crossfades (duration 1.5s).",
+    "page_transitions": "Subtle fade-in and slide-up (y: 20 -> 0) on scroll using framer-motion 'whileInView'.",
+    "hover_states": "Images scale up 5% (duration-700 ease-out). Buttons translate y -2px and increase shadow."
+  },
+  "media_assets": {
+    "hero_videos": [
+      {
+        "url": "https://assets.mixkit.co/videos/48769/48769-720.mp4",
+        "description": "Hands full of grain in a sack (cinematic close-up)"
+      },
+      {
+        "url": "https://assets.mixkit.co/videos/45379/45379-720.mp4",
+        "description": "Hand moving through golden wheat"
+      }
+    ],
+    "images": {
+      "manifesto": [
+        "https://images.unsplash.com/photo-1725483990150-61a9fbd746d1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjB0cmFkaXRpb25hbCUyMGZvb2QlMjBjb29raW5nJTIwa2l0Y2hlbnxlbnwwfHx8fDE3ODc4OTUyMTN8MA&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1599320092708-8a9dde49fc2c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwxfHxoYW5kcyUyMGhvbGRpbmclMjBzb2lsJTIwZmFybXxlbnwwfHx8fDE3ODc4OTUyMTN8MA&ixlib=rb-4.1.0&q=85"
+      ],
+      "ingredients": [
+        "https://images.unsplash.com/photo-1761724170883-b65f02738fbf?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODd8MHwxfHNlYXJjaHwyfHxtaWxsZXQlMjBncmFpbnMlMjBjbG9zZSUyMHVwJTIwb3JnYW5pY3xlbnwwfHx8fDE3ODc4OTUyMTN8MA&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1783042909392-0b8d8683e0a2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODd8MHwxfHNlYXJjaHwxfHxtaWxsZXQlMjBncmFpbnMlMjBjbG9zZSUyMHVwJTIwb3JnYW5pY3xlbnwwfHx8fDE3ODc4OTUyMTN8MA&ixlib=rb-4.1.0&q=85"
+      ]
+    },
+    "rules": "Avoid generic green-field stock imagery. Use only the provided hyper-tactile, close-up texture images of grains, hands, and earth."
+  },
+  "dependencies_to_install": [
+    "@studio-freight/react-lenis",
+    "framer-motion",
+    "lucide-react"
+  ],
+  "accessibility": [
+    "Ensure all text over images or videos has a contrast ratio of at least 4.5:1 using subtle gradients if necessary.",
+    "Maintain semantic HTML tags (header, main, section, footer).",
+    "Provide ARIA labels for icon-only buttons (like Cart, Search, Menu).",
+    "Include data-testid attributes on all interactive elements (buttons, links, cart inputs) to facilitate E2E testing."
+  ],
+  "instructions_to_main_agent": [
+    "Install `@studio-freight/react-lenis` and wrap the root Layout in a `<Lenis>` provider to enable smooth kinetic scrolling.",
+    "Build the 3-video cinematic hero component with an auto-playing sequence. Map through the provided video URLs, crossfading opacity with framer-motion.",
+    "Import 'Instrument Serif' and 'Hanken Grotesk' via Google Fonts into the global CSS or index.html.",
+    "Implement the headless Shopify connection or mock product data perfectly using the 'deep soil brown', 'millet gold' palette.",
+    "Build the Editorial Marquee with CSS or framer-motion, using a slow, organic drift.",
+    "The UI should not feel like a standard generic SaaS. Overlap images in the Manifesto section, use massive serif typography for quotes, and ensure product cards have refined padding."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Do not apply global 'transition: all' styles. Be specific (e.g., transition-colors, transition-transform).",
+    "Do not center-align body text or massive blocks of content. Maintain left-alignment for readability, only centering specific hero headers or short artistic quotes.",
+    "Use 2-3x more padding/margin between sections (py-24 or py-32) than default. Cramped layouts ruin the premium feel.",
+    "Use exact hex colors defined in the palette. Do NOT use default tailwind blues or grays.",
+    "Never use placeholder image services like via.placeholder.com. Use the provided asset URLs.",
+    "Include data-testid attributes on all interactive components."
+  ]
+}

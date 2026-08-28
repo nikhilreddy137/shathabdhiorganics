@@ -19,7 +19,7 @@ export const FilterSheet = ({ open, onClose, facets, selected, onToggle, onClear
                   <span>
                     {facet.label}
                     {selected[facet.key]?.length > 0 && (
-                      <span className="ml-2 text-amber-700 normal-case tracking-normal">({selected[facet.key].length})</span>
+                      <span className="ml-2 text-jaggery normal-case tracking-normal">({selected[facet.key].length})</span>
                     )}
                   </span>
                 </AccordionTrigger>
@@ -38,9 +38,9 @@ export const FilterSheet = ({ open, onClose, facets, selected, onToggle, onClear
                           className={`w-full min-h-[44px] flex items-center gap-3 px-2 py-2.5 text-sm text-left transition-colors
                             ${disabled ? 'text-stone-300 cursor-not-allowed' : active ? 'text-stone-900' : 'text-stone-600 hover:text-stone-900'}`}
                         >
-                          <span className={`w-[18px] h-[18px] border flex items-center justify-center flex-shrink-0 transition-colors
-                            ${active ? 'bg-stone-900 border-stone-900' : disabled ? 'border-stone-200' : 'border-stone-400'}`}>
-                            {active && <Check className="w-3 h-3 text-amber-300" />}
+                          <span className={`w-[18px] h-[18px] border rounded flex items-center justify-center flex-shrink-0 transition-colors
+                            ${active ? 'bg-soil border-soil' : disabled ? 'border-cream3' : 'border-ink/50'}`}>
+                            {active && <Check className="w-3 h-3 text-gold" />}
                           </span>
                           <span className="flex-1">{opt.value}</span>
                           <span className="text-xs text-stone-400 price">{opt.count}</span>
@@ -67,7 +67,7 @@ export const FilterSheet = ({ open, onClose, facets, selected, onToggle, onClear
             type="button"
             onClick={onClose}
             data-testid="filter-show-results-btn"
-            className="flex-1 min-h-[48px] bg-stone-900 text-white hover:bg-amber-400 hover:text-stone-900 text-xs font-medium uppercase tracking-[0.06em] transition-all price"
+            className="flex-1 min-h-[48px] rounded-full bg-soil text-cream hover:bg-jaggery text-xs font-medium uppercase tracking-[0.06em] transition-colors price"
           >
             Show {resultCount} result{resultCount === 1 ? '' : 's'}
           </button>

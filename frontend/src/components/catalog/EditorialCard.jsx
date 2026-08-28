@@ -27,14 +27,14 @@ export const EDITORIAL_CARDS = [
 export const EditorialCard = ({ card, index = 0 }) => (
   <Link
     to={card.to}
-    className="group col-span-2 xl:col-span-2 grid grid-cols-1 sm:grid-cols-2 bg-stone-900 text-white overflow-hidden"
+    className="group col-span-2 xl:col-span-2 grid grid-cols-1 sm:grid-cols-2 bg-soil text-cream rounded-2xl overflow-hidden"
     data-testid={`editorial-card-${index}`}
   >
     <div className="p-7 md:p-9 flex flex-col justify-center order-2 sm:order-1">
-      <p className="text-eyebrow uppercase text-amber-300 mb-3">{card.eyebrow}</p>
-      <h3 className="font-display text-h2 text-white leading-tight mb-3">{card.title}</h3>
-      <p className="text-sm text-stone-300 leading-relaxed mb-5 measure">{card.body}</p>
-      <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.06em] text-amber-300 group-hover:gap-3.5 transition-all">
+      <p className="text-eyebrow uppercase text-gold mb-3">{card.eyebrow}</p>
+      <h3 className="font-display text-h2 text-cream leading-tight mb-3">{card.title}</h3>
+      <p className="text-sm text-cream/70 leading-relaxed mb-5 measure">{card.body}</p>
+      <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.06em] text-gold group-hover:gap-3.5 transition-all">
         {card.label}
         <ArrowRight className="w-3.5 h-3.5" />
       </span>

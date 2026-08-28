@@ -77,11 +77,11 @@ const CartDrawer = ({ open, onClose }) => {
               <div className="space-y-6">
                 {cart.items.map((item, index) => (
                   <div key={`${item.product_id}-${item.selected_size}-${index}`} data-testid={`cart-item-${item.product_id}`} className="flex gap-4 pb-6 border-b border-gray-200">
-                    <div className="w-24 h-24 flex-shrink-0 bg-gray-50 rounded">
+                    <div className="w-24 h-24 flex-shrink-0 bg-cream2 rounded-xl">
                       <img
                         src={item.image}
                         alt={item.product_name}
-                        className="w-full h-full object-cover rounded"
+                        className="w-full h-full object-cover rounded-xl"
                       />
                     </div>
                     <div className="flex-1">
@@ -98,7 +98,7 @@ const CartDrawer = ({ open, onClose }) => {
                       </div>
                       <p className="text-sm text-gray-500 mb-3">{item.selected_size}</p>
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3 border border-gray-300 rounded-none">
+                        <div className="flex items-center gap-3 border border-cream3 rounded-full">
                           <button
                             onClick={() => handleUpdateQuantity(item.product_id, item.selected_size, item.quantity - 1)}
                             className="p-2 hover:bg-gray-50"
@@ -125,7 +125,7 @@ const CartDrawer = ({ open, onClose }) => {
 
           {/* Footer */}
           {cart && cart.items?.length > 0 && (
-            <div className="border-t border-gray-200 px-6 py-6 bg-gray-50">
+            <div className="border-t border-cream3 px-6 py-6 bg-cream">
               <div className="flex justify-between mb-6">
                 <span className="text-base font-normal text-gray-900">Subtotal</span>
                 <span className="text-xl font-light" data-testid="cart-subtotal" style={{ fontFamily: 'Instrument Serif, serif' }}>
@@ -136,7 +136,7 @@ const CartDrawer = ({ open, onClose }) => {
                 onClick={handleCheckout}
                 disabled={checkingOut}
                 data-testid="cart-checkout-btn"
-                className="w-full bg-gray-900 hover:bg-black text-white rounded-none py-6 text-sm uppercase tracking-wider font-normal"
+                className="w-full bg-soil hover:bg-charcoal text-cream rounded-full py-6 text-sm uppercase tracking-wider font-medium"
               >
                 {checkingOut ? 'Preparing Checkout...' : 'Checkout'}
               </Button>

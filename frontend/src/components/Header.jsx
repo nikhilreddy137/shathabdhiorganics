@@ -30,19 +30,19 @@ const Header = () => {
   return (
     <>
       {/* Top Banner */}
-      <div className="bg-stone-900 text-white text-center py-2 px-4 text-xs tracking-[0.02em]" style={{ paddingTop: 'max(0.5rem, env(safe-area-inset-top))' }}>
+      <div className="bg-soil text-cream text-center py-2 px-4 text-xs tracking-[0.02em]" style={{ paddingTop: 'max(0.5rem, env(safe-area-inset-top))' }}>
         Free shipping on orders over ₹500. <Link to="/collections/best-sellers" className="underline">Shop now</Link>
       </div>
 
       {/* Main Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <header className="bg-cream/85 backdrop-blur-xl border-b border-soil/10 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Mobile / Tablet Menu Button */}
             <button
               data-testid="mobile-menu-btn"
               aria-label="Toggle navigation"
-              className="xl:hidden p-2.5 -ml-2 rounded-full hover:bg-amber-50 active:scale-95 transition-all touch-manipulation"
+              className="xl:hidden p-2.5 -ml-2 rounded-full hover:bg-cream2 active:scale-95 transition-all touch-manipulation"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -50,10 +50,10 @@ const Header = () => {
 
             {/* Logo */}
             <Link to="/" data-testid="header-logo" className="group flex items-center transition-transform duration-300 hover:scale-[1.02]">
-              <h1 className="text-base sm:text-xl font-light text-gray-900 tracking-widest transition-colors group-hover:text-amber-700 leading-tight" style={{ fontFamily: 'Instrument Serif, serif' }}>
+              <h1 className="text-base sm:text-xl font-light text-charcoal tracking-widest transition-colors group-hover:text-jaggery leading-tight" style={{ fontFamily: 'Instrument Serif, serif' }}>
                 SHATHABDHI
                 <br />
-                <span className="text-[9px] sm:text-[10px] tracking-[0.3em] text-gray-600 group-hover:text-amber-600 transition-colors">ORGANICS</span>
+                <span className="text-[9px] sm:text-[10px] tracking-[0.3em] text-ink group-hover:text-jaggery transition-colors">ORGANICS</span>
               </h1>
             </Link>
 
@@ -64,8 +64,8 @@ const Header = () => {
                   key={item.name}
                   to={item.href}
                   data-testid={`nav-${item.name.replace(/\s+/g, '-').toLowerCase()}`}
-                  className="relative text-sm text-stone-700 hover:text-stone-900 tracking-[0.02em] py-2.5 transition-all duration-300 hover:-translate-y-[1px]
-                  after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[1.5px] after:bg-amber-500 after:transition-all after:duration-300 hover:after:w-full"
+                  className="relative text-sm text-ink hover:text-charcoal tracking-[0.02em] py-2.5 transition-all duration-300 hover:-translate-y-[1px]
+                  after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[1.5px] after:bg-gold after:transition-all after:duration-300 hover:after:w-full"
                 >
                   {item.name}
                 </Link>
@@ -74,18 +74,18 @@ const Header = () => {
 
             {/* Right Icons */}
             <div className="flex items-center space-x-2">
-              <button data-testid="header-search-btn" onClick={() => setSearchOpen(true)} aria-label="Search" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-amber-50 hover:scale-110 active:scale-95 transition-all duration-200">
-                <Search className="w-4 h-4 text-gray-700" />
+              <button data-testid="header-search-btn" onClick={() => setSearchOpen(true)} aria-label="Search" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-cream2 hover:scale-110 active:scale-95 transition-all duration-200">
+                <Search className="w-4 h-4 text-charcoal" />
               </button>
               <button
                 onClick={() => setCartOpen(true)}
                 data-testid="header-cart-btn"
                 aria-label="Cart"
-                className="relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-amber-50 hover:scale-110 active:scale-95 transition-all duration-200"
+                className="relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-cream2 hover:scale-110 active:scale-95 transition-all duration-200"
               >
-                <ShoppingCart className="w-4 h-4 text-gray-700" />
+                <ShoppingCart className="w-4 h-4 text-charcoal" />
                 {cartItemCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 w-[18px] h-[18px] bg-amber-500 text-white text-[10px] font-semibold rounded-full flex items-center justify-center shadow-sm animate-in zoom-in duration-300">
+                  <span className="absolute -top-0.5 -right-0.5 w-[18px] h-[18px] bg-jaggery text-white text-[10px] font-semibold rounded-full flex items-center justify-center shadow-sm animate-in zoom-in duration-300">
                     {cartItemCount}
                   </span>
                 )}
@@ -101,11 +101,11 @@ const Header = () => {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="group flex items-center justify-between text-sm text-stone-700 hover:text-amber-800 hover:bg-amber-50/60 tracking-[0.02em] px-3 py-3 min-h-[44px] rounded transition-all duration-200"
+                    className="group flex items-center justify-between text-sm text-ink hover:text-jaggery hover:bg-cream2/60 tracking-[0.02em] px-3 py-3 min-h-[44px] rounded transition-all duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span>{item.name}</span>
-                    <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-amber-600">→</span>
+                    <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-jaggery">→</span>
                   </Link>
                 ))}
               </nav>

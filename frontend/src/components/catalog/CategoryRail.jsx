@@ -21,11 +21,11 @@ export const CategoryRail = ({ categories, activeCategory }) => {
         data-testid="category-rail-all"
         className="flex-shrink-0 w-[72px] md:w-[88px] text-center group"
       >
-        <div className={`w-[72px] h-[72px] md:w-[88px] md:h-[88px] rounded-full flex items-center justify-center bg-stone-900 text-amber-300 font-display italic text-lg transition-shadow
-          ${!activeCategory ? 'ring-2 ring-offset-2 ring-stone-900' : 'group-hover:ring-1 group-hover:ring-offset-2 group-hover:ring-stone-300'}`}>
+        <div className={`w-[72px] h-[72px] md:w-[88px] md:h-[88px] rounded-full flex items-center justify-center bg-soil text-gold font-display italic text-lg transition-shadow
+          ${!activeCategory ? 'ring-2 ring-offset-2 ring-soil' : 'group-hover:ring-1 group-hover:ring-offset-2 group-hover:ring-cream3'}`}>
           All
         </div>
-        <p className={`text-sm mt-2 leading-tight ${!activeCategory ? 'text-stone-900 font-medium' : 'text-stone-500'}`}>All</p>
+        <p className={`text-sm mt-2 leading-tight ${!activeCategory ? 'text-charcoal font-medium' : 'text-ink'}`}>All</p>
       </Link>
       {categories.map((cat) => {
         const active = activeCategory === cat.name;
@@ -38,7 +38,7 @@ export const CategoryRail = ({ categories, activeCategory }) => {
             className="flex-shrink-0 w-[72px] md:w-[88px] text-center group"
           >
             <div className={`w-[72px] h-[72px] md:w-[88px] md:h-[88px] rounded-full overflow-hidden transition-shadow
-              ${active ? 'ring-2 ring-offset-2 ring-stone-900' : 'group-hover:ring-1 group-hover:ring-offset-2 group-hover:ring-stone-300'}`}>
+              ${active ? 'ring-2 ring-offset-2 ring-soil' : 'group-hover:ring-1 group-hover:ring-offset-2 group-hover:ring-cream3'}`}>
               <Img
                 src={cat.image}
                 alt={`${cat.name} collection`}
@@ -47,7 +47,7 @@ export const CategoryRail = ({ categories, activeCategory }) => {
                 className="w-full h-full rounded-full"
               />
             </div>
-            <p className={`text-sm mt-2 leading-tight line-clamp-2 ${active ? 'text-stone-900 font-medium' : 'text-stone-500'}`}>
+            <p className={`text-sm mt-2 leading-tight line-clamp-2 ${active ? 'text-charcoal font-medium' : 'text-ink'}`}>
               {cat.name}
             </p>
           </Link>

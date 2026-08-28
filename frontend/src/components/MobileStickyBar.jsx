@@ -39,7 +39,7 @@ const MobileStickyBar = () => {
         transition-all duration-500 ease-out
         ${visible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}
     >
-      <div className="mx-auto max-w-md bg-stone-900/95 backdrop-blur-md text-white rounded-full shadow-2xl shadow-black/30 flex items-center gap-2 p-1.5 ring-1 ring-white/10">
+      <div className="mx-auto max-w-md bg-charcoal/95 backdrop-blur-md text-cream rounded-full shadow-2xl shadow-black/30 flex items-center gap-2 p-1.5 ring-1 ring-white/10">
         {/* WhatsApp */}
         <a
           href="https://wa.me/916301851597?text=Hi%20Shathabdhi%20Organics!%20I%27d%20like%20to%20know%20more%20about%20your%20products."
@@ -47,7 +47,7 @@ const MobileStickyBar = () => {
           rel="noopener noreferrer"
           aria-label="WhatsApp us"
           data-testid="mobile-sticky-whatsapp"
-          className="flex items-center justify-center w-11 h-11 rounded-full bg-stone-800 hover:bg-stone-700 active:scale-95 transition-all flex-shrink-0"
+          className="flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 transition-all flex-shrink-0"
         >
           <MessageCircle className="w-4 h-4 text-emerald-400" />
         </a>
@@ -56,7 +56,7 @@ const MobileStickyBar = () => {
         <Link
           to="/collections/best-sellers"
           data-testid="mobile-sticky-shop-now"
-          className="flex-1 inline-flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 active:scale-[0.98] text-stone-900 font-semibold text-[11px] tracking-[0.3em] uppercase px-4 py-3 rounded-full transition-all"
+          className="flex-1 inline-flex items-center justify-center gap-2 bg-gold hover:bg-[#d4ad57] active:scale-[0.98] text-charcoal font-semibold text-[11px] tracking-[0.3em] uppercase px-4 py-3 rounded-full transition-all"
         >
           Shop Now
           <ArrowRight className="w-3.5 h-3.5" />
@@ -67,11 +67,11 @@ const MobileStickyBar = () => {
           to="/collections/best-sellers"
           aria-label="View cart"
           data-testid="mobile-sticky-cart"
-          className="relative flex items-center justify-center w-11 h-11 rounded-full bg-stone-800 hover:bg-stone-700 active:scale-95 transition-all flex-shrink-0"
+          className="relative flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 transition-all flex-shrink-0"
         >
-          <ShoppingBag className="w-4 h-4 text-amber-300" />
+          <ShoppingBag className="w-4 h-4 text-gold" />
           {cartItemCount > 0 && (
-            <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 bg-amber-400 text-stone-900 text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+            <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 bg-gold text-charcoal text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
               {cartItemCount}
             </span>
           )}

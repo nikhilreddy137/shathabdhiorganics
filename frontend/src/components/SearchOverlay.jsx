@@ -63,20 +63,20 @@ const SearchOverlay = ({ onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 z-[60] bg-stone-900/70 backdrop-blur-sm flex items-start justify-center pt-[8vh] px-4"
+      className="fixed inset-0 z-[60] bg-charcoal/70 backdrop-blur-sm flex items-start justify-center pt-[8vh] px-4"
       onClick={onClose}
       data-testid="search-overlay"
     >
       <div
-        className="w-full max-w-3xl bg-white shadow-2xl rounded-sm overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300"
+        className="w-full max-w-3xl bg-cream shadow-2xl rounded-2xl overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Input bar */}
-        <div className="flex items-center gap-3 border-b border-stone-200 px-5 py-4">
+        <div className="flex items-center gap-3 border-b border-cream3 px-5 py-4">
           {loading ? (
-            <Loader2 className="w-4 h-4 text-amber-600 animate-spin flex-shrink-0" />
+            <Loader2 className="w-4 h-4 text-jaggery animate-spin flex-shrink-0" />
           ) : (
-            <SearchIcon className="w-4 h-4 text-stone-500 flex-shrink-0" />
+            <SearchIcon className="w-4 h-4 text-ink flex-shrink-0" />
           )}
           <input
             ref={inputRef}
@@ -85,16 +85,16 @@ const SearchOverlay = ({ onClose }) => {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search for ragi, oils, spices, cookies…"
             data-testid="search-input"
-            className="flex-1 bg-transparent outline-none text-base md:text-lg text-stone-900 placeholder:text-stone-400 font-light"
+            className="flex-1 bg-transparent outline-none text-base md:text-lg text-charcoal placeholder:text-ink/50 font-light"
           />
           <button
             type="button"
             onClick={onClose}
             data-testid="search-close-btn"
             aria-label="Close search"
-            className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center hover:bg-stone-100 transition-colors"
+            className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center hover:bg-cream2 transition-colors"
           >
-            <X className="w-4 h-4 text-stone-600" />
+            <X className="w-4 h-4 text-ink" />
           </button>
         </div>
 
@@ -103,7 +103,7 @@ const SearchOverlay = ({ onClose }) => {
           {/* Empty query — show popular suggestions */}
           {query.trim().length < 2 && (
             <div className="p-6" data-testid="search-suggestions">
-              <p className="text-[10px] tracking-[0.3em] uppercase text-stone-500 mb-4 font-semibold">Popular Searches</p>
+              <p className="text-[10px] tracking-[0.3em] uppercase text-ink mb-4 font-semibold">Popular Searches</p>
               <div className="flex flex-wrap gap-2">
                 {POPULAR.map((p) => (
                   <button
@@ -111,7 +111,7 @@ const SearchOverlay = ({ onClose }) => {
                     type="button"
                     onClick={() => setQuery(p)}
                     data-testid={`search-suggestion-${p.replace(/\s+/g, '-').toLowerCase()}`}
-                    className="px-4 py-1.5 text-xs tracking-wider uppercase border border-stone-300 bg-white text-stone-800 hover:border-amber-500 hover:bg-amber-50 hover:text-stone-900 transition-all"
+                    className="px-4 py-1.5 text-xs tracking-wider uppercase border border-cream3 rounded-full bg-white text-charcoal hover:border-gold hover:bg-cream2 transition-colors"
                   >
                     {p}
                   </button>
@@ -123,27 +123,27 @@ const SearchOverlay = ({ onClose }) => {
           {/* No results */}
           {query.trim().length >= 2 && !loading && results.length === 0 && (
             <div className="p-10 text-center" data-testid="search-no-results">
-              <p className="font-serif text-2xl text-stone-900 mb-2">No matches for &ldquo;{query}&rdquo;</p>
-              <p className="text-sm text-stone-600 font-light">Try a broader keyword like &ldquo;millet&rdquo; or &ldquo;oil&rdquo;.</p>
+              <p className="font-serif text-2xl text-charcoal mb-2">No matches for &ldquo;{query}&rdquo;</p>
+              <p className="text-sm text-ink font-light">Try a broader keyword like &ldquo;millet&rdquo; or &ldquo;oil&rdquo;.</p>
             </div>
           )}
 
           {/* Results */}
           {results.length > 0 && (
             <div data-testid="search-results">
-              <p className="text-[10px] tracking-[0.3em] uppercase text-stone-500 px-5 pt-5 pb-2 font-semibold">
+              <p className="text-[10px] tracking-[0.3em] uppercase text-ink px-5 pt-5 pb-2 font-semibold">
                 {total} match{total === 1 ? '' : 'es'}
               </p>
-              <ul className="divide-y divide-stone-100">
+              <ul className="divide-y divide-cream2">
                 {results.map((p) => (
                   <li key={p.id}>
                     <Link
                       to={`/product/${p.id}`}
                       onClick={onClose}
                       data-testid={`search-result-${p.id}`}
-                      className="flex items-center gap-4 px-5 py-3.5 hover:bg-amber-50 transition-colors group"
+                      className="flex items-center gap-4 px-5 py-3.5 hover:bg-cream2 transition-colors group"
                     >
-                      <div className="w-14 h-14 flex-shrink-0 bg-stone-100 overflow-hidden">
+                      <div className="w-14 h-14 flex-shrink-0 bg-cream2 rounded-lg overflow-hidden">
                         <img
                           src={p.image}
                           alt={p.name}
@@ -152,11 +152,11 @@ const SearchOverlay = ({ onClose }) => {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[9px] tracking-[0.25em] uppercase text-amber-700 font-semibold mb-0.5">{p.category}</p>
-                        <p className="font-serif text-stone-900 text-lg leading-tight truncate group-hover:text-amber-700 transition-colors">{p.name}</p>
-                        <p className="text-xs text-stone-600 truncate">{p.description}</p>
+                        <p className="text-[9px] tracking-[0.25em] uppercase text-jaggery font-semibold mb-0.5">{p.category}</p>
+                        <p className="font-serif text-charcoal text-lg leading-tight truncate group-hover:text-jaggery transition-colors">{p.name}</p>
+                        <p className="text-xs text-ink truncate">{p.description}</p>
                       </div>
-                      <p className="flex-shrink-0 text-sm font-medium text-stone-900">₹{p.base_price}</p>
+                      <p className="flex-shrink-0 text-sm font-semibold text-soil">₹{p.base_price}</p>
                     </Link>
                   </li>
                 ))}
@@ -166,7 +166,7 @@ const SearchOverlay = ({ onClose }) => {
         </div>
 
         {/* Footer hint */}
-        <div className="border-t border-stone-200 px-5 py-3 bg-stone-50 flex items-center justify-between text-[10px] tracking-wider uppercase text-stone-500">
+        <div className="border-t border-cream3 px-5 py-3 bg-cream2 flex items-center justify-between text-[10px] tracking-wider uppercase text-ink">
           <span>Press Esc to close</span>
           <span>Powered by Shathabdhi</span>
         </div>

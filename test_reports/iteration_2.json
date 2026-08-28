@@ -1,0 +1,40 @@
+{
+  "summary": "Frontend regression testing after 'editorial organic-food' palette overhaul (soil/gold/leaf/cream/jaggery/charcoal tokens). All commerce flows verified on desktop 1920x1080: Home hero + featured grid + chips + single-variant Quick Add, /collections/best-sellers page scroll + filters + sort + category rail, Product Detail (size/qty/ATC), Cart drawer + checkout btn, Search overlay. No JS console errors captured. No backend changes tested (per request).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Global (body element on all routes: Home, /collections/best-sellers, /product/:id)", "issues": ["document.body computed backgroundColor = rgb(255,255,255) pure white while <html> is cream rgb(249,247,243) #F9F7F3. Visible content sections have their own backgrounds so above-fold looks correct, but pure-white body will show through on overscroll bounce (mac trackpad, iOS Safari) and any full-height empty gap. Design brief explicitly asked for 'no leftover pure-white full-page backgrounds on Home/Shop All/Product Detail (background should be warm cream #F9F7F3)'. Fix: add `body { background-color: #F9F7F3; }` in index.css or Tailwind base."]}
+    ]
+  },
+  "verified_features": [
+    "Home: hero-carousel present, 3 hero-video dots, header bg rgba(249,247,243,0.85) cream + backdrop blur, footer bg rgb(62,42,30) deep soil brown ✓",
+    "Home: featured-grid renders 8 rounded product cards; 8 featured-chip-* chips toggle active state; grid re-renders on chip click ✓",
+    "Home Quick Add single-variant: clicking add-to-cart-{id} adds directly (no QuickAddSheet) and header cart badge increments empty -> '1' ✓",
+    "/collections/best-sellers: page scrolls fully. docHeight=27583, maxScroll=26503, window.scrollTo reached scrollY=26503 (full range). Mouse-wheel scroll (Lenis smooth-scroll wrapper) reached scrollY=19659 after 20 x 1000px wheel events over 3s — smooth scroll works, no scroll-lock bug. User-reported 'Shop all there should be scroll' is NOT reproducible.",
+    "22 category-rail-* tiles render; clicking category-rail-millets navigates to /collections/millets and collection title updates to 'Millets' (visible in screenshot)",
+    "sticky-filter-bar: open-filters-btn opens filter-sheet with 35 filter-option-* items; toggling categories navigates to /collections/<slug> and shows applied filter chip; chips-clear-all removes chip",
+    "open-sort-btn: sort-option-price-low updates URL to ?sort=price-low ✓",
+    "Product Detail (/product/10fc9f88-...): product-detail-page renders, size-option pill (single variant here 'Default Title'), qty-increase/qty-decrease work, add-to-cart-btn adds and increments header cart badge to '3' with qty=3 ✓",
+    "Cart drawer: header-cart-btn opens cart-drawer, cart-checkout-btn is present + enabled (no error)",
+    "Search overlay: header-search-btn opens overlay with search-input; typing 'ragi' returns 12 search-result-* items; clicking a result navigates to /product/ff68fba2-... ✓",
+    "Zero console errors across Home, Best Sellers, Product Detail, Cart drawer, Search flows",
+    "Palette applied: header cream + blur, footer soil brown, ATC button soil brown (#3E2A1E), gold-italic accent on hero 'in every grain', jaggery/gold Quick Add pill visible on cards"
+  ],
+  "test_report_links": [],
+  "action_items": [
+    "Add `background-color: #F9F7F3` (cream) to `body` in /app/frontend/src/index.css so overscroll bounce and any full-page gaps use warm cream, matching the design brief. Currently only <html> has cream — <body> is still pure white."
+  ],
+  "critical_code_review_comments": [
+    "Stray backup file /app/frontend/src/pages/BestSellers.jsx.bak checked into repo — delete or add to .gitignore.",
+    "body element bypasses the cream token from Tailwind base — verify tailwind.config.js base layer / index.css sets `body` bg (currently only html)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (skipped per request)", "frontend": "100% flows pass; 1 minor design regression (body bg)"},
+  "test_credentials": "none — public storefront",
+  "seed_data_creation": "none — existing 164 Shopify-synced products used",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Palette overhaul verified. body bg is white while html is cream — likely single-line CSS fix. All data-testids from PRD are wired correctly. Cart badge shows total quantity (not distinct items). Filter interaction on best-sellers navigates to /collections/<slug> when a category filter is picked — this replaces the URL rather than appending ?category= query, which is by design. Search returns 12 results for 'ragi', product-card links use /product/:id."
+}

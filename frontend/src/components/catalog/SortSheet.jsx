@@ -31,8 +31,8 @@ export const SortSheet = ({ open, onClose, value, onChange }) => (
                   ${active ? 'text-stone-900' : 'text-stone-600 hover:text-stone-900'}`}
               >
                 <span className={`w-[18px] h-[18px] rounded-full border flex items-center justify-center flex-shrink-0
-                  ${active ? 'border-stone-900' : 'border-stone-400'}`}>
-                  {active && <span className="w-2.5 h-2.5 rounded-full bg-stone-900"></span>}
+                  ${active ? 'border-soil' : 'border-ink/50'}`}>
+                  {active && <span className="w-2.5 h-2.5 rounded-full bg-soil"></span>}
                 </span>
                 {opt.label}
               </button>

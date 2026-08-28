@@ -34,8 +34,8 @@ const CHAPTERS = [
     num: '01',
     title: 'Living soil',
     body: 'No synthetic pesticides, herbicides or GMO seeds — ever. Our fields in Telangana are farmed the way they were a century ago: compost, crop rotation and patience. What touches your plate touches your DNA.',
-    image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80',
-    alt: 'Lush green millet crop growing in chemical-free living soil',
+    image: 'https://images.unsplash.com/photo-1599320092708-8a9dde49fc2c?auto=format&fit=crop&q=80',
+    alt: 'A farmer\'s hands holding rich chemical-free living soil',
     eyebrow: 'Certified organic',
   },
   {
@@ -170,11 +170,11 @@ const Home = () => {
   }, [products, activeChip]);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-cream">
       <Toaster position="top-right" />
 
       {/* ---------- Kinetic hero ---------- */}
-      <section ref={heroRef} className="relative min-h-[92svh] bg-stone-900 overflow-hidden flex items-end" data-testid="hero-carousel">
+      <section ref={heroRef} className="relative min-h-[92svh] bg-charcoal overflow-hidden flex items-end" data-testid="hero-carousel">
         <motion.div style={{ y: videoY }} className="absolute inset-0 will-change-transform">
           {HERO_VIDEOS.map((src, i) => (
             <video
@@ -210,7 +210,7 @@ const Home = () => {
               onClick={() => setActiveVideo(i)}
               aria-label={`Show hero video ${i + 1}`}
               data-testid={`hero-video-dot-${i}`}
-              className={`h-1.5 rounded-full transition-all duration-500 hover:bg-amber-200 ${i === activeVideo ? 'w-9 bg-amber-300' : 'w-3.5 bg-white/45'}`}
+              className={`h-1.5 rounded-full transition-all duration-500 hover:bg-gold ${i === activeVideo ? 'w-9 bg-gold' : 'w-3.5 bg-white/45'}`}
             />
           ))}
         </div>
@@ -220,9 +220,9 @@ const Home = () => {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.05 }}
-            className="text-eyebrow uppercase text-amber-300 mb-5 flex items-center gap-3"
+            className="text-eyebrow uppercase text-gold mb-5 flex items-center gap-3"
           >
-            <span className="h-px w-10 bg-amber-400 inline-block"></span>
+            <span className="h-px w-10 bg-gold inline-block"></span>
             Direct from the farmer · Telangana
           </motion.p>
 
@@ -233,7 +233,7 @@ const Home = () => {
             />
             <span className="block overflow-hidden">
               <motion.span
-                className="block italic text-amber-300"
+                className="block italic text-gold"
                 initial={{ y: '112%' }}
                 animate={{ y: '0%' }}
                 transition={{ duration: 1, delay: 0.33, ease: [0.22, 1, 0.36, 1] }}
@@ -249,14 +249,14 @@ const Home = () => {
             transition={{ duration: 0.8, delay: 0.65 }}
             className="flex flex-col md:flex-row md:items-end md:justify-between gap-8"
           >
-            <p className="text-body-lg text-stone-200 font-light measure max-w-xl">
+            <p className="text-body-lg text-cream/85 font-light measure max-w-xl">
               Shathabdhi means a hundred years — the way our grain was always grown. Heritage millets, hand-pounded spices and cold-pressed oils from 2,400+ women farmers in Telangana. Zero chemicals, ever.
             </p>
             <div className="flex flex-wrap gap-3 flex-shrink-0">
               <Link
                 to="/collections/millets"
                 data-testid="hero-shop-millets-btn"
-                className="group inline-flex items-center justify-center gap-3 min-h-[52px] bg-amber-400 text-stone-900 hover:bg-amber-300 hover:-translate-y-0.5 active:scale-[0.98] font-medium text-xs tracking-[0.06em] uppercase px-9 transition-all duration-300"
+                className="group inline-flex items-center justify-center gap-3 min-h-[52px] rounded-full bg-gold text-charcoal hover:bg-[#d4ad57] hover:-translate-y-0.5 active:scale-[0.98] font-semibold text-xs tracking-[0.06em] uppercase px-9 transition-all duration-300"
               >
                 Shop millets
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -264,7 +264,7 @@ const Home = () => {
               <Link
                 to="/about"
                 data-testid="hero-our-story-btn"
-                className="inline-flex items-center justify-center min-h-[52px] border border-white/60 text-white hover:bg-white hover:text-stone-900 hover:-translate-y-0.5 active:scale-[0.98] font-medium text-xs tracking-[0.06em] uppercase px-9 backdrop-blur-sm transition-all duration-300"
+                className="inline-flex items-center justify-center min-h-[52px] rounded-full border border-white/60 text-white hover:bg-cream hover:text-charcoal hover:-translate-y-0.5 active:scale-[0.98] font-medium text-xs tracking-[0.06em] uppercase px-9 backdrop-blur-sm transition-all duration-300"
               >
                 Our story
               </Link>
@@ -274,21 +274,21 @@ const Home = () => {
       </section>
 
       {/* ---------- Editorial marquee ---------- */}
-      <div className="bg-white border-b border-stone-200 py-6 md:py-8 text-stone-900" data-testid="editorial-marquee">
+      <div className="bg-leaf text-cream py-6 md:py-8" data-testid="editorial-marquee">
         <Marquee items={MARQUEE_ITEMS} />
       </div>
 
       {/* ---------- Featured selections ---------- */}
-      <section className="py-16 md:py-24 px-4 bg-white">
+      <section className="py-16 md:py-24 px-4 bg-cream">
         <div className="max-w-7xl mx-auto">
           <Reveal className="mb-10">
-            <p className="text-eyebrow uppercase text-amber-700 mb-3">Shop the whole pantry</p>
+            <p className="text-eyebrow uppercase text-jaggery mb-3">Shop the whole pantry</p>
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-              <h2 className="font-display text-h1 text-stone-900">Featured selections</h2>
+              <h2 className="font-display text-h1 text-charcoal">Featured selections</h2>
               <Link
                 to="/collections/best-sellers"
                 data-testid="shop-all-bestsellers-btn"
-                className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.06em] text-stone-900 hover:text-amber-800 hover:gap-3.5 transition-all min-h-[44px]"
+                className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.06em] text-charcoal hover:text-jaggery hover:gap-3.5 transition-all min-h-[44px]"
               >
                 Shop the full collection
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -307,8 +307,8 @@ const Home = () => {
                   data-testid={`featured-chip-${c.replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase()}`}
                   className={`flex-shrink-0 min-h-[44px] rounded-full border px-5 text-sm transition-all duration-300
                     ${isActive
-                      ? 'bg-stone-900 text-white border-stone-900'
-                      : 'bg-white text-stone-700 border-stone-300 hover:border-stone-900 hover:text-stone-900'}`}
+                      ? 'bg-soil text-cream border-soil'
+                      : 'bg-white text-ink border-cream3 hover:border-soil hover:text-charcoal'}`}
                 >
                   {c}
                 </button>
@@ -340,12 +340,12 @@ const Home = () => {
       </section>
 
       {/* ---------- Numbered manifesto chapters ---------- */}
-      <section className="bg-stone-900 text-white py-20 md:py-32 px-4" data-testid="manifesto-section">
+      <section className="bg-charcoal text-cream py-20 md:py-32 px-4" data-testid="manifesto-section">
         <div className="max-w-7xl mx-auto">
           <Reveal className="mb-16 md:mb-24">
-            <p className="text-eyebrow uppercase text-amber-300 mb-3">Why we exist</p>
-            <h2 className="font-display text-h1 text-white max-w-3xl">
-              Modern food is engineered for shelf-life. <em className="italic text-amber-300">Ours is grown for life.</em>
+            <p className="text-eyebrow uppercase text-gold mb-3">Why we exist</p>
+            <h2 className="font-display text-h1 text-cream max-w-3xl">
+              Modern food is engineered for shelf-life. <em className="italic text-gold">Ours is grown for life.</em>
             </h2>
           </Reveal>
 
@@ -362,14 +362,14 @@ const Home = () => {
                     alt={ch.alt}
                     ratio="3/2"
                     sizes="(min-width: 768px) 42vw, 100vw"
-                    className="w-full"
+                    className="w-full rounded-2xl overflow-hidden"
                   />
                 </Reveal>
                 <Reveal delay={0.12} className={`md:col-span-6 ${i % 2 === 1 ? 'md:order-1 md:col-start-1' : 'md:col-start-7'}`}>
-                  <p className="font-display italic text-hero text-stone-700 leading-none select-none" aria-hidden="true">{ch.num}</p>
-                  <p className="text-eyebrow uppercase text-amber-300 mt-4 mb-2">{ch.eyebrow}</p>
-                  <h3 className="font-display text-h2 text-white mb-4">{ch.title}</h3>
-                  <p className="text-body text-stone-300 font-light measure">{ch.body}</p>
+                  <p className="font-display italic text-hero text-[#4a443c] leading-none select-none" aria-hidden="true">{ch.num}</p>
+                  <p className="text-eyebrow uppercase text-gold mt-4 mb-2">{ch.eyebrow}</p>
+                  <h3 className="font-display text-h2 text-cream mb-4">{ch.title}</h3>
+                  <p className="text-body text-cream/65 font-light measure">{ch.body}</p>
                 </Reveal>
               </div>
             ))}
@@ -378,19 +378,19 @@ const Home = () => {
       </section>
 
       {/* ---------- Category gallery ---------- */}
-      <section className="py-16 md:py-24 px-4 bg-white">
+      <section className="py-16 md:py-24 px-4 bg-cream">
         <div className="max-w-7xl mx-auto">
           <Reveal className="mb-10">
-            <p className="text-eyebrow uppercase text-stone-500 mb-3">Shop by category</p>
-            <h2 className="font-display text-h1 text-stone-900">Explore the collection</h2>
+            <p className="text-eyebrow uppercase text-ink mb-3">Shop by category</p>
+            <h2 className="font-display text-h1 text-charcoal">Explore the collection</h2>
           </Reveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-stone-200" data-testid="category-gallery">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4" data-testid="category-gallery">
             {categories.map((cat, i) => (
               <Link
                 key={cat.id}
                 to={`/collections/${slugify(cat.name)}`}
-                className="group relative bg-white overflow-hidden"
+                className="group relative bg-white rounded-2xl overflow-hidden"
                 data-testid={`category-tile-${slugify(cat.name)}`}
               >
                 <Img
@@ -400,7 +400,7 @@ const Home = () => {
                   sizes="(min-width: 1024px) 17vw, (min-width: 768px) 33vw, 50vw"
                   imgClassName="group-hover:scale-[1.05] transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/10 to-transparent pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/10 to-transparent pointer-events-none"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <p className="text-white text-sm font-medium leading-tight">{cat.name}</p>
                 </div>

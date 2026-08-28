@@ -53,23 +53,23 @@ export const QuickAddSheet = ({ product, initialVariant, open, onClose, onAdd })
                     type="button"
                     onClick={() => setVariant(s)}
                     data-testid={`quick-add-variant-${s.size.replace(/[^a-zA-Z0-9]+/g, '-')}`}
-                    className={`w-full flex items-center justify-between px-4 py-3.5 border text-sm transition-all
-                      ${active ? 'border-stone-900 bg-stone-900 text-white' : 'border-stone-200 text-stone-800 hover:border-stone-400'}`}
+                    className={`w-full flex items-center justify-between px-4 py-3.5 border rounded-xl text-sm transition-colors
+                      ${active ? 'border-soil bg-soil text-cream' : 'border-cream3 text-charcoal hover:border-soil/40'}`}
                   >
                     <span>{s.size === 'Default Title' ? 'Standard pack' : s.size}</span>
-                    <span className={`price ${active ? 'text-amber-300' : 'text-stone-500'}`}>₹{Math.round(s.price)}</span>
+                    <span className={`price ${active ? 'text-gold' : 'text-ink'}`}>₹{Math.round(s.price)}</span>
                   </button>
                 );
               })}
             </div>
 
             <p className="text-eyebrow uppercase text-stone-500 mt-5 mb-2.5">Quantity</p>
-            <div className="inline-flex items-center border border-stone-300">
-              <button type="button" onClick={() => setQty((q) => Math.max(1, q - 1))} className="w-11 h-11 flex items-center justify-center hover:bg-stone-50" aria-label="Decrease quantity" data-testid="quick-add-qty-decrease">
+            <div className="inline-flex items-center border border-cream3 rounded-full overflow-hidden">
+              <button type="button" onClick={() => setQty((q) => Math.max(1, q - 1))} className="w-11 h-11 flex items-center justify-center hover:bg-cream2" aria-label="Decrease quantity" data-testid="quick-add-qty-decrease">
                 <Minus className="w-3.5 h-3.5" />
               </button>
               <span className="w-12 text-center price" data-testid="quick-add-qty">{qty}</span>
-              <button type="button" onClick={() => setQty((q) => Math.min(99, q + 1))} className="w-11 h-11 flex items-center justify-center hover:bg-stone-50" aria-label="Increase quantity" data-testid="quick-add-qty-increase">
+              <button type="button" onClick={() => setQty((q) => Math.min(99, q + 1))} className="w-11 h-11 flex items-center justify-center hover:bg-cream2" aria-label="Increase quantity" data-testid="quick-add-qty-increase">
                 <Plus className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -81,7 +81,7 @@ export const QuickAddSheet = ({ product, initialVariant, open, onClose, onAdd })
               onClick={handleAdd}
               disabled={adding || !variant}
               data-testid="quick-add-confirm-btn"
-              className="w-full h-13 py-4 bg-stone-900 text-white hover:bg-amber-400 hover:text-stone-900 text-xs font-medium uppercase tracking-[0.06em] transition-all disabled:opacity-60 price"
+              className="w-full h-13 py-4 rounded-full bg-soil text-cream hover:bg-jaggery text-xs font-medium uppercase tracking-[0.06em] transition-colors disabled:opacity-60 price"
             >
               {adding ? 'Adding…' : `Add to cart · ₹${Math.round((variant?.price || 0) * qty)}`}
             </button>

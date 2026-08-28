@@ -75,10 +75,10 @@ const ProductDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-stone-50" data-testid="product-detail-loading">
+      <div className="min-h-screen flex items-center justify-center bg-cream" data-testid="product-detail-loading">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-stone-900 mx-auto"></div>
-          <p className="mt-4 text-stone-600 text-xs tracking-[0.3em] uppercase">Loading</p>
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-soil mx-auto"></div>
+          <p className="mt-4 text-ink text-xs tracking-[0.3em] uppercase">Loading</p>
         </div>
       </div>
     );
@@ -86,10 +86,10 @@ const ProductDetail = () => {
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-stone-50">
+      <div className="min-h-screen flex items-center justify-center bg-cream">
         <div className="text-center">
-          <p className="text-2xl font-serif text-stone-900 mb-4">Product not found</p>
-          <Link to="/collections/best-sellers" className="text-amber-700 underline">
+          <p className="text-2xl font-serif text-charcoal mb-4">Product not found</p>
+          <Link to="/collections/best-sellers" className="text-jaggery underline">
             Back to collection
           </Link>
         </div>
@@ -100,7 +100,7 @@ const ProductDetail = () => {
   const total = (selectedSize?.price || product.base_price) * quantity;
 
   return (
-    <div className="min-h-screen bg-white" data-testid="product-detail-page">
+    <div className="min-h-screen bg-cream" data-testid="product-detail-page">
       <Toaster position="top-right" />
 
       {/* Breadcrumb */}
@@ -108,7 +108,7 @@ const ProductDetail = () => {
         <button
           onClick={() => navigate(-1)}
           data-testid="product-back-btn"
-          className="inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-stone-600 hover:text-stone-900 transition-colors"
+          className="inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-ink hover:text-charcoal transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           Back
@@ -127,14 +127,14 @@ const ProductDetail = () => {
                 ratio="1/1"
                 sizes="(min-width: 1024px) 58vw, 100vw"
                 priority
-                className="w-full"
+                className="w-full rounded-2xl"
               />
               <div className="absolute top-5 left-5 flex flex-col gap-2">
-                <span className="text-[10px] tracking-[0.3em] uppercase text-white bg-stone-900/80 backdrop-blur-sm px-3 py-1.5 w-fit">
+                <span className="text-[10px] tracking-[0.3em] uppercase text-cream bg-charcoal/80 backdrop-blur-sm rounded-full px-3.5 py-1.5 w-fit">
                   {product.category}
                 </span>
                 {product.badge && (
-                  <span className="text-[10px] tracking-[0.3em] uppercase text-stone-900 bg-amber-300 px-3 py-1.5 w-fit font-semibold">
+                  <span className="text-[10px] tracking-[0.3em] uppercase text-charcoal bg-gold rounded-full px-3.5 py-1.5 w-fit font-semibold">
                     {product.badge}
                   </span>
                 )}
@@ -144,11 +144,11 @@ const ProductDetail = () => {
 
           {/* Right column */}
           <div className="lg:col-span-5">
-            <p className="text-[10px] tracking-[0.4em] uppercase text-amber-700 font-semibold mb-3" data-testid="product-detail-eyebrow">
+            <p className="text-[10px] tracking-[0.4em] uppercase text-jaggery font-semibold mb-3" data-testid="product-detail-eyebrow">
               {product.type} · {product.origin}
             </p>
             <h1
-              className="font-serif text-stone-900 mb-3 leading-[1.05]"
+              className="font-serif text-charcoal mb-3 leading-[1.05]"
               style={{ fontFamily: '"Instrument Serif", serif', fontSize: 'clamp(2.25rem, 4.5vw, 3.75rem)' }}
               data-testid="product-detail-title"
             >
@@ -157,26 +157,26 @@ const ProductDetail = () => {
             <TruncatedText
               text={product.description}
               maxLength={220}
-              className="text-stone-700 leading-relaxed mb-2 text-base md:text-lg"
+              className="text-charcoal leading-relaxed mb-2 text-base md:text-lg"
               testId="product-detail-description"
             />
-            <p className="text-sm italic text-stone-600 mb-7">{product.profile}</p>
+            <p className="text-sm italic text-ink mb-7">{product.profile}</p>
 
-            <div className="w-12 h-px bg-amber-400 mb-7"></div>
+            <div className="w-12 h-px bg-gold mb-7"></div>
 
             {/* Price */}
             <div className="mb-7" data-testid="product-detail-price">
-              <p className="text-[10px] tracking-[0.3em] uppercase text-stone-500 mb-1">Today&apos;s Price</p>
-              <p className="text-3xl md:text-4xl font-serif text-stone-900">
+              <p className="text-[10px] tracking-[0.3em] uppercase text-ink mb-1">Today&apos;s Price</p>
+              <p className="text-3xl md:text-4xl font-serif text-soil">
                 ₹{(selectedSize?.price || product.base_price).toFixed(0)}
-                <span className="text-sm text-stone-500 font-sans ml-3">/ {selectedSize?.size}</span>
+                <span className="text-sm text-ink font-sans ml-3">/ {selectedSize?.size}</span>
               </p>
             </div>
 
             {/* Size selector */}
             {product.sizes && product.sizes.length > 0 && (
               <div className="mb-7" data-testid="product-size-selector">
-                <p className="text-[10px] tracking-[0.3em] uppercase text-stone-700 font-semibold mb-3">
+                <p className="text-[10px] tracking-[0.3em] uppercase text-charcoal font-semibold mb-3">
                   Choose Size · {product.sizes.length} option{product.sizes.length > 1 ? 's' : ''}
                 </p>
                 <div className="flex flex-wrap gap-2.5">
@@ -188,14 +188,14 @@ const ProductDetail = () => {
                         type="button"
                         onClick={() => setSelectedSize(s)}
                         data-testid={`size-option-${s.size.replace(/[^a-zA-Z0-9]+/g, '-')}`}
-                        className={`group inline-flex items-center gap-2 px-4 py-3 border text-sm transition-all duration-200
+                        className={`group inline-flex items-center gap-2 px-5 py-3 border rounded-full text-sm transition-colors duration-200
                           ${active
-                            ? 'border-stone-900 bg-stone-900 text-white shadow-sm'
-                            : 'border-stone-300 bg-white text-stone-800 hover:border-amber-500 hover:bg-amber-50'}`}
+                            ? 'border-soil bg-soil text-cream shadow-sm'
+                            : 'border-cream3 bg-white text-charcoal hover:border-gold hover:bg-cream2'}`}
                       >
                         {active && <Check className="w-3.5 h-3.5" />}
                         <span className="font-medium">{s.size}</span>
-                        <span className={`text-xs ${active ? 'text-amber-300' : 'text-stone-500'}`}>₹{s.price}</span>
+                        <span className={`text-xs ${active ? 'text-gold' : 'text-ink'}`}>₹{s.price}</span>
                       </button>
                     );
                   })}
@@ -205,25 +205,25 @@ const ProductDetail = () => {
 
             {/* Quantity */}
             <div className="mb-7" data-testid="product-quantity">
-              <p className="text-[10px] tracking-[0.3em] uppercase text-stone-700 font-semibold mb-3">Quantity</p>
-              <div className="inline-flex items-center border border-stone-300">
+              <p className="text-[10px] tracking-[0.3em] uppercase text-charcoal font-semibold mb-3">Quantity</p>
+              <div className="inline-flex items-center border border-cream3 rounded-full bg-white overflow-hidden">
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                   data-testid="qty-decrease"
-                  className="w-11 h-11 flex items-center justify-center hover:bg-amber-50 transition-colors"
+                  className="w-11 h-11 flex items-center justify-center hover:bg-cream2 transition-colors"
                   aria-label="Decrease quantity"
                 >
                   <Minus className="w-3.5 h-3.5" />
                 </button>
-                <span className="w-12 text-center text-stone-900 font-medium" data-testid="qty-value">
+                <span className="w-12 text-center text-charcoal font-medium" data-testid="qty-value">
                   {quantity}
                 </span>
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => Math.min(99, q + 1))}
                   data-testid="qty-increase"
-                  className="w-11 h-11 flex items-center justify-center hover:bg-amber-50 transition-colors"
+                  className="w-11 h-11 flex items-center justify-center hover:bg-cream2 transition-colors"
                   aria-label="Increase quantity"
                 >
                   <Plus className="w-3.5 h-3.5" />
@@ -237,25 +237,25 @@ const ProductDetail = () => {
                 onClick={handleAdd}
                 disabled={adding || !selectedSize}
                 data-testid="add-to-cart-btn"
-                className="flex-1 bg-stone-900 hover:bg-amber-500 hover:text-stone-900 active:scale-[0.98] text-white font-medium text-xs tracking-[0.06em] uppercase py-7 rounded-none transition-all duration-300 disabled:opacity-60 price"
+                className="flex-1 bg-soil hover:bg-charcoal active:scale-[0.98] text-cream font-medium text-xs tracking-[0.06em] uppercase py-7 rounded-full transition-colors duration-300 disabled:opacity-60 price"
               >
                 <ShoppingBag className="w-4 h-4 mr-3" />
                 {adding ? 'Adding…' : `Add · ₹${total.toFixed(0)}`}
               </Button>
             </div>
-            <p className="text-[11px] text-stone-500 tracking-wider mb-8">
+            <p className="text-[11px] text-ink tracking-wider mb-8">
               Free shipping on orders ₹500+ · Hand-packed · Pan-India delivery
             </p>
 
             {/* Benefits */}
             {product.benefits && product.benefits.length > 0 && (
-              <div className="border-t border-stone-200 pt-7 mb-7" data-testid="product-benefits">
-                <p className="text-[10px] tracking-[0.3em] uppercase text-stone-700 font-semibold mb-4">Health Benefits</p>
+              <div className="border-t border-cream3 pt-7 mb-7" data-testid="product-benefits">
+                <p className="text-[10px] tracking-[0.3em] uppercase text-charcoal font-semibold mb-4">Health Benefits</p>
                 <div className="flex flex-wrap gap-2">
                   {product.benefits.map((b) => (
                     <span
                       key={b}
-                      className="inline-flex items-center gap-1.5 text-xs text-amber-900 bg-amber-100 border border-amber-200 px-3 py-1.5"
+                      className="inline-flex items-center gap-1.5 text-xs text-leaf bg-cream2 border border-cream3 rounded-full px-3.5 py-1.5"
                     >
                       <Leaf className="w-3 h-3" />
                       {b}
@@ -266,19 +266,19 @@ const ProductDetail = () => {
             )}
 
             {/* Promise strip */}
-            <div className="border-t border-stone-200 pt-7 space-y-4">
+            <div className="border-t border-cream3 pt-7 space-y-4">
               {[
                 { icon: Hand, label: 'Hand-Picked', body: 'Sorted and packed by women farmers in Telangana' },
                 { icon: Leaf, label: '100% Organic', body: 'Zero chemicals, GMOs or hidden additives' },
                 { icon: Award, label: 'Heritage Source', body: 'Sourced from sustainable smallholder farms' },
               ].map((p) => (
                 <div key={p.label} className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-9 h-9 bg-stone-900 rounded-full flex items-center justify-center">
-                    <p.icon className="w-3.5 h-3.5 text-amber-300" />
+                  <div className="flex-shrink-0 w-9 h-9 bg-soil rounded-full flex items-center justify-center">
+                    <p.icon className="w-3.5 h-3.5 text-gold" />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-stone-900 tracking-[0.15em] uppercase">{p.label}</p>
-                    <p className="text-sm text-stone-600 font-light">{p.body}</p>
+                    <p className="text-xs font-semibold text-charcoal tracking-[0.15em] uppercase">{p.label}</p>
+                    <p className="text-sm text-ink font-light">{p.body}</p>
                   </div>
                 </div>
               ))}
@@ -291,20 +291,20 @@ const ProductDetail = () => {
       <div
         data-testid="sticky-mobile-atc"
         aria-hidden={!showStickyAtc}
-        className={`md:hidden fixed left-0 right-0 bottom-0 z-40 bg-white border-t border-stone-200 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-transform duration-300
+        className={`md:hidden fixed left-0 right-0 bottom-0 z-40 bg-cream border-t border-cream3 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-transform duration-300
           ${showStickyAtc ? 'translate-y-0' : 'translate-y-full pointer-events-none'}`}
       >
         <div className="flex items-center gap-3">
           <div className="min-w-0">
-            <p className="text-sm text-stone-900 truncate">{product.name}</p>
-            <p className="text-sm text-stone-500 price">₹{total.toFixed(0)}{selectedSize && selectedSize.size !== 'Default Title' ? ` · ${selectedSize.size}` : ''}</p>
+            <p className="text-sm text-charcoal truncate">{product.name}</p>
+            <p className="text-sm text-ink price">₹{total.toFixed(0)}{selectedSize && selectedSize.size !== 'Default Title' ? ` · ${selectedSize.size}` : ''}</p>
           </div>
           <button
             type="button"
             onClick={handleAdd}
             disabled={adding || !selectedSize}
             data-testid="sticky-atc-btn"
-            className="ml-auto flex-shrink-0 min-h-[48px] px-7 bg-stone-900 text-white hover:bg-amber-400 hover:text-stone-900 text-xs font-medium uppercase tracking-[0.06em] transition-all disabled:opacity-60"
+            className="ml-auto flex-shrink-0 min-h-[48px] px-7 rounded-full bg-soil text-cream hover:bg-charcoal text-xs font-medium uppercase tracking-[0.06em] transition-colors disabled:opacity-60"
           >
             {adding ? 'Adding…' : 'Add to cart'}
           </button>
@@ -313,16 +313,16 @@ const ProductDetail = () => {
 
       {/* Related */}
       {related.length > 0 && (
-        <div className="bg-stone-50 border-t border-stone-200 py-16 md:py-20 px-4" data-testid="product-related">
+        <div className="bg-cream2 border-t border-cream3 py-16 md:py-20 px-4" data-testid="product-related">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-end justify-between mb-10">
               <div>
-                <p className="text-[10px] tracking-[0.4em] uppercase text-amber-700 mb-3 font-semibold">More From {product.category}</p>
-                <h2 className="text-3xl md:text-4xl font-serif text-stone-900">You may also love</h2>
+                <p className="text-[10px] tracking-[0.4em] uppercase text-jaggery mb-3 font-semibold">More From {product.category}</p>
+                <h2 className="text-3xl md:text-4xl font-serif text-charcoal">You may also love</h2>
               </div>
               <Link
                 to={`/collections/best-sellers`}
-                className="hidden sm:inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-stone-700 hover:text-amber-700 transition-colors"
+                className="hidden sm:inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-charcoal hover:text-jaggery transition-colors"
               >
                 Shop All
                 <span>→</span>
@@ -333,10 +333,10 @@ const ProductDetail = () => {
                 <Link
                   key={p.id}
                   to={`/product/${p.id}`}
-                  className="group bg-white border border-stone-200 hover:border-amber-400 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                  className="group bg-white rounded-2xl overflow-hidden border border-transparent hover:border-cream2 hover:shadow-[0_20px_40px_-15px_rgba(62,42,30,0.14)] hover:-translate-y-1 transition-all duration-300"
                   data-testid={`related-product-${p.id}`}
                 >
-                  <div className="relative aspect-square overflow-hidden bg-stone-100">
+                  <div className="relative aspect-square overflow-hidden bg-cream2">
                     <img
                       src={p.image}
                       alt={p.name}
@@ -345,12 +345,12 @@ const ProductDetail = () => {
                     />
                   </div>
                   <div className="p-4">
-                    <p className="text-[9px] tracking-[0.25em] uppercase text-amber-700 mb-1.5">{p.category}</p>
-                    <h3 className="font-serif text-lg text-stone-900 mb-1 leading-tight group-hover:text-amber-700 transition-colors">
+                    <p className="text-[9px] tracking-[0.25em] uppercase text-jaggery mb-1.5">{p.category}</p>
+                    <h3 className="font-serif text-lg text-charcoal mb-1 leading-tight group-hover:text-jaggery transition-colors">
                       {p.name}
                     </h3>
-                    <p className="text-xs text-stone-600 line-clamp-1">{p.description}</p>
-                    <p className="text-sm font-medium text-stone-900 mt-2">From ₹{p.base_price}</p>
+                    <p className="text-xs text-ink line-clamp-1">{p.description}</p>
+                    <p className="text-sm font-semibold text-soil mt-2">From ₹{p.base_price}</p>
                   </div>
                 </Link>
               ))}
