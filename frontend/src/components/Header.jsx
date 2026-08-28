@@ -32,8 +32,8 @@ const Header = () => {
   return (
     <>
       {/* Top Banner */}
-      <div className="bg-soil text-cream text-center py-2 px-4 text-xs tracking-[0.02em]" style={{ paddingTop: 'max(0.5rem, env(safe-area-inset-top))' }}>
-        Free shipping on orders over ₹500. <Link to="/collections/best-sellers" className="underline">Shop now</Link>
+      <div className="bg-soil text-cream text-center py-2 px-4 text-xs tracking-[0.02em]" style={{ paddingTop: 'max(0.5rem, env(safe-area-inset-top))' }} data-testid="announcement-bar">
+        Trusted by <span className="text-gold font-semibold">20,000+ families</span> · Stocked in <span className="text-gold font-semibold">700+ stores</span> across India
       </div>
 
       {/* Main Header */}
