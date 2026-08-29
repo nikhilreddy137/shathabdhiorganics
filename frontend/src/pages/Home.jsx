@@ -13,6 +13,7 @@ import { slugify } from '../components/catalog/CategoryRail';
 import { Reveal, SplitLines, Marquee } from '../components/motion/Primitives';
 import { TestimonialStage } from '../components/TestimonialStage';
 import { HealthJournal } from '../components/HealthJournal';
+import { StoreVisit } from '../components/StoreVisit';
 import { Seo } from '../components/Seo';
 
 const HERO_VIDEOS = [
@@ -286,6 +287,26 @@ const Home = () => {
         <Marquee items={MARQUEE_ITEMS} />
       </div>
 
+      {/* ---------- Trust stats strip ---------- */}
+      <section className="bg-cream border-b border-cream3 px-4 py-12 md:py-16" data-testid="trust-stats-strip">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
+          {[
+            { value: '20,000+', label: 'Families served', sub: 'across India, and counting' },
+            { value: '700+', label: 'Retail stores', sub: 'stock our staples B2B' },
+            { value: '2,400+', label: 'Women farmers', sub: 'growing chemical-free in Telangana' },
+            { value: 'Manikonda', label: 'Flagship store', sub: 'visit us in Hyderabad' },
+          ].map((s, i) => (
+            <Reveal key={s.label} delay={i * 0.08} className={`text-center ${i > 0 ? 'lg:border-l lg:border-cream3' : ''}`}>
+              <p className="font-display italic text-soil leading-none" style={{ fontSize: 'clamp(2rem, 1.4rem + 2.6vw, 3.5rem)' }} data-testid={`trust-stat-${i}`}>
+                {s.value}
+              </p>
+              <p className="text-eyebrow uppercase text-jaggery mt-3">{s.label}</p>
+              <p className="text-sm text-ink mt-1">{s.sub}</p>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
       {/* ---------- Featured selections ---------- */}
       <section className="py-16 md:py-24 px-4 bg-cream">
         <div className="max-w-7xl mx-auto">
@@ -423,6 +444,9 @@ const Home = () => {
 
       {/* ---------- Reviews ---------- */}
       {testimonials.length > 0 && <TestimonialStage testimonials={testimonials} />}
+
+      {/* ---------- Manikonda store ---------- */}
+      <StoreVisit />
 
       <QuickAddSheet
         product={quickAdd.product}

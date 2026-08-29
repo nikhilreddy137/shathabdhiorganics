@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Sprout, Hand, Leaf, Heart, Shield, Play } from 'lucide-react';
+import { StoreVisit } from '../components/StoreVisit';
 
 const FOUNDER_POSTER = 'https://customer-assets.emergentagent.com/job_ancient-grains-shop/artifacts/atpfm9c4_Screenshot%202026-06-05%20at%2018.44.27.png';
 const FOUNDER_VIDEO = '/founder-video.mp4';
@@ -388,6 +389,9 @@ const About = () => {
           </div>
         </div>
       </div>
+
+      {/* ============ MANIKONDA STORE ============ */}
+      <StoreVisit />
     </div>
   );
 };
