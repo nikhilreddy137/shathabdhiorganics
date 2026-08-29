@@ -4,6 +4,13 @@ import { Link } from 'react-router-dom';
 
 const INSTAGRAM_URL = 'https://www.instagram.com/shathabdhiorganics/';
 
+// Real reels from @shathabdhiorganics (embedded live from Instagram)
+const REEL_EMBEDS = [
+  { code: 'DOGmQs3D29W', label: 'Manikonda store opening' },
+  { code: 'DbVGf1wPp1Y', label: 'Latest from the feed' },
+  { code: 'DbIuSv8BHO9', label: 'Latest from the feed' },
+];
+
 /**
  * Instagram-style social feed page.
  * Renders a grid that mirrors the brand's actual @shathabdhiorganics
@@ -139,6 +146,35 @@ const Social = () => {
             >
               <Instagram className="w-4 h-4" /> Follow @shathabdhiorganics
             </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Real Instagram reels — live embeds */}
+      <div className="bg-cream2/60 border-b border-cream3 py-16 md:py-20 px-4" data-testid="social-reels-section">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-10">
+            <p className="text-eyebrow uppercase text-jaggery mb-3">Watch now</p>
+            <h2 className="font-display text-h2 text-charcoal">Our latest reels, live from Instagram</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {REEL_EMBEDS.map((reel) => (
+              <div
+                key={reel.code}
+                className="rounded-2xl overflow-hidden bg-white shadow-[0_20px_40px_-15px_rgba(62,42,30,0.14)]"
+                data-testid={`social-reel-embed-${reel.code}`}
+              >
+                <iframe
+                  src={`https://www.instagram.com/p/${reel.code}/embed/`}
+                  title={`Shathabdhi Organics reel — ${reel.label}`}
+                  className="w-full border-0"
+                  style={{ height: 'min(560px, 75vh)' }}
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            ))}
           </div>
         </div>
       </div>
