@@ -54,6 +54,13 @@ async def verify_admin_key(x_admin_key: Optional[str] = Header(None)):
 
 
 # ===================== SEED DATABASE =====================
+@api_router.post("/analytics/events")
+async def track_event(payload: dict):
+    payload["received_at"] = datetime.now(timezone.utc).isoformat()
+    await db.analytics_events.insert_one(dict(payload))
+    return {"ok": True}
+
+
 @api_router.post("/seed")
 async def seed_database():
     """Seed the database with initial data"""
